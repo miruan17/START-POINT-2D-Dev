@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Project UGCK.sln"
+    "dotnet.defaultSolution": "ugachaka ui.sln"
 }

@@ -1,0 +1,61 @@
+[
+    {
+        "id" : 0,
+        "title" : "도끼",
+        "value": 10,
+        "stackable" : false,
+        "description" : "강렬한 도끼, 패는 것은 나무뿐이 아니다",
+        "slug" : "exe",
+        "type" : "Weapon"
+    }, 
+
+    {
+        "id" : 1,
+        "title" : "나무 몽둥이",
+        "value": 3,
+        "stackable" : false,
+        "description" : "평범한 나무 몽둥이, 만들기 쉽고 쓸만하다",
+        "slug" : "wooden_club",
+        "type" : "Weapon"
+    },
+
+    {
+        "id" : 2,
+        "title" : "목재",
+        "value" : 1,
+        "stackable" : true,
+        "description" : "가볍고 튼튼한 목재, 다양한 곳에 활용해보자",
+        "slug" : "wood",
+        "type" : "Ingredient"
+    },
+
+    {
+        "id" : 3,
+        "title" : "석재",
+        "value" : 2,
+        "stackable" : true,
+        "description" : "굉장히 단단한 석재, 다양한 곳에 활용해보자",
+        "slug" : "stone",
+        "type" : "Ingredient"
+    },
+
+    {
+        "id" : 4,
+        "title" : "철괴",
+        "value" : 3,
+        "stackable" : true,
+        "description" : "잘 재련된 철괴, 특별한 아이템을 만들 수 있을 것 같다.",
+        "slug" : "iron",
+        "type" : "Ingredient"
+    },
+
+    {
+        "id" : 5,
+        "title" : "나무 투구",
+        "value" : 2,
+        "stackable" : false,
+        "description" : "나름 단단한 나무 투구",
+        "slug" : "wooden_helmet",
+        "type" : "Head"
+    }
+]
