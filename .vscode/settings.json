@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Project UGCK.sln"
+    "dotnet.defaultSolution": "2Seeds_InGameUi.sln"
 }
