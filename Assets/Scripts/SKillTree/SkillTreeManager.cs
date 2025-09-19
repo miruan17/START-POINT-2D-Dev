@@ -2,25 +2,25 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public sealed class SkillTreeManager : MonoBehaviour, ISkillPointProvider
+public partial class SkillTreeManager : MonoBehaviour, ISkillPointProvider
 {
-    [SerializeField] private List<SkillTree> trees = new(); // optional manual wiring
+    [SerializeField] private List<SkillTree> trees = new();
     [SerializeField] private int startingPoints = 10;
     private int useableSkillPoints;
     void Awake()
     {
-        // Auto-discover children if the list is empty or incomplete.
+
         if (trees == null || trees.Count == 0)
             trees = GetComponentsInChildren<SkillTree>(includeInactive: true).ToList();
 
         useableSkillPoints = startingPoints;
 
-        // Initialize each tree once.
+
         foreach (var tree in trees)
         {
             if (tree == null) continue;
             tree.BindPointProvider(this);
-            tree.RefreshAll(); // your method to build graph, bind UI, etc.
+            tree.RefreshAll();
         }
     }
 
