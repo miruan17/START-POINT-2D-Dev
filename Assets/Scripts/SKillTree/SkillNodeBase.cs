@@ -44,7 +44,9 @@ public abstract class SkillNodeBase : MonoBehaviour
     {
         if (IsUnlocked || definition == null) return false;
         if (Owner.AvailablePoints < definition.cost) return false;
-        return definition.prerequisiteIds.All(pid => Owner.IsNodeUnlocked(pid));
+        if (definition.prerequisiteIds == null || definition.prerequisiteIds.Count == 0)
+            return true;
+        return definition.prerequisiteIds.Any(pid => Owner.IsNodeUnlocked(pid));
     }
 
     public void RefreshVisual()

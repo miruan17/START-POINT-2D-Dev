@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aba6c6de8a7e41242bfd88a029673d6f, type: 3}
-  m_Name: MainNode
+  m_Name: MainSkill_00
   m_EditorClassIdentifier: 
-  id: 
-  skillName: 
+  id: 0
+  skillName: dash
   icon: {fileID: 0}
   unlockCost: 1
   cost: 1
   prerequisiteIds: []
-  isMainNode: 0
+  isMainNode: 1

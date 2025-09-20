@@ -14,7 +14,7 @@ public partial class SkillTreeManager : MonoBehaviour, ISkillPointProvider
             trees = GetComponentsInChildren<SkillTree>(includeInactive: true).ToList();
 
         useableSkillPoints = startingPoints;
-
+        Debug.Log(trees.Count);
 
         foreach (var tree in trees)
         {

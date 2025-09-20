@@ -16,6 +16,7 @@ public partial class SkillTree : MonoBehaviour
             nodes[node.Id] = node;
             node.Bind(this);
         }
+        Debug.Log(nodes.Count);
         RefreshAll();
     }
     public int AvailablePoints => points?.GetAvailable() ?? 0;
