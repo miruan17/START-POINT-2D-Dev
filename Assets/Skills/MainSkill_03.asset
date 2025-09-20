@@ -15,8 +15,10 @@ MonoBehaviour:
   id: 3
   skillName: skill3
   icon: {fileID: 0}
-  unlockCost: 3
-  cost: 2
+  unlockCost: 1
+  cost: 1
   prerequisiteIds:
-  - 0
+  - dash
+  - 1
+  - 2
   isMainNode: 1

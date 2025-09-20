@@ -18,5 +18,5 @@ MonoBehaviour:
   unlockCost: 3
   cost: 2
   prerequisiteIds:
-  - 0
+  - dash
   isMainNode: 1
