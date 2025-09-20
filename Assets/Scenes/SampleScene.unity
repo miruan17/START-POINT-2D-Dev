@@ -3025,7 +3025,6 @@ Transform:
   - {fileID: 417367389}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-<<<<<<< Updated upstream
 --- !u!1 &1176460631 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 333213066518952779, guid: 2eddd79a4a5b3f6468701f3e9f28875f, type: 3}
@@ -3049,8 +3048,6 @@ MonoBehaviour:
   def: 10
   spd: 5
   ats: 1
-=======
->>>>>>> Stashed changes
 --- !u!1 &1179412691
 GameObject:
   m_ObjectHideFlags: 0
@@ -4482,14 +4479,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-<<<<<<< Updated upstream
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 333213066518952779, guid: 2eddd79a4a5b3f6468701f3e9f28875f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1176460637}
-=======
-    m_AddedComponents: []
->>>>>>> Stashed changes
   m_SourcePrefab: {fileID: 100100000, guid: 2eddd79a4a5b3f6468701f3e9f28875f, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
