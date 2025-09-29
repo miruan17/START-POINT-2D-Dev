@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UIShortcutWindows : MonoBehaviour
+public class UI_Manager : MonoBehaviour
 {
     [System.Serializable]
     public struct UI_Keys
@@ -9,13 +9,14 @@ public class UIShortcutWindows : MonoBehaviour
         public GameObject window;
         public KeyCode key;
     }
-
+    public UI_Keys DefaultEntry;
     public List<UI_Keys> entries = new List<UI_Keys>();
 
     int current = -1;
 
     void Awake()
     {
+        DefaultEntry.window.SetActive(true);
         for (int i = 0; i < entries.Count; i++)
             if (entries[i].window) entries[i].window.SetActive(false);
     }
@@ -37,21 +38,23 @@ public class UIShortcutWindows : MonoBehaviour
         {
             if (Input.GetKeyDown(entries[current].key) || Input.GetKeyDown(KeyCode.Escape))
             {
-                CloseCurrent();
+                Close();
             }
         }
     }
 
     void Open(int i)
     {
+        DefaultEntry.window.SetActive(false);
         if (i < 0 || i >= entries.Count || entries[i].window == null) return;
         entries[i].window.SetActive(true);
         current = i;
         Time.timeScale = 0f;
     }
 
-    void CloseCurrent()
+    void Close()
     {
+        DefaultEntry.window.SetActive(true);
         if (current == -1 || entries[current].window == null) return;
         entries[current].window.SetActive(false);
         current = -1;
