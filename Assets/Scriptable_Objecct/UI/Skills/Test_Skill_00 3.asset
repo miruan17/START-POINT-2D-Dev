@@ -17,6 +17,9 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: f6b8b85cbdc82ce439a41ae3d56d57ee, type: 3}
   unlockCost: 1
   cost: 1
-  prerequisiteIds:
-  - 2
+  prerequisiteSkills:
+  - {fileID: 11400000, guid: 2a08bc1bd8e71784ea3b25446674e02d, type: 2}
+  - {fileID: 11400000, guid: 573f46c681565304bb1d480e8b26f36d, type: 2}
+  - {fileID: 11400000, guid: bc4f78230173ce24b93c8128832bc2a6, type: 2}
+  - {fileID: 0}
   isMainNode: 0
