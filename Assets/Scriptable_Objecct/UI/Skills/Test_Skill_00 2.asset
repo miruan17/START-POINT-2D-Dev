@@ -22,4 +22,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 09cc0815d4ba5b74aa782693bf265454, type: 2}
   - {fileID: 11400000, guid: bc4f78230173ce24b93c8128832bc2a6, type: 2}
   - {fileID: 11400000, guid: c4c129f3fc7bc444db5e1875f002c5f9, type: 2}
-  isMainNode: 0
+  isMainNode: 1
