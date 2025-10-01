@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "2Seeds_InGameUi.sln"
+    "dotnet.defaultSolution": "ugachaka ui.sln"
 }
