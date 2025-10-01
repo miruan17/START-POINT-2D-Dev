@@ -1,178 +1,110 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
 
 public class Buttons : MonoBehaviour
 {
-    
-    public enum GameState
-    {
-        Title = 0,           
-        TitleOptions = 1,   
-        Gameplay = 2,       
-        PauseMenu = 3,        
-        PauseMenuOption = 4   
-    }
+    public enum GameState { Title=0, TitleOptions=1, Gameplay=2, PauseMenu=3, PauseMenuOption=4 }
 
-    [Header("효과음 나는 버튼")]
-    public GameObject[] soundButtons;    
-    public AudioSource sfxSource;
-    public AudioClip clickClip;
+    [Header("효과음 버튼")]
+    public GameObject[] soundButtons;
+    public AudioSource sfxSource; public AudioClip clickClip;
 
-    [Header("타이틀 화면 버튼")]
-    public GameObject[] mainButtons;       
-    public GameObject optionPanel;       
+    [Header("타이틀 UI")]
+    public GameObject[] mainButtons;   // Title 전용 메인 버튼 묶음
+    public GameObject optionPanel;     // 옵션 패널(Title/인게임 공용)
 
-    [Header("인게임 메뉴")]
-    public GameObject optionIngame;       
+    [Header("인게임 UI")]
+    public GameObject optionIngame;    // Pause 루트 패널
 
-    [Header("상태/옵션")]
+    [Header("상태")]
     [SerializeField] private GameState state = GameState.Title;
-    [SerializeField] private bool pauseUsesTimeScale = true; 
-
-    
+    [SerializeField] private bool pauseUsesTimeScale = true;
     [SerializeField, HideInInspector] private int inGame = 0;
+
+    bool IsTitle => SceneManager.GetActiveScene().name == "Title";
+    bool IsInGame => SceneManager.GetActiveScene().name == "InGame";
+
+    void Awake() { SceneManager.sceneLoaded += OnSceneLoaded; }
+    void OnDestroy(){ SceneManager.sceneLoaded -= OnSceneLoaded; if (pauseUsesTimeScale) Time.timeScale = 1f; }
+    void OnDisable(){ if (pauseUsesTimeScale) Time.timeScale = 1f; }
 
     void Start()
     {
-        
         if (soundButtons != null)
-        {
-            foreach (var btnObj in soundButtons)
-            {
-                if (!btnObj) continue;
-                var btn = btnObj.GetComponent<Button>();
-                if (btn != null) btn.onClick.AddListener(PlayClickSound);
-            }
-        }
-
-        
+            foreach (var o in soundButtons){ var b=o?o.GetComponent<Button>():null; if (b!=null) b.onClick.AddListener(PlayClickSound); }
         ApplyState();
     }
 
     void Update()
     {
-        
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (!Input.GetKeyDown(KeyCode.Escape)) return;
+        switch (state)
         {
-            switch (state)
-            {
-                case GameState.Gameplay:
-                    SetState(GameState.PauseMenu);
-                    break;
-                case GameState.PauseMenu:
-                    SetState(GameState.Gameplay);
-                    break;
-                case GameState.PauseMenuOption:
-                    SetState(GameState.PauseMenu);
-                    break;
-                case GameState.TitleOptions:
-                    SetState(GameState.Title);
-                    break;
-                    
-            }
+            case GameState.Gameplay:        SetState(GameState.PauseMenu); break;
+            case GameState.PauseMenu:       SetState(GameState.Gameplay);  break;
+            case GameState.PauseMenuOption: SetState(GameState.PauseMenu); break;
+            case GameState.TitleOptions:    SetState(GameState.Title);     break;
         }
     }
 
-    
-    public void SetState(GameState newState)
+    void OnSceneLoaded(Scene s, LoadSceneMode m)
     {
-        state = newState;
-        ApplyState();
+        if (s.name=="Title")  SetState(GameState.Title);
+        if (s.name=="InGame") SetState(GameState.Gameplay);
     }
 
-   
-    public void SetInGame(int code)
-    {
-        if (code < 0) code = 0;
-        if (code > 4) code = 4;
-        SetState((GameState)code);
-    }
+    public void SetState(GameState st){ state=st; ApplyState(); }
+    public void SetInGame(int code){ if (code<0) code=0; if (code>4) code=4; SetState((GameState)code); }
 
-    
-    // state	mainButtons	optionPanel	optionIngame	optionPanelIngame
-    // 0      on           off          off           off
-    // 1      off          on           off           off
-    // 2      off          off          off           off
-    // 3      off          off          on            off
-    // 4      off          off          off           on
+    // mainButtons | optionPanel | optionIngame
+    // Title          on            off          off
+    // TitleOptions   off           on           off
+    // Gameplay       off           off          off
+    // PauseMenu      off           off          on
+    // PauseMenuOpt   off           on           on
     void ApplyState()
     {
-        bool isTitleMain = state == GameState.Title;
-        bool isTitleOpt = state == GameState.TitleOptions;
-        bool isPauseRoot = state == GameState.PauseMenu;
-        bool isPauseOpt = state == GameState.PauseMenuOption;
+        bool isTitleMain = state==GameState.Title;
+        bool isTitleOpt  = state==GameState.TitleOptions;
+        bool isPauseRoot = state==GameState.PauseMenu;
+        bool isPauseOpt  = state==GameState.PauseMenuOption;
 
-        if (mainButtons != null)
-            foreach (var go in mainButtons) if (go) go.SetActive(isTitleMain);
+        if (mainButtons!=null) foreach (var go in mainButtons) if (go) go.SetActive(IsTitle && isTitleMain);
+        if (optionPanel)  optionPanel.SetActive(isTitleOpt || isPauseOpt);
+        if (optionIngame) optionIngame.SetActive(IsInGame && (isPauseRoot || isPauseOpt));
 
-        if (optionPanel) optionPanel.SetActive(isTitleOpt||isPauseOpt);
-
-        if (optionIngame) optionIngame.SetActive(isPauseRoot || isPauseOpt);
-
-        inGame = (state == GameState.Gameplay || isPauseRoot || isPauseOpt) ? 1 : 0;
+        inGame = (state==GameState.Gameplay || isPauseRoot || isPauseOpt) ? 1 : 0;
 
         if (pauseUsesTimeScale)
         {
-            bool paused = (isPauseRoot || isPauseOpt);
+            bool paused = IsInGame && (isPauseRoot || isPauseOpt);
             Time.timeScale = paused ? 0f : 1f;
         }
     }
 
-    public void NewgameButton() { SetInGame(2); } // 
-    public void LoadButton() { SetInGame(2); } // 
-
-   
-    public void OptionButton()
-    {
-        if (state == GameState.Title)
-        { SetInGame(1); }
-        else if (state == GameState.PauseMenu)
-        { SetInGame(4); }
-    }
-
-    public void CloseOptionButton()
-    {
-        if (state == GameState.TitleOptions)
-        { SetInGame(0); }
-        else if (state == GameState.PauseMenuOption)
-        { SetInGame(3); }
-    }
-
-    public void ResumeButton()
-    {
-        if (state == GameState.PauseMenu || state == GameState.PauseMenuOption)
-            SetInGame(2);
-    }
-
-    public void TitleButton()
-    {
-        SetInGame(0);
-    }
-
-    
-    public void ExitButton()
-    {
+    // --- 씬 전환은 SceneFlow 호출 ---
+    public void NewgameButton(){ SetInGame(2); SceneFlow.I?.LoadNewGame(); }
+    public void LoadButton(){    SetInGame(2); SceneFlow.I?.LoadContinue(); }
+    public void TitleButton(){   SceneFlow.I?.ReturnToTitle(); }
+    public void ExitButton(){
+    #if UNITY_EDITOR
+        EditorApplication.isPlaying=false;
+    #else
         Application.Quit();
-#if UNITY_EDITOR
-        EditorApplication.isPlaying = false;
-#endif
+    #endif
     }
-
-    void PlayClickSound()
-    {
-        if (sfxSource && clickClip) sfxSource.PlayOneShot(clickClip);
-    }
-    
-    void OnDisable()
+    public void ResumeButton()
 {
-    if (pauseUsesTimeScale) Time.timeScale = 1f;
-}
-void OnDestroy()
-{
-    if (pauseUsesTimeScale) Time.timeScale = 1f;
+    if (state == GameState.PauseMenu || state == GameState.PauseMenuOption)
+        SetInGame(2);  // Gameplay로 복귀 → ApplyState()에서 패널 OFF + Time.timeScale=1
 }
 
+    public void OptionButton(){ if (state==GameState.Title) SetInGame(1); else if (state==GameState.PauseMenu) SetInGame(4); }
+    public void CloseOptionButton(){ if (state==GameState.TitleOptions) SetInGame(0); else if (state==GameState.PauseMenuOption) SetInGame(3); }
+
+    void PlayClickSound(){ if (sfxSource && clickClip) sfxSource.PlayOneShot(clickClip); }
 }
