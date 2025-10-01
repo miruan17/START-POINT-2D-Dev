@@ -19,7 +19,7 @@ MonoBehaviour:
   cost: 1
   prerequisiteSkills:
   - {fileID: 11400000, guid: 1397e375aceb8ae449c88de29399d1cb, type: 2}
-  - {fileID: 11400000, guid: 09cc0815d4ba5b74aa782693bf265454, type: 2}
+  - {fileID: 0}
   - {fileID: 11400000, guid: bc4f78230173ce24b93c8128832bc2a6, type: 2}
-  - {fileID: 11400000, guid: c4c129f3fc7bc444db5e1875f002c5f9, type: 2}
+  - {fileID: 11400000, guid: 013ba0e7e5c8b6b4c9897a4e830b303d, type: 2}
   isMainNode: 1
