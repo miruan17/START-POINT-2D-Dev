@@ -10,9 +10,9 @@ public abstract class Character : MonoBehaviour
     public StatusDef status;
 
     protected SpriteRenderer spriteRenderer;
-    protected Rigidbody2D    rigid;
-    protected Animator       anim;
-    protected Collider2D     bodyCol;
+    protected Rigidbody2D rigid;
+    protected Animator anim;
+    protected Collider2D bodyCol;
 
     protected StatusManager stats;
 
@@ -22,10 +22,10 @@ public abstract class Character : MonoBehaviour
 
     protected virtual void Awake()
     {
-        rigid         = GetComponent<Rigidbody2D>();
+        rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        anim          = GetComponent<Animator>();
-        bodyCol       = GetComponent<Collider2D>();
+        anim = GetComponent<Animator>();
+        bodyCol = GetComponent<Collider2D>();
 
         BuildStatus();
     }
@@ -34,8 +34,8 @@ public abstract class Character : MonoBehaviour
     {
         stats = new StatusManager();
 
-        stats.SetBase(StatusType.Hp,  status.DefaultHp);
-        stats.SetBase(StatusType.Sp,  status.DefaultSp);
+        stats.SetBase(StatusType.Hp, status.DefaultHp);
+        stats.SetBase(StatusType.Sp, status.DefaultSp);
         stats.SetBase(StatusType.Atk, status.DefaultAtk);
         stats.SetBase(StatusType.Aps, status.DefaultAps);
         stats.SetBase(StatusType.Def, status.DefaultDef);
@@ -47,8 +47,8 @@ public abstract class Character : MonoBehaviour
     }
 
     // Final value
-    public float FinalHp  => stats.GetFinal(StatusType.Hp);
-    public float FinalSp  => stats.GetFinal(StatusType.Sp);
+    public float FinalHp => stats.GetFinal(StatusType.Hp);
+    public float FinalSp => stats.GetFinal(StatusType.Sp);
     public float FinalAtk => stats.GetFinal(StatusType.Atk);
     public float FinalAps => stats.GetFinal(StatusType.Aps);
     public float FinalDef => stats.GetFinal(StatusType.Def);
@@ -63,6 +63,7 @@ public abstract class Character : MonoBehaviour
 
     public void RemoveBySource(string sourceId) => stats.RemoveBySource(sourceId);
 
+    //System.collections.Generic namespace의 Dictionary
     public System.Collections.Generic.Dictionary<StatusSourceKind, StatContribution>
         GetContributionsByKind(StatusType stat) => stats.GetContributionsByKind(stat);
 }

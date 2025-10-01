@@ -7,8 +7,7 @@ public class StatusModifier
     public float Value;                 //StatusValue
 
     //ModifierDef
-    public StatusModifier(string sourceId, StatusSourceKind sourceKind,
-                        StatusType type, StatusModKind kind, float value)
+    public StatusModifier(string sourceId, StatusSourceKind sourceKind, StatusType type, StatusModKind kind, float value)
     {
         SourceId = sourceId;
         SourceKind = sourceKind;

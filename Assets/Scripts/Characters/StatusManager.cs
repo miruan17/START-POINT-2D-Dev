@@ -38,7 +38,7 @@ public class StatusManager
         return (_base[t] + _additional[t]) * (1f + _multiple[t]);
     }
 
-    // Add Modifier
+    //Add Modifier
     public void AddModifier(StatusModifier mod)
     {
         if (!_bySourceId.TryGetValue(mod.SourceId, out var list))

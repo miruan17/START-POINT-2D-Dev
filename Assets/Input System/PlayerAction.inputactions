@@ -2,7 +2,7 @@
     "name": "PlayerAction",
     "maps": [
         {
-            "name": "PlayerMove",
+            "name": "Player",
             "id": "d4d19491-a8ee-4b59-87c5-270178ac9eb1",
             "actions": [
                 {
@@ -15,6 +15,15 @@
                     "initialStateCheck": true
                 },
                 {
+                    "name": "Run",
+                    "type": "Button",
+                    "id": "7fde991a-0de9-403f-b569-ba272fc54d41",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Jump",
                     "type": "Button",
                     "id": "26aef395-f04b-4c63-9703-404854092840",
@@ -24,9 +33,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Run",
+                    "name": "Attack",
                     "type": "Button",
-                    "id": "7fde991a-0de9-403f-b569-ba272fc54d41",
+                    "id": "0a464bef-b3eb-4501-8d3f-9c9a2593256d",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -42,17 +51,6 @@
                     "processors": "",
                     "groups": "Keyboard",
                     "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "ec67cc10-358c-46d1-b4bb-270574f0512e",
-                    "path": "<Keyboard>/leftShift",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard",
-                    "action": "Run",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -110,6 +108,28 @@
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "ec67cc10-358c-46d1-b4bb-270574f0512e",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Run",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "42856b90-2b6f-4160-ae1b-6a8e94c31a3d",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
