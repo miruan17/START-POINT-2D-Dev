@@ -17,6 +17,8 @@ public abstract class SkillNodeBase : MonoBehaviour
     {
         Owner = owner;
         if (iconImage && definition?.icon) iconImage.sprite = definition.icon;
+        if (definition != null && definition.id == "0")
+            IsUnlocked = true;
         button.onClick.AddListener(OnClicked);
         RefreshVisual();
     }
@@ -44,16 +46,33 @@ public abstract class SkillNodeBase : MonoBehaviour
     {
         if (IsUnlocked || definition == null) return false;
         if (Owner.AvailablePoints < definition.cost) return false;
-        if (definition.prerequisiteIds == null || definition.prerequisiteIds.Count == 0)
+        if (definition.prerequisiteSkills.All(p => p == null))
             return true;
-        return definition.prerequisiteIds.Any(pid => Owner.IsNodeUnlocked(pid));
+        return definition.prerequisiteSkills.Any(p => p != null && Owner.IsNodeUnlocked(p.id));
     }
 
     public void RefreshVisual()
     {
         bool interactable = !IsUnlocked && CanUnlock();
-        if (button) button.interactable = interactable;
+
+        if (button)
+            button.interactable = interactable;
+
         if (iconImage)
-            iconImage.color = IsUnlocked ? new Color(1, 1, 1, 1) : (interactable ? new Color(1, 1, 1, 0.9f) : new Color(1, 1, 1, 0.35f));
+        {
+            // 기본 색상
+            Color targetColor;
+
+            if (IsUnlocked) targetColor = Color.white;
+            else if (interactable) targetColor = new Color(1f, 1f, 1f, 0.9f);
+            else targetColor = new Color(1f, 1f, 1f, 0.35f);
+
+            // 포커스된 상태일 경우 강조 (예: 노란색 테두리 느낌)
+            if (Owner != null && Owner.FocusedNode == this)
+                targetColor = Color.yellow; // 혹은 Outline/Scale 조정으로 대체 가능
+
+            iconImage.color = targetColor;
+        }
     }
+
 }
