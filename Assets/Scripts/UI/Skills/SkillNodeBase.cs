@@ -13,6 +13,7 @@ public abstract class SkillNodeBase : MonoBehaviour
     public SkillTree Owner { get; private set; }
     public SkillNodeDef Definition => definition;
 
+    // SkillTree에서 호출하는 Bind 함수
     public void Bind(SkillTree owner)
     {
         Owner = owner;
@@ -28,6 +29,7 @@ public abstract class SkillNodeBase : MonoBehaviour
         if (button) button.onClick.RemoveListener(OnClicked);
     }
 
+    // 스킬 노드 버튼이 눌렸을 때 동작할 함수
     void OnClicked()
     {
         if (Owner == null || definition == null) return;
@@ -37,8 +39,7 @@ public abstract class SkillNodeBase : MonoBehaviour
         {
             IsUnlocked = true;
             Owner.NotifyUnlocked(this);
-            RefreshVisual();
-            Owner.RefreshDependents(this);
+            Owner.RefreshAll();
         }
     }
 
