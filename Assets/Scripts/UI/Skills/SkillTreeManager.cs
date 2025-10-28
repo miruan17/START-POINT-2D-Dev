@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SkillTreeManager : MonoBehaviour, ISkillPointProvider
 {
     [SerializeField] private List<SkillTree> trees = new();
     [SerializeField] private int startingPoints = 10; // 시작 Skill Point
-    public UseableSkillPointTextUI skillPointText;
+    [SerializeField] private Text skillPointText;
     public int useableSkillPoints { get; private set; }
     void Awake()
     {
@@ -15,6 +16,7 @@ public class SkillTreeManager : MonoBehaviour, ISkillPointProvider
             trees = GetComponentsInChildren<SkillTree>(includeInactive: true).ToList();
 
         useableSkillPoints = startingPoints;
+        skillPointText.text = "스킬 포인트: " + useableSkillPoints;
 
         foreach (var tree in trees)
         {
@@ -58,6 +60,6 @@ public class SkillTreeManager : MonoBehaviour, ISkillPointProvider
     public void RefreshAll()
     {
         foreach (var t in trees) t?.RefreshAll();
-        skillPointText.UpdateText();
+        skillPointText.text = "스킬 포인트: " + useableSkillPoints;
     }
 }

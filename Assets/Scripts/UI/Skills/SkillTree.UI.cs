@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public partial class SkillTree : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public partial class SkillTree : MonoBehaviour
 
     [Header("UI Navigation")]
     [SerializeField] private bool enableKeyboardNav = true;
+    [Header("UI Elements")]
+    [SerializeField] private Text descriptionText;
     private SkillNodeBase _focused;
     public SkillNodeBase FocusedNode => _focused;
 
@@ -42,6 +45,13 @@ public partial class SkillTree : MonoBehaviour
         var btn = node.GetComponent<UnityEngine.UI.Button>();
         var target = btn ? btn.gameObject : node.gameObject;
         EventSystem.current?.SetSelectedGameObject(target);
+
+        // 포커싱된 노드의 스킬 설명
+        if (descriptionText != null && node.Definition != null)
+        {
+            descriptionText.text = node.Definition.description ?? "";
+            Debug.Log(node.Definition.description);
+        }
 
         // Optional: add focus-specific visuals inside RefreshVisual if desired
         Debug.Log(node.Id);
