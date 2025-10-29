@@ -1,12 +1,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public partial class SkillTree : MonoBehaviour
 {
     [SerializeField] private string treeId;
+    [SerializeField] private Button LvUpBtn;
     private ISkillPointProvider points;
     private SkillTreeManager parent;
+
     private readonly Dictionary<string, SkillNodeBase> nodes = new();
     private readonly Dictionary<SkillNodeDef, SkillNodeBase> nodeMapByDef = new();
     public void BindPointProvider(ISkillPointProvider provider) => points = provider;
@@ -20,8 +23,13 @@ public partial class SkillTree : MonoBehaviour
             nodes[node.Id] = node;
             node.Bind(this);
         }
+        LvUpBtn.onClick.AddListener(OnClicked);
         Debug.Log(nodes.Count);
         RefreshAll();
+    }
+    void OnClicked()
+    {
+        FocusedNode.usePoint();
     }
     public int AvailablePoints => points?.GetAvailable() ?? 0;
     public bool TrySpendPoints(int cost) => points != null && points.TrySpend(cost);

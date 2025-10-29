@@ -1,8 +1,9 @@
 using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public abstract class SkillNodeBase : MonoBehaviour
+public abstract class SkillNodeBase : MonoBehaviour, IPointerClickHandler, ISubmitHandler
 {
     [SerializeField] protected SkillNodeDef definition;
     [SerializeField] protected Image iconImage;
@@ -32,17 +33,6 @@ public abstract class SkillNodeBase : MonoBehaviour
     // 스킬 노드 버튼이 눌렸을 때 동작할 함수
     void OnClicked()
     {
-        if (Owner == null || definition == null) return;
-        if (!CanUnlock()) return;
-
-        if (Owner.TrySpendPoints(definition.cost))
-        {
-            IsUnlocked = true;
-            Owner.NotifyUnlocked(this);
-            if (definition.isMainNode)
-                Owner.addUnlockedSkilltoList(this);
-            Owner.RefreshAll();
-        }
     }
 
     public bool CanUnlock()
@@ -78,4 +68,43 @@ public abstract class SkillNodeBase : MonoBehaviour
         }
     }
 
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        Debug.Log($"[MouseClick] {definition.skillName}");
+        HandleClick(isKeyboard: false);
+    }
+
+    public void OnSubmit(BaseEventData eventData)
+    {
+        Debug.Log($"[KeyboardEnter] {definition.skillName}");
+        HandleClick(isKeyboard: true);
+    }
+    private void HandleClick(bool isKeyboard)
+    {
+        if (isKeyboard)
+        {
+            usePoint();
+        }
+        else
+        {
+            if (Owner.FocusedNode != this)
+                Owner.FocusNode(this);
+        }
+    }
+    public void usePoint()
+    {
+        if (Owner == null || definition == null) return;
+        if (!CanUnlock()) return;
+
+        if (Owner.TrySpendPoints(definition.cost))
+        {
+            IsUnlocked = true;
+            Owner.NotifyUnlocked(this);
+
+            if (definition.isMainNode)
+                Owner.addUnlockedSkilltoList(this);
+
+            Owner.RefreshAll();
+        }
+    }
 }
