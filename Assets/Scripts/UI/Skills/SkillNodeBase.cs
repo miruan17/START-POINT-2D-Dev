@@ -39,6 +39,8 @@ public abstract class SkillNodeBase : MonoBehaviour
         {
             IsUnlocked = true;
             Owner.NotifyUnlocked(this);
+            if (definition.isMainNode)
+                Owner.addUnlockedSkilltoList(this);
             Owner.RefreshAll();
         }
     }

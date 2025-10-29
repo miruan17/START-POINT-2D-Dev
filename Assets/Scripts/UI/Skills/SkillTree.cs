@@ -6,9 +6,11 @@ public partial class SkillTree : MonoBehaviour
 {
     [SerializeField] private string treeId;
     private ISkillPointProvider points;
+    private SkillTreeManager parent;
     private readonly Dictionary<string, SkillNodeBase> nodes = new();
     private readonly Dictionary<SkillNodeDef, SkillNodeBase> nodeMapByDef = new();
     public void BindPointProvider(ISkillPointProvider provider) => points = provider;
+    public void BindSkillTreeManager(SkillTreeManager parent) => this.parent = parent;
     void Awake()
     {
         foreach (var node in GetComponentsInChildren<SkillNodeBase>(true))
@@ -34,6 +36,11 @@ public partial class SkillTree : MonoBehaviour
     public void NotifyUnlocked(SkillNodeBase node)
     {
         Debug.Log(node.Id + "is unlocked");
+    }
+
+    public void addUnlockedSkilltoList(SkillNodeBase unlocked)
+    {
+        parent.addUnlockedSkilltoList(unlocked);
     }
 
     public void RefreshDependents(SkillNodeBase changed)

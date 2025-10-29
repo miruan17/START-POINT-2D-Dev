@@ -8,6 +8,8 @@ public class SkillTreeManager : MonoBehaviour, ISkillPointProvider
     [SerializeField] private List<SkillTree> trees = new();
     [SerializeField] private int startingPoints = 10; // 시작 Skill Point
     [SerializeField] private Text skillPointText;
+    [SerializeField] private SkillRegisterManager skillRegisterManager;
+    private List<SkillNodeBase> unlockedSkillList = new();
     public int useableSkillPoints { get; private set; }
     void Awake()
     {
@@ -21,7 +23,8 @@ public class SkillTreeManager : MonoBehaviour, ISkillPointProvider
         foreach (var tree in trees)
         {
             if (tree == null) continue;
-            tree.BindPointProvider(this); // 스킬트리 - 매니저 맵핑 작업
+            tree.BindSkillTreeManager(this); // 스킬트리 - 매니저 맵핑 작업
+            tree.BindPointProvider(this);
             tree.RefreshAll();
         }
     }
@@ -55,6 +58,24 @@ public class SkillTreeManager : MonoBehaviour, ISkillPointProvider
     // id로 Tree를 Search
     public SkillTree GetTreeById(string id) =>
         trees.FirstOrDefault(t => t.getTreeId() == id);
+
+    // Unlocked Skill을 list에 추가
+    public void addUnlockedSkilltoList(SkillNodeBase unlocked)
+    {
+        if (unlockedSkillList.Contains(unlocked)) // 이미 리스트에 들어가 있는 경우는 추가 대신 갱신 (ex 스킬 레벨업)
+        {
+            var exist = unlockedSkillList.First(n => n == unlocked);
+            exist = unlocked;
+        }
+        else
+            unlockedSkillList.Add(unlocked);
+        Debug.Log("unlocked list:");
+        foreach (SkillNodeBase n in unlockedSkillList)
+        {
+            Debug.Log(n.Definition.skillName);
+        }
+        skillRegisterManager?.updateUnlockedSkillList(unlockedSkillList);
+    }
 
     // 각 tree를 Refresh
     public void RefreshAll()
