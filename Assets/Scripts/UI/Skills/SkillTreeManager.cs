@@ -9,7 +9,6 @@ public class SkillTreeManager : MonoBehaviour, ISkillPointProvider
     [SerializeField] private int startingPoints = 10; // 시작 Skill Point
     [SerializeField] private Text skillPointText;
     [SerializeField] private SkillRegisterManager skillRegisterManager;
-    [SerializeField] public Button lvUpBtn;
     private List<SkillNodeBase> unlockedSkillList = new();
     public int useableSkillPoints { get; private set; }
     void Awake()
