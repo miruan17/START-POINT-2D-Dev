@@ -14,6 +14,8 @@ public class UIFocusController : MonoBehaviour
     }
 
     public UIFocusTarget currentFocus = UIFocusTarget.SkillTreeUI;
+    private GameObject lastSkillTreeFocused;  // SkillTreeUI에서 마지막으로 선택된 노드 저장
+    private GameObject lastRegisterFocused;   // RegisterPanel 내부 마지막 포커스 저장
 
     private void Awake()
     {
@@ -46,8 +48,28 @@ public class UIFocusController : MonoBehaviour
     }
     public void SetFocus(UIFocusTarget target)
     {
+        // 현재 포커스 대상에 따라 이전 선택 객체 저장
+        if (currentFocus == UIFocusTarget.SkillTreeUI)
+            lastSkillTreeFocused = EventSystem.current?.currentSelectedGameObject;
+        else if (currentFocus == UIFocusTarget.SkillRegister)
+            lastRegisterFocused = EventSystem.current?.currentSelectedGameObject;
+
         currentFocus = target;
         Debug.Log($"[UIFocusController] Focus switched to: {target}");
+
+        // EventSystem에 포커스 복원
+        if (target == UIFocusTarget.SkillTreeUI)
+        {
+            if (lastSkillTreeFocused != null)
+                EventSystem.current?.SetSelectedGameObject(lastSkillTreeFocused);
+        }
+        else if (target == UIFocusTarget.SkillRegister)
+        {
+            if (lastRegisterFocused != null)
+                EventSystem.current?.SetSelectedGameObject(lastRegisterFocused);
+            else
+                EventSystem.current?.SetSelectedGameObject(null);
+        }
     }
 
     public bool IsFocused(UIFocusTarget target)
