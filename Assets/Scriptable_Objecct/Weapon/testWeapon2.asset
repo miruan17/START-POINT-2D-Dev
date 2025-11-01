@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddd31d6982b54aa4d8ae6b2abf008473, type: 3}
+  m_Name: testWeapon2
+  m_EditorClassIdentifier: 
+  id: 
+  displayName: 
+  icon: {fileID: 0}
+  equippedPrefab: {fileID: 0}
+  EnhancedAttack: {fileID: 11400000, guid: 5b7164e637e52c34189662a3b8f2d205, type: 2}
+  ComboAttacks:
+  - {fileID: 11400000, guid: 861866fdae0591d4695bda6ed2464146, type: 2}
+  ComboDeadline: 0.5
+  Notes: 

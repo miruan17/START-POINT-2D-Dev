@@ -12,15 +12,10 @@ public class WeaponDef : ScriptableObject
     public Sprite icon;
     public GameObject equippedPrefab;
 
-    [Header("Damaage Multipler")]
-    public float DamageMultipler = 1.0f;
-
     [Header("AttackDef")]
-    public AttackDef EnhencedAttack = new();
-    public List<AttackDef> CombodAttacks = new();
-
-    [Header("Input Cooldown")]
-    public float globalCooldown = 0.1f;
+    public AttackDef EnhancedAttack = null;
+    public List<AttackDef> ComboAttacks = new();
+    public float ComboDeadline = 0.5f;
 
     [TextArea]
     public string Notes;

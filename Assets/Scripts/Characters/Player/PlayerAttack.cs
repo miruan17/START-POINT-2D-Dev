@@ -1,149 +1,204 @@
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
+using Unity.Mathematics;
 
-[DisallowMultipleComponent]
 public class PlayerAttack : MonoBehaviour
 {
-    public enum FacingSource
+    [Header("Default Weapon")]
+    [SerializeField] public WeaponDef weapon;
+    private PlayerInputHub input;
+    private PlayerMove move;
+    [SerializeField] public GameObject hitboxRoot;
+
+    //hitboxGenerator
+    private List<GameObject> comboHitboxes = new();
+    private GameObject enhancedHitbox;
+    private int maxCombo;
+
+    private void WeaponUpdate(WeaponDef newWeapon)
     {
-        ScaleX,
-        SpriteFlipX,
-        CustomSign
+        weapon = newWeapon;
+        // hitbox reset
+        if (enhancedHitbox != null)
+        {
+            Destroy(enhancedHitbox);
+            enhancedHitbox = null;
+        }
+
+        foreach (GameObject hitbox in comboHitboxes)
+        {
+            if (hitbox != null)
+                Destroy(hitbox);
+        }
+        comboHitboxes.Clear();
+
+        // is weapon null
+        if (weapon == null)
+        {
+            Debug.LogWarning("null Weapon");
+            return;
+        }
+
+        maxCombo = weapon.ComboAttacks.Count;
+
+        // Enhanced hitbox generate
+        if (weapon.EnhancedAttack != null && weapon.EnhancedAttack.Hitbox != null)
+        {
+            enhancedHitbox = Instantiate(weapon.EnhancedAttack.Hitbox, hitboxRoot.transform);
+            enhancedHitbox.SetActive(false);
+            enhancedHitbox.name = $"{weapon.displayName}_Enhanced";
+        }
+        else
+        {
+            enhancedHitbox = null;
+        }
+
+        // Combo hitbox generate
+        for (int i = 0; i < maxCombo; i++)
+        {
+            var comboDef = weapon.ComboAttacks[i];
+            GameObject combo = Instantiate(comboDef.Hitbox, hitboxRoot.transform);
+            combo.SetActive(false);
+            combo.name = $"{weapon.displayName}_Combo_{i + 1}";
+            comboHitboxes.Add(combo);
+        }
+
+        int totalCount = comboHitboxes.Count + (enhancedHitbox != null ? 1 : 0);
+        Debug.Log($"{totalCount} hitboxes updated " + $"= Enhanced: {(enhancedHitbox != null ? "Exist" : "not Exist")}, MaxCombo: {comboHitboxes.Count}");
     }
-
-    [Header("Facing")]
-    public FacingSource facingSource = FacingSource.SpriteFlipX;
-    public bool invertFlipX = false;
-    public int customFacingSign = 1;
-
-    [Header("Hitbox (OverlapBox)")]
-    public Vector2 boxSize   = new Vector2(1.2f, 0.6f);
-    public Vector2 boxOffset = new Vector2(0.7f, 0.1f);
-    public float   boxAngleDeg = 0f;
-    public bool    rotateWithFacing = true;
-    public LayerMask enemyLayers;
-
-    [Header("Combat")]
-    public float cooldown = 0.25f;
-    public float damageScale = 1.0f;
-
-    [Header("Debug")]
-    public float debugDamageOverride = 0f;
-    public bool logHits = false;
-    public bool drawRuntimeBox = true;
-
-    private float _lastAttackTime = -999f;
-    private readonly HashSet<Collider2D> _hitThisSwing = new();
-
-    private Player _player;
-    private Character _owner;
-    private SpriteRenderer _sprite;
 
     private void Awake()
     {
-        _player  = GetComponent<Player>();
-        _owner   = GetComponent<Character>();
-        _sprite  = GetComponentInChildren<SpriteRenderer>();
+        input = GetComponent<PlayerInputHub>();
+        move = GetComponent<PlayerMove>();
+        WeaponUpdate(weapon);
     }
 
-    public void SetFacing(int sign) => customFacingSign = Mathf.Sign(sign) >= 0 ? 1 : -1;
+    // Time variable
+    public bool isHolding;                  // 입력 상태 표시
+    private float pressTime;                // 키 입력 시간
+    private float holdTime = 0;             // 키 입력 지속시간
+    private float comboTime = 0;            // 콤보 적용 시간
+    private float inputDelay = 0;           // 공격 쿨타임
+
+    // attack variable
+    private bool attackCall = false;        // FixedUpdate에 공격 실행 요청
+    private int currentCombo = 0;           // 현재 콤보 수
+    private bool isAttacking = false;       // 공격여부
+
+    // direction variable
+    private Vector2 direction;              // 방향
+    
+    //Attack Management
+    private IEnumerator AttackOrder()
+    {
+        input.flip = false;
+        AttackDef attack;
+        GameObject hitbox;
+        if (holdTime > weapon.ComboDeadline)
+        {
+            attack = weapon.EnhancedAttack;
+            hitbox = enhancedHitbox;
+            Debug.Log("Enhanced Attack");
+        }
+        else
+        {
+            attack = weapon.ComboAttacks[currentCombo];
+            hitbox = comboHitboxes[currentCombo];
+            Debug.Log($"Combo Attack {currentCombo + 1}");  
+        }
+        yield return new WaitForSeconds(attack.preDelay);
+        hitbox.SetActive(true);
+        yield return new WaitForSeconds(attack.hitTime);
+        hitbox.SetActive(false);
+        yield return new WaitForSeconds(attack.postDelay);
+        
+        input.flip = true;
+        isAttacking = false;
+    }
 
     private void Update()
     {
-        if (_player != null && _player.ConsumeAttackRequest())
-            TryAttack();
-    }
-
-    public void TryAttack()
-    {
-        if (Time.time - _lastAttackTime < cooldown) return;
-        _lastAttackTime = Time.time;
-        DoAttackOverlap();
-    }
-
-    private int GetFacingSign()
-    {
-        switch (facingSource)
+        direction = input.MoveInput;
+        if (direction.y > 0)
         {
-            case FacingSource.ScaleX:
-                return transform.lossyScale.x >= 0 ? 1 : -1;
-            case FacingSource.SpriteFlipX:
-                if (_sprite == null) return 1;
-                bool flip = _sprite.flipX ^ invertFlipX;
-                return flip ? -1 : 1;
-            case FacingSource.CustomSign:
-                return customFacingSign >= 0 ? 1 : -1;
-            default:
-                return 1;
+            hitboxRoot.transform.rotation = quaternion.Euler(0, 0, 20f);
+        }
+        else if (direction.y < 0 && !move.isGrounded)
+        {
+            hitboxRoot.transform.rotation = quaternion.Euler(0, 0, -20f);
+        }
+        else
+        {
+            hitboxRoot.transform.rotation = quaternion.Euler(0, 0, 0);
+        }
+
+        // FUCKING IMPORTANT POINT
+        if (Time.time < inputDelay)
+        {
+            // InputHub에 쌓인 요청을 해제시켜줘야 다음 프레임에 발동 안됨
+            if (input.AttackRequest()) { }
+            if (input.AttackReleaseRequest()) { }
+
+            isHolding = false;
+            attackCall = false;
+            return;
+        }
+
+        // Start Measurement
+        if (input.AttackRequest() && !isHolding)
+        {
+            isHolding = true;
+            pressTime = Time.time;
+        }
+
+        // Finish Measurement
+        if (input.AttackReleaseRequest() && isHolding)
+        {
+            isHolding = false;
+            holdTime = Time.time - pressTime;
+            attackCall = true;
         }
     }
 
-    private void DoAttackOverlap()
+    private void FixedUpdate()
     {
-        _hitThisSwing.Clear();
-
-        int facing = GetFacingSign();
-
-        Vector2 localOffset = new Vector2(boxOffset.x * facing, boxOffset.y);
-        Vector2 worldCenter = transform.TransformPoint(localOffset);
-
-        float angleDeg = rotateWithFacing && facing < 0 ? -boxAngleDeg : boxAngleDeg;
-
-        LayerMask maskToUse = enemyLayers.value == 0 ? ~0 : enemyLayers;
-
-        Collider2D[] hits = Physics2D.OverlapBoxAll(worldCenter, boxSize, angleDeg, maskToUse);
-
-        if (drawRuntimeBox)
-            DrawBoxDebug(worldCenter, boxSize, angleDeg, 0.12f);
-
-        if (logHits) Debug.Log($"[PlayerAttack] Overlap hits = {(hits?.Length ?? 0)}");
-        if (hits == null || hits.Length == 0) return;
-
-        float baseDamage = _owner != null ? _owner.FinalAtk : 10f;
-        float damage = debugDamageOverride > 0f ? debugDamageOverride : baseDamage * damageScale;
-
-        foreach (var col in hits)
+        // attack pipeline
+        if (Time.time < inputDelay)
         {
-            if (col == null || _hitThisSwing.Contains(col)) continue;
-            _hitThisSwing.Add(col);
-
-            var enemy = col.GetComponentInParent<Enemy>() ?? col.GetComponent<Enemy>();
-            if (enemy != null)
-            {
-                enemy.TakeDamage(damage);
-                if (logHits) Debug.Log($"[PlayerAttack] Hit {enemy.name} for {damage}");
-            }
-            else if (logHits)
-            {
-                Debug.Log($"[PlayerAttack] Collider {col.name} has no Enemy component.");
-            }
+            attackCall = false;  // 자동 실행 래치 제거
+            isHolding  = false;  // 누르기 진행 상태 제거
+            return;
         }
-    }
+        if (!attackCall || isAttacking) return;
+        if (Time.time < inputDelay) return;
 
-    private void DrawBoxDebug(Vector2 center, Vector2 size, float angleDeg, float duration)
-    {
-        Vector2 half = size * 0.5f;
-        Quaternion rot = Quaternion.Euler(0, 0, angleDeg);
-        Vector2 a = center + (Vector2)(rot * new Vector3(-half.x, -half.y));
-        Vector2 b = center + (Vector2)(rot * new Vector3(-half.x,  half.y));
-        Vector2 c = center + (Vector2)(rot * new Vector3( half.x,  half.y));
-        Vector2 d = center + (Vector2)(rot * new Vector3( half.x, -half.y));
-        Debug.DrawLine(a, b, Color.red, duration);
-        Debug.DrawLine(b, c, Color.red, duration);
-        Debug.DrawLine(c, d, Color.red, duration);
-        Debug.DrawLine(d, a, Color.red, duration);
-    }
+        bool isEnhanced = holdTime > weapon.ComboDeadline;
+        if (!isEnhanced)
+        {
+            if (Time.time <= comboTime && currentCombo < maxCombo - 1)
+                currentCombo++;
+            else
+                currentCombo = 0;
+        }
 
-    private void OnDrawGizmosSelected()
-    {
-        // Scene 뷰에서 동일 계산 사용 (런타임/에디터 일관성)
-        int facing = Application.isPlaying ? GetFacingSign() : 1;
-        Vector2 localOffset = new Vector2(boxOffset.x * facing, boxOffset.y);
-        Vector2 worldCenter = transform.TransformPoint(localOffset);
-        float angleDeg = rotateWithFacing && facing < 0 ? -boxAngleDeg : boxAngleDeg;
+        isAttacking = true;
+        StartCoroutine(AttackOrder());
 
-        Gizmos.color = new Color(1f, 0.2f, 0.2f, 0.35f);
-        Gizmos.matrix = Matrix4x4.TRS(worldCenter, Quaternion.Euler(0, 0, angleDeg), Vector3.one);
-        Gizmos.DrawCube(Vector3.zero, new Vector3(boxSize.x, boxSize.y, 1f));
+        float start = Time.time;
+        if (isEnhanced)
+        {
+            var ea = weapon.EnhancedAttack;
+            inputDelay = start + ea.preDelay + ea.hitTime + ea.postDelay - 0.1f;
+            comboTime = 0;
+        }
+        else
+        {
+            var ca = weapon.ComboAttacks[currentCombo];
+            inputDelay = start + ca.preDelay + ca.hitTime + ca.postDelay - 0.1f;
+            comboTime = inputDelay + 0.3f;
+        }
+        attackCall = false;
     }
 }

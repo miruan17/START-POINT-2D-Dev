@@ -1,9 +1,5 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(SpriteRenderer))]
-[RequireComponent(typeof(Animator))]
-[RequireComponent(typeof(Collider2D))]
 public abstract class Character : MonoBehaviour
 {
     [Header("StatusDef")]
@@ -54,7 +50,7 @@ public abstract class Character : MonoBehaviour
     public float FinalDef => stats.GetFinal(StatusType.Def);
     public float FinalSpd => stats.GetFinal(StatusType.Spd);
 
-    // Wrapper Method
+    // Wrapper Method - Modifier
     public void ApplyAdditional(string sourceId, StatusSourceKind kind, StatusType type, float value)
         => stats.AddModifier(new StatusModifier(sourceId, kind, type, StatusModKind.Additional, value));
 
@@ -66,4 +62,14 @@ public abstract class Character : MonoBehaviour
     //System.collections.Generic namespace의 Dictionary
     public System.Collections.Generic.Dictionary<StatusSourceKind, StatContribution>
         GetContributionsByKind(StatusType stat) => stats.GetContributionsByKind(stat);
+
+    private void FixedUpdate()
+    {
+        currentHp = FinalHp;
+        currentSp = FinalSp;
+        if (currentHp <= 0)
+        {
+            //DeathEvent
+        }
+    }
 }

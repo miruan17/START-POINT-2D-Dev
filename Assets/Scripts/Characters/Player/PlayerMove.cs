@@ -3,27 +3,27 @@ using UnityEngine;
 public class PlayerMove : MonoBehaviour
 {
     private Player player;
+    private PlayerInputHub input;
     private Rigidbody2D rigid;
-    private SpriteRenderer spriteRenderer;
     private Animator anim;
     private Collider2D bodyCol;
 
     private float walkSpeed;
 
     [Header("Jump")]
-    public float jumpPower = 7f;
+    public float jumpPower = 13f;
 
     [Header("Ground Check")]
     public float groundCheckDepth = 0.1f;
     public LayerMask groundMask;
 
-    private bool isGrounded;
+    public bool isGrounded;
 
     private void Awake()
     {
         player = GetComponent<Player>();
+        input = GetComponent<PlayerInputHub>();
         rigid = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
         bodyCol = GetComponent<Collider2D>();
     }
@@ -32,11 +32,6 @@ public class PlayerMove : MonoBehaviour
     {
         walkSpeed = player.FinalSpd;
 
-        float hx = player.MoveInput.x;
-        if (hx < -Mathf.Epsilon) spriteRenderer.flipX = true;
-        else if (hx >  Mathf.Epsilon) spriteRenderer.flipX = false;
-
-        // run anim
         anim.SetBool("Move", Mathf.Abs(rigid.velocity.x) > 0.01f);
     }
 
@@ -46,19 +41,19 @@ public class PlayerMove : MonoBehaviour
         isGrounded = OverlapGround();
         anim.SetBool("Jump", !isGrounded);
 
-        // flix x
-        float h = Mathf.Clamp(player.MoveInput.x, -1f, 1f);
+        // move
+        float h = Mathf.Clamp(input.MoveInput.x, -1f, 1f);
         if (isGrounded)
         {
             rigid.AddForce(Vector2.right * h * 2f, ForceMode2D.Impulse);
         }
 
-        // spped maximum
+        // speed maximum
         float vx = Mathf.Clamp(rigid.velocity.x, -walkSpeed, walkSpeed);
         rigid.velocity = new Vector2(vx, rigid.velocity.y);
 
         // jump
-        if (player.ConsumeJumpRequest() && isGrounded && !anim.GetBool("Jump"))
+        if (input.JumpRequest() && isGrounded && !anim.GetBool("Jump"))
         {
             rigid.velocity = new Vector2(rigid.velocity.x, 0f);
             rigid.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);

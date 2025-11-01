@@ -113,14 +113,15 @@ public class StatusManager
         kind = StatusSourceKind.Other;
         return false;
     }
+    
     // Reset
     private void InitZeros()
     {
         foreach (StatusType t in System.Enum.GetValues(typeof(StatusType)))
         {
-            _base[t]       = 0f;
+            _base[t] = 0f;
             _additional[t] = 0f;
-            _multiple[t]   = 0f;
+            _multiple[t] = 0f;
         }
     }
 }

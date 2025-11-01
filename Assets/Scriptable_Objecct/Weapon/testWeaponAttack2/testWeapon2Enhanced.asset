@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2faf6ff9bbb8ebe4984f262a5cb56148, type: 3}
+  m_Name: testWeapon2Enhanced
+  m_EditorClassIdentifier: 
+  attackId: 6
+  useSP: 0
+  Hitbox: {fileID: 59730645314180040, guid: 82d469d44d525e34aba37ed62d9e67d5, type: 3}
+  speed: 0
+  preDelay: 0.1
+  hitTime: 0.1
+  postDelay: 0.1
+  DamageScale: 1
+  knockback: {x: 0, y: 0}
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 0
+  spawnVFX: {fileID: 0}
+  hitVFX: {fileID: 0}
+  spawnSFX: {fileID: 0}
+  hitSFX: {fileID: 0}
+  flipOffsetWithFacing: 1
