@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Root_Skill
   m_EditorClassIdentifier: 
   id: 0
-  skillName: test0
+  skillName: Root
   icon: {fileID: 0}
   unlockCost: 1
   cost: 1

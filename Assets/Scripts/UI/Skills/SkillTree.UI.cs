@@ -13,7 +13,7 @@ public partial class SkillTree : MonoBehaviour
     [SerializeField] private bool enableKeyboardNav = true;
     [Header("UI Elements")]
     [SerializeField] private Text descriptionText;
-    [SerializeField] private ScrollFocusController scrollFocusController;
+    [SerializeField] private ScrollFocusController scrollController;
     private SkillNodeBase _focused;
     public SkillNodeBase FocusedNode => _focused;
 
@@ -53,8 +53,10 @@ public partial class SkillTree : MonoBehaviour
             descriptionText.text = node.Definition.description ?? "";
             Debug.Log(node.Definition.description);
         }
-        if (scrollFocusController != null)
-            scrollFocusController.FocusOn(node.transform);
+        if (scrollController != null)
+            scrollController.FocusOn(node.transform, node.Definition.skillName);
+
+
         // Optional: add focus-specific visuals inside RefreshVisual if desired
         Debug.Log(node.Id);
         RefreshAll();
