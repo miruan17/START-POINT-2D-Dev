@@ -11,6 +11,7 @@ public partial class SkillRegisterManager : MonoBehaviour
     private int _focusedIndex = -1;
     [SerializeField] Text skillNameText;
     [SerializeField] Text descriptionText;
+    public static SkillNodeDef CurrentFocusedSkill { get; private set; }
 
     private void Update()
     {
@@ -52,7 +53,7 @@ public partial class SkillRegisterManager : MonoBehaviour
         EventSystem.current?.SetSelectedGameObject(_focusedIcon);
         descriptionText.text = IconData[index].description;
         skillNameText.text = IconData[index].skillName;
-
+        CurrentFocusedSkill = IconData[index];
         // 포커스 색상 반영
         RefreshFocusVisual();
     }
