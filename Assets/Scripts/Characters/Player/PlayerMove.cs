@@ -24,7 +24,7 @@ public class PlayerMove : MonoBehaviour
         player = GetComponent<Player>();
         input = GetComponent<PlayerInputHub>();
         rigid = GetComponent<Rigidbody2D>();
-        anim = GetComponent<Animator>();
+        anim = GetComponentInChildren<Animator>();
         bodyCol = GetComponent<Collider2D>();
     }
 
