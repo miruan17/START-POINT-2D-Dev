@@ -27,6 +27,8 @@ public partial class SkillTree : MonoBehaviour
 
     private void Update()
     {
+        if (!UIFocusController.Instance.IsFocused(UIFocusController.UIFocusTarget.SkillTreeUI))
+            return;
         if (!enableKeyboardNav) return;
         //방향키 입력이 들어오면 포커싱 옮기기
         if (Input.GetKeyDown(KeyCode.UpArrow)) MoveFocus(NavDir.Up);

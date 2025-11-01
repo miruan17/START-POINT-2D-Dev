@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SkillRegisterManager : MonoBehaviour
+public partial class SkillRegisterManager : MonoBehaviour
 {
     [Header("Skill UI Settings")]
     [SerializeField] private Transform contentParent;      // ScrollView의 Content
