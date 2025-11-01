@@ -7,9 +7,10 @@ using UnityEngine.UI;
 public partial class SkillRegisterManager : MonoBehaviour
 {
     public enum NavDir { Up = 0, Left = 1, Down = 2, Right = 3 }
-
     private GameObject _focusedIcon;
     private int _focusedIndex = -1;
+    [SerializeField] Text skillNameText;
+    [SerializeField] Text descriptionText;
 
     private void Update()
     {
@@ -22,6 +23,8 @@ public partial class SkillRegisterManager : MonoBehaviour
         // 최초 포커스
         if (_focusedIcon == null)
         {
+            skillNameText.text = "";
+            descriptionText.text = "";
             if (Input.anyKeyDown)
                 FocusIcon(0);
             return;
@@ -47,6 +50,8 @@ public partial class SkillRegisterManager : MonoBehaviour
 
         // UI 시스템에 반영
         EventSystem.current?.SetSelectedGameObject(_focusedIcon);
+        descriptionText.text = IconData[index].description;
+        skillNameText.text = IconData[index].skillName;
 
         // 포커스 색상 반영
         RefreshFocusVisual();

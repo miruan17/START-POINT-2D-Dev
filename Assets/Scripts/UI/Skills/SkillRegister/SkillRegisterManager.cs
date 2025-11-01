@@ -12,6 +12,7 @@ public partial class SkillRegisterManager : MonoBehaviour
     [Header("Runtime Data")]
     public List<SkillNodeBase> unlockedSkillList = new();  // 해금된 스킬 리스트
     private readonly List<GameObject> spawnedIcons = new(); // 생성된 UI 오브젝트 캐시
+    private readonly List<SkillNodeDef> IconData = new(); // 각 Icon별 Definition
 
 
     public void updateUnlockedSkillList(List<SkillNodeBase> unlockedSkillList)
@@ -37,6 +38,7 @@ public partial class SkillRegisterManager : MonoBehaviour
                 Destroy(icon);
         }
         spawnedIcons.Clear();
+        IconData.Clear();
 
         // 새 아이콘 생성
         foreach (SkillNodeBase node in unlockedSkillList)
@@ -47,14 +49,13 @@ public partial class SkillRegisterManager : MonoBehaviour
             GameObject icon = Instantiate(skillIconPrefab, contentParent);
             icon.name = $"Skill_{node.Definition.skillName}";
 
-            SkillIconData data = icon.AddComponent<SkillIconData>();
-            data.Definition = node.Definition.Clone();
 
             Image img = icon.GetComponent<Image>();
             if (img != null && node.Definition.icon != null)
                 img.sprite = node.Definition.icon;
 
             spawnedIcons.Add(icon);
+            IconData.Add(node.Definition.Clone());
         }
     }
 }
