@@ -14,5 +14,11 @@ public class SkillNodeDef : ScriptableObject
 
 
     [TextArea(2, 5)]
-    public string description; // 스킬 설명 
+    public string description; // 스킬 설명
+
+    public SkillNodeDef Clone() // 얕은 복제용 메서드
+    {
+        var clone = Instantiate(this);
+        return clone;
+    }
 }

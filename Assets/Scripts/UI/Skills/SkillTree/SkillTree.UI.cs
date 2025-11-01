@@ -51,14 +51,14 @@ public partial class SkillTree : MonoBehaviour
         if (descriptionText != null && node.Definition != null)
         {
             descriptionText.text = node.Definition.description ?? "";
-            Debug.Log(node.Definition.description);
+            //Debug.Log(node.Definition.description);
         }
         if (scrollController != null)
             scrollController.FocusOn(node.transform, node.Definition.skillName);
 
 
         // Optional: add focus-specific visuals inside RefreshVisual if desired
-        Debug.Log(node.Id);
+        //Debug.Log(node.Id);
         RefreshAll();
     }
 

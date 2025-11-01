@@ -9,7 +9,7 @@ public class SubSkillNode : SkillNodeBase
     void Start()
     {
         player.ApplyAdditional("aaa", StatusSourceKind.SkillNode, StatusType.Hp, 10);
-        Debug.Log("player hp up: " + player.FinalHp);
+        //Debug.Log("player hp up: " + player.FinalHp);
     }
 
     // Update is called once per frame

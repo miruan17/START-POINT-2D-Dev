@@ -70,13 +70,13 @@ public abstract class SkillNodeBase : MonoBehaviour, IPointerClickHandler, ISubm
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        Debug.Log($"[MouseClick] {definition.skillName}");
+        //Debug.Log($"[MouseClick] {definition.skillName}");
         HandleClick(isKeyboard: false);
     }
 
     public void OnSubmit(BaseEventData eventData)
     {
-        Debug.Log($"[KeyboardEnter] {definition.skillName}");
+        //Debug.Log($"[KeyboardEnter] {definition.skillName}");
         HandleClick(isKeyboard: true);
     }
     private void HandleClick(bool isKeyboard)

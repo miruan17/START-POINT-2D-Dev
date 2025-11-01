@@ -24,7 +24,7 @@ public partial class SkillTree : MonoBehaviour
             node.Bind(this);
         }
         LvUpBtn.onClick.AddListener(OnClicked);
-        Debug.Log(nodes.Count);
+        //Debug.Log(nodes.Count);
         RefreshAll();
     }
     void OnClicked()
@@ -43,7 +43,7 @@ public partial class SkillTree : MonoBehaviour
     }
     public void NotifyUnlocked(SkillNodeBase node)
     {
-        Debug.Log(node.Id + "is unlocked");
+        //Debug.Log(node.Id + "is unlocked");
     }
 
     public void addUnlockedSkilltoList(SkillNodeBase unlocked)
