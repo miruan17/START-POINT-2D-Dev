@@ -8,7 +8,12 @@ public class PlayerMove : MonoBehaviour
     private Animator anim;
     private Collider2D bodyCol;
 
-    private float walkSpeed;
+    [Header("Speed Scale")]
+    public float speedScale = 1.0f;
+    private float Speed;
+
+    private float accel = 1.0f;
+    private float deccel = 1.0f;
 
     [Header("Jump")]
     public float jumpPower = 13f;
@@ -30,7 +35,7 @@ public class PlayerMove : MonoBehaviour
 
     private void Update()
     {
-        walkSpeed = player.FinalSpd;
+        Speed = speedScale * player.FinalSpd;
 
         anim.SetBool("Move", Mathf.Abs(rigid.velocity.x) > 0.01f);
     }
@@ -49,7 +54,7 @@ public class PlayerMove : MonoBehaviour
         }
 
         // speed maximum
-        float vx = Mathf.Clamp(rigid.velocity.x, -walkSpeed, walkSpeed);
+        float vx = Mathf.Clamp(rigid.velocity.x, -Speed, Speed);
         rigid.velocity = new Vector2(vx, rigid.velocity.y);
 
         // jump
