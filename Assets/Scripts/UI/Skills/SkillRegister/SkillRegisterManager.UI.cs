@@ -26,8 +26,13 @@ public partial class SkillRegisterManager : MonoBehaviour
         {
             skillNameText.text = "";
             descriptionText.text = "";
-            if (Input.anyKeyDown)
+            if (Input.GetKeyDown(KeyCode.UpArrow) ||
+                Input.GetKeyDown(KeyCode.DownArrow) ||
+                Input.GetKeyDown(KeyCode.LeftArrow) ||
+                Input.GetKeyDown(KeyCode.RightArrow))
+            {
                 FocusIcon(0);
+            }
             return;
         }
 
