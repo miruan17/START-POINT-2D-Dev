@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SubSkillNode : SkillNodeBase
+public class MainSkillNode : SkillNodeBase
 {
     // Start is called before the first frame update
     void Start()

@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aba6c6de8a7e41242bfd88a029673d6f, type: 3}
-  m_Name: Test_Skill_00 3
+  m_Name: Root_Skill
   m_EditorClassIdentifier: 
-  id: 3
-  skillName: test3
-  icon: {fileID: 21300000, guid: f6b8b85cbdc82ce439a41ae3d56d57ee, type: 3}
+  id: 0
+  skillName: Root
+  icon: {fileID: 0}
   unlockCost: 1
   cost: 1
   prerequisiteSkills:
-  - {fileID: 11400000, guid: 2a08bc1bd8e71784ea3b25446674e02d, type: 2}
+  - {fileID: 11400000, guid: 573f46c681565304bb1d480e8b26f36d, type: 2}
+  - {fileID: 11400000, guid: 09cc0815d4ba5b74aa782693bf265454, type: 2}
   - {fileID: 0}
-  - {fileID: 11400000, guid: bc4f78230173ce24b93c8128832bc2a6, type: 2}
-  - {fileID: 11400000, guid: ffce2dda2789c414f8bb0feb290880c9, type: 2}
-  isMainNode: 1
-  description: Description for Main Node 03
+  - {fileID: 11400000, guid: c4c129f3fc7bc444db5e1875f002c5f9, type: 2}
+  isMainNode: 0
+  description: Root
