@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public partial class SkillRegisterManager : MonoBehaviour
 {
     public enum NavDir { Up = 0, Left = 1, Down = 2, Right = 3 }
-    private GameObject _focusedIcon;
+    private SkillRegisterIcon _focusedIcon;
     private int _focusedIndex = -1;
     [SerializeField] Text skillNameText;
     [SerializeField] Text descriptionText;
@@ -41,7 +41,7 @@ public partial class SkillRegisterManager : MonoBehaviour
             MoveFocus(NavDir.Right);
     }
 
-    private void FocusIcon(int index)
+    public void FocusIcon(int index)
     {
         if (index < 0 || index >= spawnedIcons.Count)
             return;
@@ -50,10 +50,10 @@ public partial class SkillRegisterManager : MonoBehaviour
         _focusedIndex = index;
 
         // UI 시스템에 반영
-        EventSystem.current?.SetSelectedGameObject(_focusedIcon);
-        descriptionText.text = IconData[index].description;
-        skillNameText.text = IconData[index].skillName;
-        CurrentFocusedSkill = IconData[index];
+        EventSystem.current?.SetSelectedGameObject(_focusedIcon.gameObject);
+        descriptionText.text = spawnedIcons[index].Definition.description;
+        skillNameText.text = spawnedIcons[index].Definition.skillName;
+        CurrentFocusedSkill = spawnedIcons[index].Definition;
         // 포커스 색상 반영
         RefreshFocusVisual();
     }
@@ -62,7 +62,7 @@ public partial class SkillRegisterManager : MonoBehaviour
     {
         for (int i = 0; i < spawnedIcons.Count; i++)
         {
-            var img = spawnedIcons[i].GetComponent<Image>();
+            var img = spawnedIcons[i].icon;
             if (img == null) continue;
             img.color = (i == _focusedIndex) ? Color.yellow : Color.white;
         }

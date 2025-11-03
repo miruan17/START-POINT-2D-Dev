@@ -7,12 +7,11 @@ public partial class SkillRegisterManager : MonoBehaviour
 {
     [Header("Skill UI Settings")]
     [SerializeField] private Transform contentParent;      // ScrollView의 Content
-    [SerializeField] private GameObject skillIconPrefab;   // Skill 아이콘 프리팹
+    [SerializeField] private SkillRegisterIcon skillIconPrefab;   // Skill 아이콘 프리팹
 
     [Header("Runtime Data")]
     public List<SkillNodeBase> unlockedSkillList = new();  // 해금된 스킬 리스트
-    private readonly List<GameObject> spawnedIcons = new(); // 생성된 UI 오브젝트 캐시
-    private readonly List<SkillNodeDef> IconData = new(); // 각 Icon별 Definition
+    private readonly List<SkillRegisterIcon> spawnedIcons = new(); // 생성된 UI 오브젝트 캐시
 
 
     public void updateUnlockedSkillList(List<SkillNodeBase> unlockedSkillList)
@@ -35,10 +34,10 @@ public partial class SkillRegisterManager : MonoBehaviour
         foreach (var icon in spawnedIcons)
         {
             if (icon != null)
-                Destroy(icon);
+                Destroy(icon.gameObject);
         }
         spawnedIcons.Clear();
-        IconData.Clear();
+        int cnt = 0;
 
         // 새 아이콘 생성
         foreach (SkillNodeBase node in unlockedSkillList)
@@ -46,16 +45,17 @@ public partial class SkillRegisterManager : MonoBehaviour
             if (node == null || node.Definition == null)
                 continue;
 
-            GameObject icon = Instantiate(skillIconPrefab, contentParent);
+            SkillRegisterIcon icon = Instantiate(skillIconPrefab, contentParent);
             icon.name = $"Skill_{node.Definition.skillName}";
-
-
-            Image img = icon.GetComponent<Image>();
-            if (img != null && node.Definition.icon != null)
-                img.sprite = node.Definition.icon;
+            icon.index = cnt++;
+            icon.Definition = node.Definition.Clone();
+            icon.parent = this;
+            if (icon.Definition.icon != null && icon.icon != null)
+            {
+                icon.icon.sprite = icon.Definition.icon;
+            }
 
             spawnedIcons.Add(icon);
-            IconData.Add(node.Definition.Clone());
         }
     }
 }
