@@ -96,17 +96,18 @@ public class PlayerAttack : MonoBehaviour
         input.flip = false;
         AttackDef attack;
         GameObject hitbox;
+        Debug.Log("Caster: " + this.name);
         if (holdTime > weapon.ComboDeadline)
         {
             attack = weapon.EnhancedAttack;
             hitbox = enhancedHitbox;
-            Debug.Log("Enhanced Attack");
+            Debug.Log("AttackType: Enhanced Attack");
         }
         else
         {
             attack = weapon.ComboAttacks[currentCombo];
             hitbox = comboHitboxes[currentCombo];
-            Debug.Log($"Combo Attack {currentCombo + 1}");  
+            Debug.Log("AttackType: " + $"Combo Attack {currentCombo + 1}");  
         }
         yield return new WaitForSeconds(attack.preDelay);
         hitbox.SetActive(true);

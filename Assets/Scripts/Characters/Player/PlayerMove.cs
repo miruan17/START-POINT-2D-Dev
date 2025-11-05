@@ -12,9 +12,6 @@ public class PlayerMove : MonoBehaviour
     public float speedScale = 1.0f;
     private float Speed;
 
-    private float accel = 1.0f;
-    private float deccel = 1.0f;
-
     [Header("Jump")]
     public float jumpPower = 13f;
 
@@ -35,7 +32,7 @@ public class PlayerMove : MonoBehaviour
 
     private void Update()
     {
-        Speed = speedScale * player.FinalSpd;
+        Speed = speedScale * player.GetSpd;
 
         anim.SetBool("Move", Mathf.Abs(rigid.velocity.x) > 0.01f);
     }

@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public enum StatusType
 {
     Hp, Sp, Atk, Aps, Def, Spd

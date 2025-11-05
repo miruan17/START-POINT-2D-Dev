@@ -1,4 +1,7 @@
+using System.Numerics;
 using UnityEngine;
+
+[DisallowMultipleComponent]
 
 public abstract class Character : MonoBehaviour
 {
@@ -11,6 +14,7 @@ public abstract class Character : MonoBehaviour
     protected Collider2D bodyCol;
 
     protected StatusManager stats;
+    protected EffectManager effects;
 
     // Runtime value
     protected float currentHp;
@@ -24,8 +28,11 @@ public abstract class Character : MonoBehaviour
         bodyCol = GetComponent<Collider2D>();
 
         BuildStatus();
+        currentHp = GetMaxHp;
+        currentSp = GetMaxSp;
     }
 
+    #region Status Area
     private void BuildStatus()
     {
         stats = new StatusManager();
@@ -43,12 +50,12 @@ public abstract class Character : MonoBehaviour
     }
 
     // Final value
-    public float FinalHp => stats.GetFinal(StatusType.Hp);
-    public float FinalSp => stats.GetFinal(StatusType.Sp);
-    public float FinalAtk => stats.GetFinal(StatusType.Atk);
-    public float FinalAps => stats.GetFinal(StatusType.Aps);
-    public float FinalDef => stats.GetFinal(StatusType.Def);
-    public float FinalSpd => stats.GetFinal(StatusType.Spd);
+    public float GetMaxHp => stats.GetFinal(StatusType.Hp);
+    public float GetMaxSp => stats.GetFinal(StatusType.Sp);
+    public float GetAtk => stats.GetFinal(StatusType.Atk);
+    public float GetAps => stats.GetFinal(StatusType.Aps);
+    public float GetDef => stats.GetFinal(StatusType.Def);
+    public float GetSpd => stats.GetFinal(StatusType.Spd);
 
     // Wrapper Method - Modifier
     public void ApplyAdditional(string sourceId, StatusSourceKind kind, StatusType type, float value)
@@ -63,13 +70,33 @@ public abstract class Character : MonoBehaviour
     public System.Collections.Generic.Dictionary<StatusSourceKind, StatContribution>
         GetContributionsByKind(StatusType stat) => stats.GetContributionsByKind(stat);
 
+    public void getDamage(float value)
+    {
+        currentHp -= value;
+
+    }
+
+    #endregion
+
+
+
+    #region Effect Area
+    
+    
+    
+    #endregion
+
+
+
     private void FixedUpdate()
     {
-        currentHp = FinalHp;
-        currentSp = FinalSp;
+        if (currentHp > GetMaxHp) currentHp = GetMaxHp;
+        if (currentSp > GetMaxSp) currentSp = GetMaxSp;
         if (currentHp <= 0)
         {
-            //DeathEvent
+            currentHp = 0;
+            Debug.Log(this.name + "Dead");
+            gameObject.SetActive(false);
         }
     }
 }
