@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a90bee18660cbad48a5e9da9442bb278, type: 3}
   m_Name: PlayerStatus
   m_EditorClassIdentifier: 
-  DefaultHp: 20
-  DefaultSp: 20
-  DefaultAtk: 10
-  DefaultAps: 1
-  DefaultDef: 10
-  DefaultSpd: 10
+  HP: 20
+  SP: 20
+  ATK: 5
+  APS: 1
+  DEF: 5
+  SPD: 10

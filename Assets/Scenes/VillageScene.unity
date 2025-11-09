@@ -1265,7 +1265,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 921259277a947e044810901516bc0f5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  status: {fileID: 11400000, guid: 68e23521450fefe42a76e6a19301a823, type: 2}
+  characterStatus: {fileID: 11400000, guid: 68e23521450fefe42a76e6a19301a823, type: 2}
 --- !u!1001 &102598563
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -32245,7 +32245,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9eddff025b31add4e802c12c4180e757, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  status: {fileID: 11400000, guid: c36d527a509593f4db75df78e2eb09d4, type: 2}
+  characterStatus: {fileID: 11400000, guid: c36d527a509593f4db75df78e2eb09d4, type: 2}
 --- !u!1 &2233891928856476201
 GameObject:
   m_ObjectHideFlags: 0
