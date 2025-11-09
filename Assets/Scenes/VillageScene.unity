@@ -1164,7 +1164,7 @@ GameObject:
   - component: {fileID: 102398492}
   - component: {fileID: 102398491}
   - component: {fileID: 102398493}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -5451,7 +5451,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 404921813}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Hitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5649,7 +5649,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 413627933}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GFX/SFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5908,7 +5908,7 @@ GameObject:
   - component: {fileID: 417698033}
   - component: {fileID: 417698035}
   - component: {fileID: 417698034}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13586,7 +13586,7 @@ Transform:
   m_GameObject: {fileID: 901271484}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.5637078, y: 18.33315, z: 2.7493098}
+  m_LocalPosition: {x: -2.5637078, y: 18.33315, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -26076,7 +26076,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1697734299}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Logic
   m_TagString: Untagged
   m_Icon: {fileID: 0}

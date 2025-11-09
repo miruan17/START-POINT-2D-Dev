@@ -15,7 +15,7 @@ public abstract class Character : MonoBehaviour
 
     protected StatusManager stats;
     protected EffectManager effects;
-
+    
     // Runtime value
     protected float currentHp;
     protected float currentSp;
@@ -70,17 +70,19 @@ public abstract class Character : MonoBehaviour
     public System.Collections.Generic.Dictionary<StatusSourceKind, StatContribution>
         GetContributionsByKind(StatusType stat) => stats.GetContributionsByKind(stat);
 
-    public void getDamage(float value)
+    public void GetDamage(float value)
     {
+        
         currentHp -= value;
-
+        Debug.Log("GetDamage: " + value);
     }
 
     #endregion
 
-
+    
 
     #region Effect Area
+    
     
     
     
