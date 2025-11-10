@@ -47,7 +47,7 @@ public abstract class Character : MonoBehaviour
     {
         if (status.CurrentHP <= 0)
         {
-            status.SetCurrentHP(0);
+            status.CurrentHP = 0;
             Debug.Log(this.name + "Dead");
             gameObject.SetActive(false);
         }

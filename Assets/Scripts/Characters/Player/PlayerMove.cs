@@ -32,7 +32,7 @@ public class PlayerMove : MonoBehaviour
 
     private void Update()
     {
-        Speed = speedScale * player.status.Get(StatId.SPD);
+        Speed = speedScale * player.status.GetFinal(StatId.SPD);
 
         anim.SetBool("Move", Mathf.Abs(rigid.velocity.x) > 0.01f);
     }

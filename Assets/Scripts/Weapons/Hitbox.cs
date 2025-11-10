@@ -33,8 +33,8 @@ public class Hitbox : MonoBehaviour
         {
             Enemy enemy = other.GetComponent<Enemy>();
             caller = GetComponentInParent<Character>();
-            enemy.status.Damage(caller.status.Get(StatId.ATK));
-            Debug.Log("Hit " + other.name + ", Damage " + caller.status.Get(StatId.ATK));
+            enemy.status.CurrentHP -= caller.status.GetFinal(StatId.ATK);
+            Debug.Log("Hit " + other.name + ", Damage " + caller.status.GetFinal(StatId.ATK));
         }
     }
     

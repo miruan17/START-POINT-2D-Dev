@@ -2,7 +2,7 @@ using System;
 using System.Diagnostics.Contracts;
 using JetBrains.Annotations;
 using UnityEngine;
-public abstract class Effect
+public abstract class Effect    //Manager class
 {
     public String identifier;
 

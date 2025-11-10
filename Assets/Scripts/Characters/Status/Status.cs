@@ -13,7 +13,7 @@ public class Status
 
     public Status(float baseValue)
     {
-        this.baseValue = Math.Max(0f, baseValue);
+        SetDefaultValue(baseValue);
         modifiers = new List<StatusModifier>();
         Update();
     }

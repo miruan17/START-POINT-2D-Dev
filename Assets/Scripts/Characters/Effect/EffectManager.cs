@@ -4,7 +4,7 @@ using System.Linq;
 using System.Numerics;
 using UnityEngine;
 
-public class EffectManager
+public class EffectManager  //Manager class
 {
     // Effect Manager
     private List<Effect> effectList;
