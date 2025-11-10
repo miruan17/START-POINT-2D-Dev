@@ -14,21 +14,32 @@ public class EffectManager  //Manager class
     }
 
     // Effect 추가
-    public void AddEffect(String identifier, Effect effect, float term, params float[] argv)
+    public void AddEffect(String identifier, Effect effect, float term, params float[]? argv)
     {
-
+        effect.identifier = identifier;
+        effect.term = term;
         effectList.Add(effect);
-        effectList.Sort();
+        effectList.Sort((a, b) => a.identifier.CompareTo(b.identifier));
+    }
+    public void AddEffect(Effect effect)
+    {
+        effectList.Add(effect);
+        effectList.Sort((a, b) => a.identifier.CompareTo(b.identifier));
     }
 
-    public void SearchEffect(String identifier)
+    public int SearchNumEffect(String identifier)
     {
-        
+        int cnt = 0;
+        foreach (Effect effect in effectList)
+        {
+            if (effect.identifier.Equals(identifier)) cnt++;
+        }
+        return cnt;
     }
-    
-    public void RemoveEffect(String identifier)
+
+    public void RemoveEffect(Effect effect)
     {
-        
+        effectList.Remove(effect);
     }
 
     public List<Effect> ReturnEffect()
@@ -38,6 +49,6 @@ public class EffectManager  //Manager class
 
     public void RuntimeEffect()
     {
-        
+
     }
 }
