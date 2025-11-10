@@ -66,9 +66,9 @@ public class Status
         isDirty = true;
     }
 
-    public void SetBaseValue(float newBase)
+    public void SetDefaultValue(float value)
     {
-        baseValue = Math.Max(0f, newBase);
+        baseValue = Math.Max(0f, value);
         isDirty = true;
     }
     

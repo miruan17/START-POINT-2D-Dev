@@ -41,9 +41,9 @@ public sealed class CharacterStatusManager
     public float Get(StatId id) => _stats[id].Get();
 
     // Default setting
-    public void SetBase(StatId id, float baseValue)
+    public void SetDefault(StatId id, float value)
     {
-        _stats[id].SetBaseValue(baseValue);
+        _stats[id].SetDefaultValue(value);
         ClampResourceIfNeeded(id);
     }
 
