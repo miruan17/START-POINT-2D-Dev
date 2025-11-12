@@ -23,4 +23,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   isMainNode: 0
+  isPassive: 0
+  argument: {fileID: 0}
   description: Description for Sub Node 03
