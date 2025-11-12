@@ -37,16 +37,11 @@ public class Hitbox : MonoBehaviour
             enemy.status.CurrentHP -= caller.status.GetFinal(StatId.ATK);
             Debug.Log("Hit " + other.name + ", Damage " + caller.status.GetFinal(StatId.ATK));
             // send Player's enchantableEffectList to Enemy
-            EffectManager enemyManager = enemy.getApplyEffect();
-            List<ArgumentBase> playerArgList = caller.getArgList();
-
-            foreach (ArgumentBase arg in playerArgList)
+            EffectManager enemyManager = enemy.getEffect();
+            EffectManager playerManager = caller.getArgument();
+            foreach (var effect in playerManager.ReturnEffect())
             {
-                foreach (Effect effect in arg.effectManager.ReturnEffect())
-                {
-                    if (effect.identifier.Equals("Bleeding") && enemyManager.SearchNumEffect("Bleeding") >= 5) continue;
-                    enemyManager.AddEffect(effect.copy());
-                }
+                enemyManager.AddEffect(effect.copy());
             }
 
         }

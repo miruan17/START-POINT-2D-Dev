@@ -10,8 +10,5 @@ public class TestEnemy : Enemy
     private List<GameObject> hitboxes = new();
 
 
-    private void FixedUpdate()
-    {
-        
-    }
+
 }

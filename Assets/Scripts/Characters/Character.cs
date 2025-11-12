@@ -16,11 +16,7 @@ public abstract class Character : MonoBehaviour
 
     public CharacterStatusManager status;
     protected EffectManager effect;
-    protected EffectManager augment;
-
-
-    protected List<ArgumentBase> argList;  // 적용시킬 effect
-    protected EffectManager applyEffect;    // 적용될 effect
+    protected EffectManager argument;
 
     protected virtual void Awake()
     {
@@ -29,17 +25,8 @@ public abstract class Character : MonoBehaviour
         anim = GetComponent<Animator>();
         bodyCol = GetComponent<Collider2D>();
         status = new CharacterStatusManager(characterStatus);
-        argList = new();
-        applyEffect = new EffectManager();
-        argList.Add(new Skill_Bleeding());
-        foreach (ArgumentBase arg in argList)
-        {
-            if (arg.GetType().Equals(new Skill_Bleeding().GetType()))
-            {
-                Skill_Bleeding skill = (Skill_Bleeding)arg;
-                skill.setActiveBleeding();
-            }
-        }
+        effect = new EffectManager();
+        argument = new EffectManager();
     }
 
     #region Status Area
@@ -53,16 +40,14 @@ public abstract class Character : MonoBehaviour
 
     #region Effect Area
 
-    public List<ArgumentBase> getArgList()
+    public EffectManager getEffect()
     {
-        return argList;
+        return effect;
     }
-    public EffectManager getApplyEffect()
+    public EffectManager getArgument()
     {
-        return applyEffect;
+        return argument;
     }
-
-
     #endregion
 
     public abstract void DeathTrigger();
@@ -72,18 +57,5 @@ public abstract class Character : MonoBehaviour
         // 지향 구조
         DeathTrigger();
         effect.RuntimeEffect();
-        augment.RuntimeEffect();
-        
-        
-        List<Effect> deleteList = new();
-        foreach (Effect effect in applyEffect.ReturnEffect())
-        {
-            if (!effect.IsExpired) effect.Runtime();
-            else deleteList.Add(effect);
-        }
-        foreach (Effect effect in deleteList)
-        {
-            applyEffect.RemoveEffect(effect);
-        }
     }
 }

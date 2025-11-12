@@ -101,8 +101,7 @@ public abstract class SkillNodeBase : MonoBehaviour, IPointerClickHandler, ISubm
             IsUnlocked = true;
             Owner.NotifyUnlocked(this);
 
-            if (definition.isMainNode)
-                Owner.addUnlockedSkilltoList(this);
+            Owner.addUnlockedSkilltoList(this);
 
             Owner.RefreshAll();
         }

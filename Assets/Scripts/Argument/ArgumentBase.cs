@@ -1,9 +1,7 @@
-public abstract class ArgumentBase
-{
-    public EffectManager effectManager { get; protected set; }
+using UnityEngine;
 
-    public ArgumentBase()
-    {
-        effectManager = new EffectManager();
-    }
+public abstract class ArgumentBase : ScriptableObject
+{
+    public Effect effect;
+    public abstract void setActive();
 }

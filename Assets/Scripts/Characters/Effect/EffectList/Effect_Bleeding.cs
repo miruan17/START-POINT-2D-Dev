@@ -25,17 +25,14 @@ public class Effect_Bleeding : Effect   //Manager class
     }
 
     // EffectManager에 자신 제거요청
-    public override void Remove()
-    {
-        manager.RemoveEffect(this);
-    }
 
     public override Effect copy()
     {
         Effect_Bleeding newEffect = new Effect_Bleeding();
         newEffect.identifier = identifier;
-        newEffect.term = this.term;
+        newEffect.term = term;
 
         return newEffect;
     }
+
 }

@@ -10,6 +10,7 @@ public class SkillTreeManager : MonoBehaviour, ISkillPointProvider
     [SerializeField] private Text skillPointText;
     [SerializeField] private SkillRegisterManager skillRegisterManager;
     private List<SkillNodeBase> unlockedSkillList = new();
+    private List<SkillNodeBase> unlockedPassiveList = new();
     public int useableSkillPoints { get; private set; }
     void Awake()
     {
@@ -62,6 +63,17 @@ public class SkillTreeManager : MonoBehaviour, ISkillPointProvider
     // Unlocked Skill을 list에 추가
     public void addUnlockedSkilltoList(SkillNodeBase unlocked)
     {
+        if (!unlocked.Definition.isMainNode)
+        {
+            return;
+        }
+        if (unlocked.Definition.isPassive)
+        {
+            unlockedPassiveList.Add(unlocked);
+            Player player = FindObjectOfType<Player>();
+            player.setPassiveSkillList(unlockedPassiveList);
+            return;
+        }
         if (unlockedSkillList.Contains(unlocked)) // 이미 리스트에 들어가 있는 경우는 추가 대신 갱신 (ex 스킬 레벨업)
         {
             var exist = unlockedSkillList.First(n => n == unlocked);

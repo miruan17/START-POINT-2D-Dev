@@ -1,7 +1,12 @@
+using UnityEngine;
+
+[CreateAssetMenu(menuName = "Skill/Bleeding")]
 public class Skill_Bleeding : ArgumentBase
 {
-    public void setActiveBleeding()
+    public override void setActive()
     {
-        effectManager.AddEffect("Bleeding", new Effect_Bleeding(), 5f);
+        effect = new Effect_Bleeding();
+        effect.identifier = "Bleeding";
+        effect.term = 5f;
     }
 }
