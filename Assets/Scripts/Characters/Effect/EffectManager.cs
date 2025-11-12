@@ -16,6 +16,7 @@ public class EffectManager  //Manager class
     // Effect 추가
     public void AddEffect(String identifier, Effect effect, float term, params float[]? argv)
     {
+        effect.manager = this;
         effect.identifier = identifier;
         effect.term = term;
         effectList.Add(effect);
@@ -49,6 +50,9 @@ public class EffectManager  //Manager class
 
     public void RuntimeEffect()
     {
-
+        foreach (Effect effect in effectList)
+        {
+            effect.Runtime();
+        }
     }
 }

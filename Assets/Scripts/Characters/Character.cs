@@ -15,6 +15,10 @@ public abstract class Character : MonoBehaviour
     protected Collider2D bodyCol;
 
     public CharacterStatusManager status;
+    protected EffectManager effect;
+    protected EffectManager augment;
+
+
     protected List<ArgumentBase> argList;  // 적용시킬 effect
     protected EffectManager applyEffect;    // 적용될 effect
 
@@ -61,20 +65,20 @@ public abstract class Character : MonoBehaviour
 
     #endregion
 
-
+    public abstract void DeathTrigger();
 
     private void FixedUpdate()
     {
-        if (status.CurrentHP <= 0)
-        {
-            status.CurrentHP = 0;
-            Debug.Log(this.name + "Dead");
-            gameObject.SetActive(false);
-        }
+        // 지향 구조
+        DeathTrigger();
+        effect.RuntimeEffect();
+        augment.RuntimeEffect();
+        
+        
         List<Effect> deleteList = new();
         foreach (Effect effect in applyEffect.ReturnEffect())
         {
-            if (!effect.IsExpired) effect.Runtime(this);
+            if (!effect.IsExpired) effect.Runtime();
             else deleteList.Add(effect);
         }
         foreach (Effect effect in deleteList)

@@ -14,7 +14,7 @@ public class Effect_Bleeding : Effect   //Manager class
         _stats[StatId_Effect_Bleeding.BLD_stack] = new Status(0);
         _stats[StatId_Effect_Bleeding.EXC_BLD] = new Status(0);
     }
-    public override void Runtime(Character character)
+    public override void Runtime()
     {
         if (_stats[StatId_Effect_Bleeding.BLD_tick].Get() <= 0) return;
         if (Time.time - prevTime >= _stats[StatId_Effect_Bleeding.BLD_tick].Get())
@@ -23,10 +23,13 @@ public class Effect_Bleeding : Effect   //Manager class
             Debug.Log("출혈 틱 발생");
         }
     }
+
+    // EffectManager에 자신 제거요청
     public override void Remove()
     {
-
+        manager.RemoveEffect(this);
     }
+
     public override Effect copy()
     {
         Effect_Bleeding newEffect = new Effect_Bleeding();

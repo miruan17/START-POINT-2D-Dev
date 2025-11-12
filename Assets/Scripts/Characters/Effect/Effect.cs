@@ -4,6 +4,7 @@ using JetBrains.Annotations;
 using UnityEngine;
 public abstract class Effect    //Manager class
 {
+    public EffectManager manager;
     public String identifier;
 
     // time
@@ -12,7 +13,7 @@ public abstract class Effect    //Manager class
     public float RemainingTime => startTime + term - Time.time;
     public bool IsExpired => RemainingTime <= 0;
 
-    public abstract void Runtime(Character character);
+    public abstract void Runtime();
     public abstract void Remove();
     public abstract Effect copy();
 }

@@ -1262,10 +1262,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 102398489}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 921259277a947e044810901516bc0f5a, type: 3}
+  m_Script: {fileID: 11500000, guid: 18960fde5756679479460ab1f8b00cb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   characterStatus: {fileID: 11400000, guid: 68e23521450fefe42a76e6a19301a823, type: 2}
+  attack: {fileID: 11400000, guid: 9ff68a464af91fe4093b041f37fb709e, type: 2}
 --- !u!1001 &102598563
 PrefabInstance:
   m_ObjectHideFlags: 0
