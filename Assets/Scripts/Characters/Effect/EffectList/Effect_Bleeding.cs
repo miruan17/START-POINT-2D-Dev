@@ -17,10 +17,15 @@ public class Effect_Bleeding : Effect   //Manager class
     public override void Runtime()
     {
         if (_stats[StatId_Effect_Bleeding.BLD_tick].Get() <= 0) return;
+        if (stack == max_stack)
+        {
+            Debug.Log("과다출혈!!!");
+            stack = 0;
+        }
         if (Time.time - prevTime >= _stats[StatId_Effect_Bleeding.BLD_tick].Get())
         {
             prevTime = Time.time;
-            Debug.Log("출혈 틱 발생");
+            Debug.Log("출혈 틱 발생. 스택: " + stack);
         }
     }
 
@@ -31,7 +36,9 @@ public class Effect_Bleeding : Effect   //Manager class
         Effect_Bleeding newEffect = new Effect_Bleeding();
         newEffect.identifier = identifier;
         newEffect.term = term;
-
+        newEffect.can_stack = can_stack;
+        newEffect.stack = stack;
+        newEffect.max_stack = max_stack;
         return newEffect;
     }
 

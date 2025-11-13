@@ -13,7 +13,9 @@ public abstract class Effect    //Manager class
     public float startTime = Time.time;
     public float RemainingTime => startTime + term - Time.time;
     public bool IsExpired => RemainingTime <= 0;
-
+    public bool can_stack = false;
+    public int stack = 1;
+    public int max_stack = 1;
     public abstract void Runtime();
     public abstract Effect copy();
 
@@ -25,10 +27,7 @@ public abstract class Effect    //Manager class
     {
         manager = null;
     }
-    public void Remove()
-    {
-        manager.RemoveEffect(this);
-    }
+
 
     public void toString()
     {

@@ -33,16 +33,14 @@ public class EffectManager  //Manager class
     {
         effectList = list;
     }
-    public int SearchNumEffect(String identifier)
+    public Effect SearchEffectbyId(String identifier)
     {
-        int cnt = 0;
         foreach (Effect effect in effectList)
         {
-            if (effect.identifier.Equals(identifier)) cnt++;
+            if (effect.identifier.Equals(identifier)) return effect;
         }
-        return cnt;
+        return null;
     }
-
     public void RemoveEffect(Effect effect)
     {
         effectList.Remove(effect);
@@ -58,9 +56,10 @@ public class EffectManager  //Manager class
     {
         // effect 실행 및 지속시간이 끝난 effect 제거
         List<Effect> deleteList = new();
+        List<Effect> updateList = new();
         foreach (Effect effect in effectList)
         {
-            if (!effect.IsExpired) effect.Runtime();
+            if (!effect.IsExpired && effect.stack > 0) effect.Runtime();
             else deleteList.Add(effect);
         }
         foreach (Effect effect in deleteList)

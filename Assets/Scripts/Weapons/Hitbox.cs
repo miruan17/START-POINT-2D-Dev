@@ -41,7 +41,17 @@ public class Hitbox : MonoBehaviour
             EffectManager playerManager = caller.getArgument();
             foreach (var effect in playerManager.ReturnEffect())
             {
-                enemyManager.AddEffect(effect.copy());
+                Effect getter = enemyManager.SearchEffectbyId(effect.identifier);
+                if (getter != null)
+                {
+                    enemyManager.RemoveEffect(getter);
+                    if (getter.can_stack) getter.stack = getter.stack >= getter.max_stack ? getter.stack : getter.stack + 1;
+                    enemyManager.AddEffect(getter.copy());
+                }
+                else
+                {
+                    enemyManager.AddEffect(effect.copy());
+                }
             }
 
         }
