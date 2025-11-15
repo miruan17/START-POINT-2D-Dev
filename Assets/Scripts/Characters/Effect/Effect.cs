@@ -13,11 +13,16 @@ public abstract class Effect    //Manager class
     public float startTime = Time.time;
     public float RemainingTime => startTime + term - Time.time;
     public bool IsExpired => RemainingTime <= 0;
+
+    //stack
     public bool can_stack = false;
-    public int stack = 1;
+    public int stack = 0;
     public int max_stack = 1;
+
+    //promotion
+    public bool is_promotion = false;
+
     public abstract void Runtime();
-    public abstract Effect copy();
 
     public void BindingManager(EffectManager manager)
     {
@@ -27,11 +32,10 @@ public abstract class Effect    //Manager class
     {
         manager = null;
     }
-
-
-    public void toString()
+    public virtual void Refresh(Effect effect)
     {
-        Debug.Log(identifier + " " + term + " " + startTime);
+        term = effect.term;
+        startTime = Time.time;
     }
 }
 

@@ -5,19 +5,21 @@ using UnityEngine;
 public enum StatId_Effect_Bleeding { BLD, BLD_tick, BLD_stack, EXC_BLD }
 public class Effect_Bleeding : Effect   //Manager class
 {
-    private readonly Dictionary<StatId_Effect_Bleeding, Status> _stats = new();
+    private Dictionary<StatId_Effect_Bleeding, Status> _stats = new();
     private float prevTime = 0;
-    public Effect_Bleeding()
+    public Effect_Bleeding(float term, float dmg, float tick, int max_stack, bool is_promotion)
     {
-        _stats[StatId_Effect_Bleeding.BLD] = new Status(0);
-        _stats[StatId_Effect_Bleeding.BLD_tick] = new Status(0.5f);
-        _stats[StatId_Effect_Bleeding.BLD_stack] = new Status(0);
-        _stats[StatId_Effect_Bleeding.EXC_BLD] = new Status(0);
+        this.term = term;
+        this.max_stack = max_stack;
+        _stats[StatId_Effect_Bleeding.BLD] = new Status(dmg);
+        _stats[StatId_Effect_Bleeding.BLD_tick] = new Status(1f);
+        _stats[StatId_Effect_Bleeding.BLD_stack] = new Status(stack);
+        _stats[StatId_Effect_Bleeding.EXC_BLD] = new Status(is_promotion ? 1 : 0);
     }
     public override void Runtime()
     {
         if (_stats[StatId_Effect_Bleeding.BLD_tick].Get() <= 0) return;
-        if (stack == max_stack)
+        if (stack == max_stack && is_promotion)
         {
             Debug.Log("과다출혈!!!");
             stack = 0;
@@ -26,20 +28,18 @@ public class Effect_Bleeding : Effect   //Manager class
         {
             prevTime = Time.time;
             Debug.Log("출혈 틱 발생. 스택: " + stack);
+            Character obj = manager.GetCharacter();
+            obj.status.CurrentHP -= _stats[StatId_Effect_Bleeding.BLD].Get() * stack;
+            Debug.Log("남은 HP: " + obj.status.CurrentHP);
         }
     }
-
-    // EffectManager에 자신 제거요청
-
-    public override Effect copy()
+    public override void Refresh(Effect effect)
     {
-        Effect_Bleeding newEffect = new Effect_Bleeding();
-        newEffect.identifier = identifier;
-        newEffect.term = term;
-        newEffect.can_stack = can_stack;
-        newEffect.stack = stack;
-        newEffect.max_stack = max_stack;
-        return newEffect;
+        base.Refresh(effect);
+        Effect_Bleeding eff = (Effect_Bleeding)effect;
+        if (stack < max_stack) stack++;
+        _stats = eff._stats;
+        max_stack = eff.max_stack;
     }
 
 }

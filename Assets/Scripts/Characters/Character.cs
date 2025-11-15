@@ -25,8 +25,8 @@ public abstract class Character : MonoBehaviour
         anim = GetComponent<Animator>();
         bodyCol = GetComponent<Collider2D>();
         status = new CharacterStatusManager(characterStatus);
-        effect = new EffectManager();
-        argument = new EffectManager();
+        effect = new EffectManager(this);
+        argument = new EffectManager(this);
     }
 
     #region Status Area

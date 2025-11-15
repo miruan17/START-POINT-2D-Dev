@@ -36,24 +36,21 @@ public class Hitbox : MonoBehaviour
             caller = GetComponentInParent<Character>();
             enemy.status.CurrentHP -= caller.status.GetFinal(StatId.ATK);
             Debug.Log("Hit " + other.name + ", Damage " + caller.status.GetFinal(StatId.ATK));
-            // send Player's enchantableEffectList to Enemy
+
+            //
             EffectManager enemyManager = enemy.getEffect();
             EffectManager playerManager = caller.getArgument();
             foreach (var effect in playerManager.ReturnEffect())
             {
                 Effect getter = enemyManager.SearchEffectbyId(effect.identifier);
                 if (getter != null)
-                {
-                    enemyManager.RemoveEffect(getter);
-                    if (getter.can_stack) getter.stack = getter.stack >= getter.max_stack ? getter.stack : getter.stack + 1;
-                    enemyManager.AddEffect(getter.copy());
-                }
+                    getter.Refresh(effect);
                 else
                 {
-                    enemyManager.AddEffect(effect.copy());
+                    effect.Refresh(effect);
+                    enemyManager.AddEffect(effect);
                 }
             }
-
         }
     }
 }

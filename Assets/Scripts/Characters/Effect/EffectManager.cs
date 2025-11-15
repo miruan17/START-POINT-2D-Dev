@@ -8,9 +8,11 @@ public class EffectManager  //Manager class
 {
     // Effect Manager
     private List<Effect> effectList;
-    public EffectManager()
+    private Character character;
+    public EffectManager(Character ch)
     {
         effectList = new List<Effect>();
+        character = ch;
     }
 
     // Effect 추가
@@ -24,7 +26,6 @@ public class EffectManager  //Manager class
     }
     public void AddEffect(Effect effect)
     {
-        effect.toString();
         effectList.Add(effect);
         effect.BindingManager(this);
         effectList.Sort((a, b) => a.identifier.CompareTo(b.identifier));
@@ -44,14 +45,17 @@ public class EffectManager  //Manager class
     public void RemoveEffect(Effect effect)
     {
         effectList.Remove(effect);
-        effect.DisposeEffect();
+        effect.stack = 0;
     }
 
     public List<Effect> ReturnEffect()
     {
         return effectList;
     }
-
+    public Character GetCharacter()
+    {
+        return character;
+    }
     public void RuntimeEffect()
     {
         // effect 실행 및 지속시간이 끝난 effect 제거

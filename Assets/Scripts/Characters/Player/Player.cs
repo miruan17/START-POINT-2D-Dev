@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -5,22 +6,24 @@ using UnityEngine.InputSystem;
 public class Player : Character
 {
     private List<SkillNodeBase> passiveSkillList;
+    private Dictionary<string, Effect> effectMap;
     private void Awake()
     {
         base.Awake();
+        effectMap = EffectLib.Instance.effectMap;
         passiveSkillList = new List<SkillNodeBase>();
     }
     public void setPassiveSkillList(List<SkillNodeBase> list)
     {
         passiveSkillList = list;
-        List<Effect> effectList = new List<Effect>();
-        foreach (var node in list)
+        List<Effect> el = new List<Effect>();
+        foreach (var node in passiveSkillList)
         {
-            ArgumentBase arg = node.Definition.argument;
-            arg.setActive();
-            effectList.Add(arg.effect);
+            Effect effect = EffectLib.Instance.getEffectbyID(node.Definition.id);
+            effect.identifier = node.Definition.id;
+            el.Add(effect);
         }
-        argument.setEffectList(effectList);
+        argument.setEffectList(el);
     }
     public override void DeathTrigger()
     {

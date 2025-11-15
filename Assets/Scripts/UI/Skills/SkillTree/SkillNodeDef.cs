@@ -12,7 +12,6 @@ public class SkillNodeDef : ScriptableObject
     public SkillNodeDef[] prerequisiteSkills = new SkillNodeDef[4]; // IDs of nodes that must be unlocked first
     public bool isMainNode = false;              // optional: mark main vs sub
     public bool isPassive = false;
-    public ArgumentBase argument;
 
     [TextArea(2, 5)]
     public string description; // 스킬 설명
