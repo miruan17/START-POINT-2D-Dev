@@ -2,7 +2,7 @@
     "name": "PlayerAction",
     "maps": [
         {
-            "name": "Player",
+            "name": "GamePlay",
             "id": "d4d19491-a8ee-4b59-87c5-270178ac9eb1",
             "actions": [
                 {
@@ -13,15 +13,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
-                },
-                {
-                    "name": "Run",
-                    "type": "Button",
-                    "id": "7fde991a-0de9-403f-b569-ba272fc54d41",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 },
                 {
                     "name": "Jump",
@@ -111,51 +102,12 @@
                 },
                 {
                     "name": "",
-                    "id": "ec67cc10-358c-46d1-b4bb-270574f0512e",
-                    "path": "<Keyboard>/leftShift",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard",
-                    "action": "Run",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "42856b90-2b6f-4160-ae1b-6a8e94c31a3d",
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Attack",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "Global",
-            "id": "58418fb0-dd4f-4b62-b600-0590f6aa1ca5",
-            "actions": [
-                {
-                    "name": "New action",
-                    "type": "Button",
-                    "id": "9a783c45-e481-4bb5-b57a-c7c7bb8f9a0d",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                }
-            ],
-            "bindings": [
-                {
-                    "name": "",
-                    "id": "e8244ff1-35ed-42aa-bcb2-348a1061025e",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "New action",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
