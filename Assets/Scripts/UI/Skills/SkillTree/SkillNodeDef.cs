@@ -5,6 +5,7 @@ using UnityEngine;
 public class SkillNodeDef : ScriptableObject
 {
     public string id;
+    public string tag = "None";
     public string skillName;
     public Sprite icon;
     public int unlockCost = 1;

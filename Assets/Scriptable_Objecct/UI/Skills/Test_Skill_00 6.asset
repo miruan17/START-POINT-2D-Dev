@@ -23,4 +23,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c4c129f3fc7bc444db5e1875f002c5f9, type: 2}
   - {fileID: 0}
   isMainNode: 1
+  isPassive: 0
   description: Description for Main Node 06

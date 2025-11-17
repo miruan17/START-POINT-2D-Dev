@@ -19,8 +19,8 @@ public class Player : Character
         List<Effect> el = new List<Effect>();
         foreach (var node in passiveSkillList)
         {
-            Effect effect = effectLib.getEffectbyID(node.Definition.id);
-            effect.identifier = node.Definition.id;
+            Effect effect = effectLib.getEffectbyID(node.Definition.tag);
+            effect.identifier = node.Definition.tag;
             el.Add(effect);
         }
         argument.setEffectList(el);
@@ -34,4 +34,5 @@ public class Player : Character
             gameObject.SetActive(false);
         }
     }
+    public EffectLib getEffectLib() { return effectLib; }
 }

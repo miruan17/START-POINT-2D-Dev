@@ -16,11 +16,6 @@ public abstract class Effect    //Manager class
 
     //stack
     public bool can_stack = false;
-    public int stack = 0;
-    public int max_stack = 1;
-
-    //promotion
-    public bool is_promotion = false;
 
     public abstract void Runtime();
 
@@ -37,6 +32,8 @@ public abstract class Effect    //Manager class
         term = effect.term;
         startTime = Time.time;
     }
-    public abstract void updateValue(float term, float dmg, float tick, int max_stack, bool is_promotion);
+    public abstract void updateValue(float term, float dmg, float tick, int max_stack = 1);
+    public abstract Effect copy();
+    public virtual void upgrade() { }
 }
 

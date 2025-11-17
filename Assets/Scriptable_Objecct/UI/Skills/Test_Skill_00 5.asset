@@ -19,8 +19,9 @@ MonoBehaviour:
   cost: 1
   prerequisiteSkills:
   - {fileID: 0}
-  - {fileID: 11400000, guid: f81c260a690fdf74a8b01c42f7f95e5d, type: 2}
-  - {fileID: 11400000, guid: 573f46c681565304bb1d480e8b26f36d, type: 2}
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 04d94f38d6d40874eaea2cb475fe5889, type: 2}
   - {fileID: 0}
   isMainNode: 1
+  isPassive: 0
   description: Description for Main Node 05

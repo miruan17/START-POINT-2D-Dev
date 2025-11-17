@@ -12,13 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aba6c6de8a7e41242bfd88a029673d6f, type: 3}
   m_Name: Test_Skill_00 1
   m_EditorClassIdentifier: 
-  id: Bleeding
+  id: Effect_Bleeding
+  tag: Bleeding
   skillName: Bleeding
   icon: {fileID: 21300000, guid: c67fbf9375ad5c34399c2849430ca7f7, type: 3}
   unlockCost: 1
   cost: 1
   prerequisiteSkills:
-  - {fileID: 11400000, guid: df0c6598876ad7446888c5afed86cadb, type: 2}
+  - {fileID: 11400000, guid: f81c260a690fdf74a8b01c42f7f95e5d, type: 2}
   - {fileID: 0}
   - {fileID: 11400000, guid: cb80bfc027254dd4d8ab260f53026e87, type: 2}
   - {fileID: 0}

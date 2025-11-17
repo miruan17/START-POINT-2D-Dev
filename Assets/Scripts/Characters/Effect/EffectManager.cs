@@ -45,7 +45,6 @@ public class EffectManager  //Manager class
     public void RemoveEffect(Effect effect)
     {
         effectList.Remove(effect);
-        effect.stack = 0;
     }
 
     public List<Effect> ReturnEffect()
@@ -63,7 +62,7 @@ public class EffectManager  //Manager class
         List<Effect> updateList = new();
         foreach (Effect effect in effectList)
         {
-            if (!effect.IsExpired && effect.stack > 0) effect.Runtime();
+            if (!effect.IsExpired) effect.Runtime();
             else deleteList.Add(effect);
         }
         foreach (Effect effect in deleteList)

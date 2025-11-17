@@ -12,17 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aba6c6de8a7e41242bfd88a029673d6f, type: 3}
   m_Name: Test_Sub_Skill_00 3
   m_EditorClassIdentifier: 
-  id: 9
-  skillName: subtest3
+  id: Poison_upgrade1
+  tag: Poison
+  skillName: Poison_upgrade1
   icon: {fileID: 21300000, guid: bb67b03c2969d104caba950c446f8c8d, type: 3}
   unlockCost: 1
   cost: 1
   prerequisiteSkills:
+  - {fileID: 11400000, guid: 04d94f38d6d40874eaea2cb475fe5889, type: 2}
   - {fileID: 0}
-  - {fileID: 11400000, guid: c4c129f3fc7bc444db5e1875f002c5f9, type: 2}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 573f46c681565304bb1d480e8b26f36d, type: 2}
   - {fileID: 0}
   isMainNode: 0
-  isPassive: 0
-  argument: {fileID: 0}
-  description: Description for Sub Node 03
+  isPassive: 1
+  description: upgrade Poison +1

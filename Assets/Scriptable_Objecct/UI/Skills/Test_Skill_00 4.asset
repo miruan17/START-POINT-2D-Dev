@@ -20,8 +20,8 @@ MonoBehaviour:
   prerequisiteSkills:
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 11400000, guid: 09cc0815d4ba5b74aa782693bf265454, type: 2}
-  - {fileID: 11400000, guid: f81c260a690fdf74a8b01c42f7f95e5d, type: 2}
+  - {fileID: 11400000, guid: 013ba0e7e5c8b6b4c9897a4e830b303d, type: 2}
+  - {fileID: 0}
   isMainNode: 1
   isPassive: 0
   description: Description for Main Node 04

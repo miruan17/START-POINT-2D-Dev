@@ -11,8 +11,8 @@ public sealed class EffectLib
     static EffectLib() { }
     public EffectLib()
     {
-        effectMap["Bleeding"] = new Effect_Bleeding(5f, 1f, 1f, 11, false);
-        effectMap["Poison"] = new Effect_Poison(7f, 2f, 1f, 6, false);
+        effectMap["Bleeding"] = new Effect_Bleeding(5f, 1f, 1f, 10);
+        effectMap["Poison"] = new Effect_Poison(7f, 2f, 1f, 5);
     }
     public static EffectLib Instance
     {
@@ -23,6 +23,9 @@ public sealed class EffectLib
     }
     public Effect getEffectbyID(String identifier)
     {
-        return effectMap[identifier];
+        if (effectMap.TryGetValue(identifier, out var effect))
+            return effect;
+
+        return null;
     }
 }

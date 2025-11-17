@@ -71,10 +71,14 @@ public class Status
         baseValue = Math.Max(0f, value);
         isDirty = true;
     }
-    
+
     public void ClearModifiers()
     {
         modifiers.Clear();
         isDirty = true;
+    }
+    public float getBase()
+    {
+        return baseValue;
     }
 }

@@ -44,11 +44,14 @@ public class Hitbox : MonoBehaviour
             {
                 Effect getter = enemyManager.SearchEffectbyId(effect.identifier);
                 if (getter != null)
+                {
                     getter.Refresh(effect);
+                }
                 else
                 {
-                    effect.Refresh(effect);
-                    enemyManager.AddEffect(effect);
+                    getter = effect.copy();
+                    getter.Refresh(effect);
+                    enemyManager.AddEffect(getter);
                 }
             }
         }
