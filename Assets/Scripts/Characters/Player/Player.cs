@@ -6,11 +6,11 @@ using UnityEngine.InputSystem;
 public class Player : Character
 {
     private List<SkillNodeBase> passiveSkillList;
-    private Dictionary<string, Effect> effectMap;
+    private EffectLib effectLib;
     private void Awake()
     {
         base.Awake();
-        effectMap = EffectLib.Instance.effectMap;
+        effectLib = new EffectLib();
         passiveSkillList = new List<SkillNodeBase>();
     }
     public void setPassiveSkillList(List<SkillNodeBase> list)
@@ -19,7 +19,7 @@ public class Player : Character
         List<Effect> el = new List<Effect>();
         foreach (var node in passiveSkillList)
         {
-            Effect effect = EffectLib.Instance.getEffectbyID(node.Definition.id);
+            Effect effect = effectLib.getEffectbyID(node.Definition.id);
             effect.identifier = node.Definition.id;
             el.Add(effect);
         }

@@ -9,13 +9,9 @@ public class Effect_Bleeding : Effect   //Manager class
     private float prevTime = 0;
     public Effect_Bleeding(float term, float dmg, float tick, int max_stack, bool is_promotion)
     {
-        this.term = term;
-        this.max_stack = max_stack;
-        _stats[StatId_Effect_Bleeding.BLD] = new Status(dmg);
-        _stats[StatId_Effect_Bleeding.BLD_tick] = new Status(1f);
-        _stats[StatId_Effect_Bleeding.BLD_stack] = new Status(stack);
-        _stats[StatId_Effect_Bleeding.EXC_BLD] = new Status(is_promotion ? 1 : 0);
+        updateValue(term, dmg, tick, max_stack, is_promotion);
     }
+
     public override void Runtime()
     {
         if (_stats[StatId_Effect_Bleeding.BLD_tick].Get() <= 0) return;
@@ -41,5 +37,13 @@ public class Effect_Bleeding : Effect   //Manager class
         _stats = eff._stats;
         max_stack = eff.max_stack;
     }
-
+    public override void updateValue(float term, float dmg, float tick, int max_stack, bool is_promotion)
+    {
+        this.term = term;
+        this.max_stack = max_stack;
+        _stats[StatId_Effect_Bleeding.BLD] = new Status(dmg);
+        _stats[StatId_Effect_Bleeding.BLD_tick] = new Status(1f);
+        _stats[StatId_Effect_Bleeding.BLD_stack] = new Status(stack);
+        _stats[StatId_Effect_Bleeding.EXC_BLD] = new Status(is_promotion ? 1 : 0);
+    }
 }

@@ -79,13 +79,7 @@ public class SkillTreeManager : MonoBehaviour, ISkillPointProvider
             var exist = unlockedSkillList.First(n => n == unlocked);
             exist = unlocked;
         }
-        else
-            unlockedSkillList.Add(unlocked);
-        Debug.Log("unlocked list:");
-        foreach (SkillNodeBase n in unlockedSkillList)
-        {
-            Debug.Log(n.Definition.skillName);
-        }
+        else unlockedSkillList.Add(unlocked);
         skillRegisterManager?.updateUnlockedSkillList(unlockedSkillList);
     }
 

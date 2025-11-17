@@ -9,12 +9,7 @@ public class Effect_Poison : Effect   //Manager class
     private float prevTime = 0;
     public Effect_Poison(float term, float dmg, float tick, int max_stack, bool is_promotion)
     {
-        this.term = term;
-        this.max_stack = max_stack;
-        _stats[StatId_Effect_Poison.Pos] = new Status(dmg);
-        _stats[StatId_Effect_Poison.Pos_tick] = new Status(tick);
-        _stats[StatId_Effect_Poison.Pos_stack] = new Status(stack);
-        _stats[StatId_Effect_Poison.EXC_Pos] = new Status(is_promotion ? 1 : 0);
+        updateValue(term, dmg, tick, max_stack, is_promotion);
     }
     public override void Runtime()
     {
@@ -36,5 +31,13 @@ public class Effect_Poison : Effect   //Manager class
         _stats = eff._stats;
         max_stack = eff.max_stack;
     }
-
+    public override void updateValue(float term, float dmg, float tick, int max_stack, bool is_promotion)
+    {
+        this.term = term;
+        this.max_stack = max_stack;
+        _stats[StatId_Effect_Poison.Pos] = new Status(dmg);
+        _stats[StatId_Effect_Poison.Pos_tick] = new Status(tick);
+        _stats[StatId_Effect_Poison.Pos_stack] = new Status(stack);
+        _stats[StatId_Effect_Poison.EXC_Pos] = new Status(is_promotion ? 1 : 0);
+    }
 }

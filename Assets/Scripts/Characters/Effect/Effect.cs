@@ -37,5 +37,6 @@ public abstract class Effect    //Manager class
         term = effect.term;
         startTime = Time.time;
     }
+    public abstract void updateValue(float term, float dmg, float tick, int max_stack, bool is_promotion);
 }
 
