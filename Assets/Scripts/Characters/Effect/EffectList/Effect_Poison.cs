@@ -36,7 +36,7 @@ public class Effect_Poison : Effect   //Manager class
         base.Refresh(effect);
         Effect_Poison eff = (Effect_Poison)effect;
         _stats = eff._stats;
-        if (stack <= _stats[StatId_Effect_Poison.Pos_stack].Get()) stack++;
+        if (stack < _stats[StatId_Effect_Poison.Pos_stack].Get()) stack++;
         term = _stats[StatId_Effect_Poison.Pos_term].Get();
         level = eff.level;
     }
