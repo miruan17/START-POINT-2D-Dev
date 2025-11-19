@@ -9,14 +9,14 @@ public class Effect_Ice : Effect   //Manager class
     private Dictionary<StatId_Effect_Ice, Status> _stats = new();
 
     private readonly float[,] upgradeValue = { { 0, 1, 0, 0 }, { 2, 0, 0, 0 } };
-    private float prevTime = 0;
     private float slow = -0.3f;
     private int level = 0;
     private int stack = 0;
     private bool weaken = false;
+    private bool enhance = false;
     public Effect_Ice(float term, float dmg, int max_stack)
     {
-        probability = 0.4f;
+        chance = 0.4f;
         can_stack = true;
         _stats[StatId_Effect_Ice.Ice] = new Status(dmg);
         _stats[StatId_Effect_Ice.Ice_stack] = new Status(max_stack);
@@ -49,14 +49,32 @@ public class Effect_Ice : Effect   //Manager class
     }
     public override void upgrade()
     {
-        //호출 횟수(level)에 따른 값 변화
-        updateValue(upgradeValue[level, 0], upgradeValue[level, 1], upgradeValue[level, 2], (int)upgradeValue[level, 3]);
+        //호출 횟수(level)에 따른 값 변화. 레벨 많아야 3~4개이므로 하드코딩이 나을듯
         level++;
+        if (level == 1)
+        {
+            // 동상 + 1: 발동 확률 5% 증가
+            chance += 0.05f;
+        }
+        if (level == 2)
+        {
+            // 빙결 + 1: 빙결 적 데미지 5 증가 및 빙결 상태 적 공속 20% 감소
+            _stats[StatId_Effect_Ice.Ice].SetDefaultValue(_stats[StatId_Effect_Ice.Ice].getBase() + 5);
+            enhance = true;
+        }
+        if (level == 3)
+        {
+            // 동상 + 2: 슬로우 5% 증가
+            slow -= 0.05f;
+        }
     }
     public override Effect copy()
     {
-        Effect effect = new Effect_Ice(_stats[StatId_Effect_Ice.Ice_term].getBase(), _stats[StatId_Effect_Ice.Ice].getBase(), (int)_stats[StatId_Effect_Ice.Ice_stack].getBase());
+        Effect_Ice effect = new Effect_Ice(_stats[StatId_Effect_Ice.Ice_term].getBase(), _stats[StatId_Effect_Ice.Ice].getBase(), (int)_stats[StatId_Effect_Ice.Ice_stack].getBase());
         effect.identifier = identifier;
+        effect.chance = chance;
+        effect.enhance = enhance;
+        effect.slow = slow;
         return effect;
     }
     public void enableWeaken()

@@ -2,11 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
-public enum StatId_Effect_Bleeding { BLD, BLD_tick, BLD_stack, BLD_term } // dmg, tick, max_stack, term
+public enum StatId_Effect_Bleeding { BLD, BLD_tick, BLD_stack, BLD_term, EXE_BLD } // dmg, tick, max_stack, term
 public class Effect_Bleeding : Effect   //Manager class
 {
     private Dictionary<StatId_Effect_Bleeding, Status> _stats = new();
-    private readonly float[,] upgradeValue = { { 1, 0, 0, 0 }, { 0, 0, 0, -2 } };
     private float prevTime = 0;
     private int level = 0;
     private int stack = 0;
@@ -17,6 +16,7 @@ public class Effect_Bleeding : Effect   //Manager class
         _stats[StatId_Effect_Bleeding.BLD_tick] = new Status(tick);
         _stats[StatId_Effect_Bleeding.BLD_stack] = new Status(max_stack);
         _stats[StatId_Effect_Bleeding.BLD_term] = new Status(term);
+        _stats[StatId_Effect_Bleeding.EXE_BLD] = new Status(0.1f);
     }
 
     public override void Runtime()
@@ -24,8 +24,10 @@ public class Effect_Bleeding : Effect   //Manager class
         if (_stats[StatId_Effect_Bleeding.BLD_tick].Get() <= 0) return;
         if (stack > _stats[StatId_Effect_Bleeding.BLD_stack].Get())
         {
+            Character obj = manager.GetCharacter();
             Debug.Log("과다출혈!!!");
-            term = 0;
+            applyDamage(obj.status.GetFinal(StatId.HP) * _stats[StatId_Effect_Bleeding.EXE_BLD].Get());
+            enable = false;
             return;
         }
         if (Time.time - prevTime >= _stats[StatId_Effect_Bleeding.BLD_tick].Get())
@@ -54,13 +56,27 @@ public class Effect_Bleeding : Effect   //Manager class
     }
     public override void upgrade()
     {
-        //호출 횟수(level)에 따른 값 변화
-        updateValue(upgradeValue[level, 0], upgradeValue[level, 1], upgradeValue[level, 2], (int)upgradeValue[level, 3]);
+        //호출 횟수(level)에 따른 값 변화. 레벨 많아야 3~4개이므로 하드코딩이 나을듯
         level++;
+        if (level == 1)
+        {
+            // 출혈 + 1: 지속시간 1초 증가
+            _stats[StatId_Effect_Bleeding.BLD_term].SetDefaultValue(_stats[StatId_Effect_Bleeding.BLD_term].getBase() + 1);
+        }
+        if (level == 2)
+        {
+            // 과다출혈 +1: 과다출혈 데미지 1% 증가
+            _stats[StatId_Effect_Bleeding.EXE_BLD].SetDefaultValue(_stats[StatId_Effect_Bleeding.EXE_BLD].getBase() + 0.01f);
+        }
+        if (level == 3)
+        {
+            // 출혈 + 2: 최대스택 2 감소
+            _stats[StatId_Effect_Bleeding.BLD_stack].SetDefaultValue((int)_stats[StatId_Effect_Bleeding.BLD_stack].getBase() - 2);
+        }
     }
     public override Effect copy()
     {
-        Effect effect = new Effect_Bleeding(_stats[StatId_Effect_Bleeding.BLD_term].getBase(), _stats[StatId_Effect_Bleeding.BLD].getBase(), _stats[StatId_Effect_Bleeding.BLD_tick].getBase(), (int)_stats[StatId_Effect_Bleeding.BLD_stack].getBase());
+        Effect_Bleeding effect = new Effect_Bleeding(_stats[StatId_Effect_Bleeding.BLD_term].getBase(), _stats[StatId_Effect_Bleeding.BLD].getBase(), _stats[StatId_Effect_Bleeding.BLD_tick].getBase(), (int)_stats[StatId_Effect_Bleeding.BLD_stack].getBase());
         effect.identifier = identifier;
         return effect;
     }

@@ -7,15 +7,13 @@ public enum StatId_Effect_Poison { Pos, Pos_tick, Pos_stack, Pos_term } // dmg t
 public class Effect_Poison : Effect   //Manager class
 {
     private Dictionary<StatId_Effect_Poison, Status> _stats = new();
-
-    private readonly float[,] upgradeValue = { { 0, 1, 0, 0 }, { 2, 0, 0, 0 } };
     private float prevTime = 0;
     private int level = 0;
     private int stack = 0;
     private bool weaken = false;
     public Effect_Poison(float term, float dmg, float tick, int max_stack)
     {
-        probability = 0.4f;
+        chance = 0.4f;
         can_stack = true;
         _stats[StatId_Effect_Poison.Pos] = new Status(dmg);
         _stats[StatId_Effect_Poison.Pos_tick] = new Status(tick);
@@ -69,13 +67,26 @@ public class Effect_Poison : Effect   //Manager class
     }
     public override void upgrade()
     {
-        //호출 횟수(level)에 따른 값 변화
-        updateValue(upgradeValue[level, 0], upgradeValue[level, 1], upgradeValue[level, 2], (int)upgradeValue[level, 3]);
+        //호출 횟수(level)에 따른 값 변화. 레벨 많아야 3~4개이므로 하드코딩이 나을듯
         level++;
+        if (level == 1)
+        {
+            // 중독 + 1: 틱 데미지 + 1
+            _stats[StatId_Effect_Poison.Pos].SetDefaultValue(_stats[StatId_Effect_Poison.Pos].getBase() + 1);
+        }
+        if (level == 2)
+        {
+            // 중독 + 2: 지속시간 2초 증가
+            _stats[StatId_Effect_Poison.Pos_term].SetDefaultValue(_stats[StatId_Effect_Poison.Pos_term].getBase() + term);
+        }
+        if (level == 3)
+        {
+
+        }
     }
     public override Effect copy()
     {
-        Effect effect = new Effect_Poison(_stats[StatId_Effect_Poison.Pos_term].getBase(), _stats[StatId_Effect_Poison.Pos].getBase(), _stats[StatId_Effect_Poison.Pos_tick].getBase(), (int)_stats[StatId_Effect_Poison.Pos_stack].getBase());
+        Effect_Poison effect = new Effect_Poison(_stats[StatId_Effect_Poison.Pos_term].getBase(), _stats[StatId_Effect_Poison.Pos].getBase(), _stats[StatId_Effect_Poison.Pos_tick].getBase(), (int)_stats[StatId_Effect_Poison.Pos_stack].getBase());
         effect.identifier = identifier;
         return effect;
     }

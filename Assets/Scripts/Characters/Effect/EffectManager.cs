@@ -58,20 +58,14 @@ public class EffectManager  //Manager class
     public void RuntimeEffect()
     {
         // effect 실행 및 지속시간이 끝난 effect 제거
-        List<Effect> deleteList = new();
-        List<Effect> updateList = new();
         foreach (Effect effect in effectList)
         {
-            if (!effect.IsExpired) effect.Runtime();
+            if (!effect.IsExpired && effect.enable) effect.Runtime();
             else
             {
                 effect.OnExpired();
-                deleteList.Add(effect);
+                effect.enable = false;
             }
-        }
-        foreach (Effect effect in deleteList)
-        {
-            RemoveEffect(effect);
         }
     }
 }

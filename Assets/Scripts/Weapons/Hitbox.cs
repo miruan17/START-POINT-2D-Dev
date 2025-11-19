@@ -42,7 +42,7 @@ public class Hitbox : MonoBehaviour
             EffectManager playerManager = caller.getArgument();
             foreach (var effect in playerManager.ReturnEffect())
             {
-                if (!Probability.Attempt(effect.probability)) continue;
+                if (!Probability.Attempt(effect.chance)) continue;
                 Effect getter = enemyManager.SearchEffectbyId(effect.identifier);
                 if (getter != null)
                 {

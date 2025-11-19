@@ -12,8 +12,9 @@ public abstract class Effect    //Manager class
     public float term = 0;
     public float startTime = Time.time;
     public float RemainingTime => startTime + term - Time.time;
-    public float probability = 1;
+    public float chance = 1;
     public bool IsExpired => RemainingTime <= 0;
+    public bool enable = false;
 
     //stack
     public bool can_stack = false;
@@ -32,10 +33,11 @@ public abstract class Effect    //Manager class
     {
         term = effect.term;
         startTime = Time.time;
+        enable = true;
     }
     public abstract void updateValue(float term, float dmg, float tick, int max_stack = 1);
     public abstract Effect copy();
     public virtual void upgrade() { }
-    public virtual void OnExpired() { }
+    public virtual void OnExpired() { enable = false; }
 }
 
