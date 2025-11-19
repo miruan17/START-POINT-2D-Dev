@@ -33,7 +33,6 @@ public class Effect_Bleeding : Effect   //Manager class
             Debug.Log(level + 1 + "단계 출혈 틱 발생. 스택: " + stack);
             Character obj = manager.GetCharacter();
             obj.status.CurrentHP -= _stats[StatId_Effect_Bleeding.BLD].Get() * stack;
-            Debug.Log("남은 HP: " + obj.status.CurrentHP);
         }
     }
     public override void Refresh(Effect effect)
