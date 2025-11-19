@@ -63,7 +63,11 @@ public class EffectManager  //Manager class
         foreach (Effect effect in effectList)
         {
             if (!effect.IsExpired) effect.Runtime();
-            else deleteList.Add(effect);
+            else
+            {
+                effect.OnExpired();
+                deleteList.Add(effect);
+            }
         }
         foreach (Effect effect in deleteList)
         {

@@ -52,17 +52,16 @@ public class Status
 
     // Modifier Management
 
-    public void AddModifier(object source, float value, StatusType type)
+    public void AddModifier(String source, float value, StatusType type)
     {
-        if (value < 0f) value = 0f;
 
         modifiers.Add(new StatusModifier(source, value, type));
         isDirty = true;
     }
 
-    public void RemoveModifier(object source)
+    public void RemoveModifier(String source)
     {
-        modifiers.RemoveAll(m => m.source == source);
+        modifiers.RemoveAll(m => m.source.Equals(source));
         isDirty = true;
     }
 

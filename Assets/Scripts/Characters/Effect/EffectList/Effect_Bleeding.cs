@@ -25,7 +25,8 @@ public class Effect_Bleeding : Effect   //Manager class
         if (stack > _stats[StatId_Effect_Bleeding.BLD_stack].Get())
         {
             Debug.Log("과다출혈!!!");
-            stack = 0;
+            term = 0;
+            return;
         }
         if (Time.time - prevTime >= _stats[StatId_Effect_Bleeding.BLD_tick].Get())
         {
@@ -64,5 +65,9 @@ public class Effect_Bleeding : Effect   //Manager class
         Effect effect = new Effect_Bleeding(_stats[StatId_Effect_Bleeding.BLD_term].getBase(), _stats[StatId_Effect_Bleeding.BLD].getBase(), _stats[StatId_Effect_Bleeding.BLD_tick].getBase(), (int)_stats[StatId_Effect_Bleeding.BLD_stack].getBase());
         effect.identifier = identifier;
         return effect;
+    }
+    public override void OnExpired()
+    {
+        stack = 0;
     }
 }

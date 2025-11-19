@@ -11,7 +11,7 @@ public sealed class CharacterStatusManager  // Manager class
     // Private resource
     private readonly Dictionary<StatId, Status> _stats = new();
 
-    
+
     public CharacterStatusManager(CharacterStatusDef def)
     {
         _stats[StatId.HP] = new Status(def.HP);
@@ -37,22 +37,22 @@ public sealed class CharacterStatusManager  // Manager class
     }
 
     // Modifier
-    public void Add(StatId id, object source, float value)
+    public void Add(StatId id, String source, float value)
     {
         _stats[id].AddModifier(source, value, StatusType.Add);
     }
-    public void Mul(StatId id, object source, float value)
+    public void Mul(StatId id, String source, float value)
     {
         _stats[id].AddModifier(source, value, StatusType.Multi);
     }
 
 
     // Remove
-    public void Remove(StatId id, object source)
+    public void Remove(StatId id, String source)
     {
         _stats[id].RemoveModifier(source);
     }
-    public void RemoveBySource(object source)
+    public void RemoveBySource(String source)
     {
         foreach (var kv in _stats) kv.Value.RemoveModifier(source);
     }

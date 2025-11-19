@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Threading;
 using UnityEngine;
 public enum StatId_Effect_Poison { Pos, Pos_tick, Pos_stack, Pos_term } // dmg tick max_stack term
@@ -11,6 +12,7 @@ public class Effect_Poison : Effect   //Manager class
     private float prevTime = 0;
     private int level = 0;
     private int stack = 0;
+    private bool weaken = false;
     public Effect_Poison(float term, float dmg, float tick, int max_stack)
     {
         can_stack = true;
@@ -22,6 +24,24 @@ public class Effect_Poison : Effect   //Manager class
     public override void Runtime()
     {
         if (_stats[StatId_Effect_Poison.Pos_tick].Get() <= 0) return;
+        if (stack >= _stats[StatId_Effect_Poison.Pos_stack].Get())
+        {
+
+            if (!weaken)
+            {
+                Debug.Log("취약 적용중");
+                enableWeaken();
+                weaken = true;
+            }
+        }
+        else
+        {
+            if (weaken)
+            {
+                disableWeaken();
+                weaken = false;
+            }
+        }
         if (Time.time - prevTime >= _stats[StatId_Effect_Poison.Pos_tick].Get())
         {
             prevTime = Time.time;
@@ -59,5 +79,25 @@ public class Effect_Poison : Effect   //Manager class
         Effect effect = new Effect_Poison(_stats[StatId_Effect_Poison.Pos_term].getBase(), _stats[StatId_Effect_Poison.Pos].getBase(), _stats[StatId_Effect_Poison.Pos_tick].getBase(), (int)_stats[StatId_Effect_Poison.Pos_stack].getBase());
         effect.identifier = identifier;
         return effect;
+    }
+    public void enableWeaken()
+    {
+        Character obj = manager.GetCharacter();
+        obj.status.Mul(StatId.ATK, identifier, -0.15f);
+        obj.status.Mul(StatId.DEF, identifier, -0.2f);
+    }
+    public void disableWeaken()
+    {
+        Character obj = manager.GetCharacter();
+        obj.status.RemoveBySource(identifier);
+    }
+    public override void OnExpired()
+    {
+        if (weaken)
+        {
+            disableWeaken();
+            weaken = false;
+        }
+        stack = 0;
     }
 }

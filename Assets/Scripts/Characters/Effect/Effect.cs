@@ -35,5 +35,6 @@ public abstract class Effect    //Manager class
     public abstract void updateValue(float term, float dmg, float tick, int max_stack = 1);
     public abstract Effect copy();
     public virtual void upgrade() { }
+    public virtual void OnExpired() { }
 }
 
