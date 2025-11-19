@@ -47,9 +47,7 @@ public class Effect_Poison : Effect   //Manager class
         {
             prevTime = Time.time;
             Debug.Log(level + 1 + "단계 중독 틱 발생. 스택: " + stack);
-            Character obj = manager.GetCharacter();
-            obj.status.CurrentHP -= _stats[StatId_Effect_Poison.Pos].Get() * stack;
-            Debug.Log("남은 HP: " + obj.status.CurrentHP);
+            applyDamage(_stats[StatId_Effect_Poison.Pos].Get() * stack);
         }
     }
     public override void Refresh(Effect effect)
@@ -100,5 +98,11 @@ public class Effect_Poison : Effect   //Manager class
             weaken = false;
         }
         stack = 0;
+    }
+    public void applyDamage(float dmg)
+    {
+        Character obj = manager.GetCharacter();
+        obj.status.CurrentHP -= dmg;
+        Debug.Log("남은 HP: " + obj.status.CurrentHP);
     }
 }
