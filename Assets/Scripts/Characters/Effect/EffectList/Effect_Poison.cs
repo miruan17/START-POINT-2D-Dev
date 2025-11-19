@@ -15,6 +15,7 @@ public class Effect_Poison : Effect   //Manager class
     private bool weaken = false;
     public Effect_Poison(float term, float dmg, float tick, int max_stack)
     {
+        probability = 0.4f;
         can_stack = true;
         _stats[StatId_Effect_Poison.Pos] = new Status(dmg);
         _stats[StatId_Effect_Poison.Pos_tick] = new Status(tick);

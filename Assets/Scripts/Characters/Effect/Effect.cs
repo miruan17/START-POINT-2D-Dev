@@ -12,6 +12,7 @@ public abstract class Effect    //Manager class
     public float term = 0;
     public float startTime = Time.time;
     public float RemainingTime => startTime + term - Time.time;
+    public float probability = 1;
     public bool IsExpired => RemainingTime <= 0;
 
     //stack
