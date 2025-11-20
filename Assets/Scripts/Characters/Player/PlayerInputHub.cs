@@ -58,7 +58,7 @@ public class PlayerInputHub : MonoBehaviour
         s.z = 1f;
         transform.localScale = s;
     }
-
+    
     private void OnEnable()
     {
         moveAction.Enable();
