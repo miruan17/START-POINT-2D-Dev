@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aba6c6de8a7e41242bfd88a029673d6f, type: 3}
-  m_Name: Test_Skill_00 2
+  m_Name: C1_Ice
   m_EditorClassIdentifier: 
-  id: Effect_Poison
-  tag: Poison
-  skillName: Poison
-  icon: {fileID: 21300000, guid: 6960c6bd5088317429f7e0e033bee813, type: 3}
+  id: C1
+  tag: Ice
+  skillName: Ice
+  icon: {fileID: 21300000, guid: f6b8b85cbdc82ce439a41ae3d56d57ee, type: 3}
   unlockCost: 1
   cost: 1
   prerequisiteSkills:
-  - {fileID: 11400000, guid: ffce2dda2789c414f8bb0feb290880c9, type: 2}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 6d0a0c4adf59d7f459027850ede9b7bf, type: 2}
+  - {fileID: 11400000, guid: 573f46c681565304bb1d480e8b26f36d, type: 2}
   - {fileID: 11400000, guid: cb80bfc027254dd4d8ab260f53026e87, type: 2}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: df0c6598876ad7446888c5afed86cadb, type: 2}
   isMainNode: 1
-  isPassive: 1
-  description: Poison Effect on attck
+  isPassive: 0
+  description: apply "Ice" Effect on Attack for 40% chance

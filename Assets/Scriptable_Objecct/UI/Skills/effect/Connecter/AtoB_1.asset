@@ -10,18 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aba6c6de8a7e41242bfd88a029673d6f, type: 3}
-  m_Name: Test_Skill_00 4
+  m_Name: AtoB_1
   m_EditorClassIdentifier: 
-  id: 4
-  skillName: test4
-  icon: {fileID: 21300000, guid: 2a5c892bdd014164da633b8c6fd0f246, type: 3}
+  id: AtoB_1
+  tag: SPD
+  skillName: AtoB_SPD_up
+  icon: {fileID: 21300000, guid: a2563f2b8dbc4044b9a50537d3a29962, type: 3}
   unlockCost: 1
   cost: 1
   prerequisiteSkills:
   - {fileID: 0}
+  - {fileID: 11400000, guid: ffce2dda2789c414f8bb0feb290880c9, type: 2}
   - {fileID: 0}
-  - {fileID: 11400000, guid: 013ba0e7e5c8b6b4c9897a4e830b303d, type: 2}
-  - {fileID: 0}
-  isMainNode: 1
-  isPassive: 0
-  description: Description for Main Node 04
+  - {fileID: 11400000, guid: a319937e579d8474686788d751d1c71f, type: 2}
+  isMainNode: 0
+  isPassive: 1
+  description: Speed +5

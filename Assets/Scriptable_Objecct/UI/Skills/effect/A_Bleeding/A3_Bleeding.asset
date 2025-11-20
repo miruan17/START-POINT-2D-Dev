@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aba6c6de8a7e41242bfd88a029673d6f, type: 3}
-  m_Name: Test_Sub_Skill_00 2
+  m_Name: A3_Bleeding
   m_EditorClassIdentifier: 
-  id: Bleeding_upgrade2
-  tag: Bleeding
-  skillName: Bleeding_upgrade2
+  id: A3
+  tag: ATK
+  skillName: Bleeding_ATK_up
   icon: {fileID: 21300000, guid: ee40d72ece864764f9d17d015aedb524, type: 3}
   unlockCost: 1
   cost: 1
   prerequisiteSkills:
-  - {fileID: 11400000, guid: df0c6598876ad7446888c5afed86cadb, type: 2}
+  - {fileID: 11400000, guid: ffce2dda2789c414f8bb0feb290880c9, type: 2}
   - {fileID: 0}
   - {fileID: 11400000, guid: f81c260a690fdf74a8b01c42f7f95e5d, type: 2}
   - {fileID: 0}
   isMainNode: 0
   isPassive: 1
-  description: upgrade Bleeding +2
+  description: ATK +5

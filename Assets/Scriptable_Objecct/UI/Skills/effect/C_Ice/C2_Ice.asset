@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aba6c6de8a7e41242bfd88a029673d6f, type: 3}
-  m_Name: Test_Sub_Skill_00 4
+  m_Name: C2_Ice
   m_EditorClassIdentifier: 
-  id: Poison_upgrade2
-  tag: Poison
-  skillName: Poison_upgrade2
+  id: C2
+  tag: DEF
+  skillName: Ice_DEF_up
   icon: {fileID: 21300000, guid: 0825dfa25de4551469e65496af7b3c71, type: 3}
   unlockCost: 1
   cost: 1
   prerequisiteSkills:
-  - {fileID: 11400000, guid: 1397e375aceb8ae449c88de29399d1cb, type: 2}
+  - {fileID: 11400000, guid: dbac7869054cf0c4e85e683352be44f9, type: 2}
   - {fileID: 0}
-  - {fileID: 11400000, guid: ffce2dda2789c414f8bb0feb290880c9, type: 2}
+  - {fileID: 11400000, guid: c4c129f3fc7bc444db5e1875f002c5f9, type: 2}
   - {fileID: 0}
   isMainNode: 0
   isPassive: 1
-  description: upgrade Poison +2
+  description: DEF +5

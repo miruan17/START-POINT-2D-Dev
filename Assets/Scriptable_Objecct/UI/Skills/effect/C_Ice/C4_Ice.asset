@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aba6c6de8a7e41242bfd88a029673d6f, type: 3}
-  m_Name: Root_Skill
+  m_Name: C4_Ice
   m_EditorClassIdentifier: 
-  id: 0
-  tag: None
-  skillName: Root
-  icon: {fileID: 0}
+  id: c4
+  tag: Ice
+  skillName: Freeze_up
+  icon: {fileID: 21300000, guid: 6960c6bd5088317429f7e0e033bee813, type: 3}
   unlockCost: 1
   cost: 1
   prerequisiteSkills:
-  - {fileID: 11400000, guid: c4c129f3fc7bc444db5e1875f002c5f9, type: 2}
   - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 7dc4d9152d48c4d43bd01029dcd9324c, type: 2}
+  - {fileID: 11400000, guid: dbac7869054cf0c4e85e683352be44f9, type: 2}
+  - {fileID: 11400000, guid: 33266045c0d009c40b7ae0e3a909a4aa, type: 2}
   isMainNode: 0
-  isPassive: 0
-  description: Root
+  isPassive: 1
+  description: upgrade Effect "Freeze"

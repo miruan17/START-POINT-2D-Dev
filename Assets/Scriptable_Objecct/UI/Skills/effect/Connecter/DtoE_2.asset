@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aba6c6de8a7e41242bfd88a029673d6f, type: 3}
-  m_Name: Root_Skill
+  m_Name: DtoE_2
   m_EditorClassIdentifier: 
-  id: 0
-  tag: None
-  skillName: Root
-  icon: {fileID: 0}
+  id: DtoE_2
+  tag: ATK
+  skillName: DtoE_ATK_up
+  icon: {fileID: 21300000, guid: a2563f2b8dbc4044b9a50537d3a29962, type: 3}
   unlockCost: 1
   cost: 1
   prerequisiteSkills:
-  - {fileID: 11400000, guid: c4c129f3fc7bc444db5e1875f002c5f9, type: 2}
   - {fileID: 0}
+  - {fileID: 11400000, guid: dfd7176abb34faf4bbd09db01f5ae648, type: 2}
   - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: a723b2831b673924ba1b508392f69b8c, type: 2}
   isMainNode: 0
-  isPassive: 0
-  description: Root
+  isPassive: 1
+  description: ATK +8

@@ -10,18 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aba6c6de8a7e41242bfd88a029673d6f, type: 3}
-  m_Name: Test_Skill_00 3
+  m_Name: A4_Bleeding
   m_EditorClassIdentifier: 
-  id: 3
-  skillName: test3
-  icon: {fileID: 21300000, guid: f6b8b85cbdc82ce439a41ae3d56d57ee, type: 3}
+  id: A4
+  tag: Bleeding
+  skillName: Exe_Bleeding_up
+  icon: {fileID: 21300000, guid: bb67b03c2969d104caba950c446f8c8d, type: 3}
   unlockCost: 1
   cost: 1
   prerequisiteSkills:
-  - {fileID: 11400000, guid: 2a08bc1bd8e71784ea3b25446674e02d, type: 2}
   - {fileID: 0}
-  - {fileID: 11400000, guid: cb80bfc027254dd4d8ab260f53026e87, type: 2}
   - {fileID: 0}
-  isMainNode: 1
-  isPassive: 0
-  description: Description for Main Node 03
+  - {fileID: 11400000, guid: 013ba0e7e5c8b6b4c9897a4e830b303d, type: 2}
+  - {fileID: 11400000, guid: e0e019eae066d554189e3aa1d426eb58, type: 2}
+  isMainNode: 0
+  isPassive: 1
+  description: upgrade Effect "EXE_Bleeding"

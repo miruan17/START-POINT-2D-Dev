@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aba6c6de8a7e41242bfd88a029673d6f, type: 3}
-  m_Name: Root_Skill
+  m_Name: B1_Poison
   m_EditorClassIdentifier: 
-  id: 0
-  tag: None
-  skillName: Root
-  icon: {fileID: 0}
+  id: B1
+  tag: Poison
+  skillName: Poison
+  icon: {fileID: 21300000, guid: 6960c6bd5088317429f7e0e033bee813, type: 3}
   unlockCost: 1
   cost: 1
   prerequisiteSkills:
+  - {fileID: 11400000, guid: 04d94f38d6d40874eaea2cb475fe5889, type: 2}
+  - {fileID: 11400000, guid: 09cc0815d4ba5b74aa782693bf265454, type: 2}
+  - {fileID: 0}
   - {fileID: 11400000, guid: c4c129f3fc7bc444db5e1875f002c5f9, type: 2}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  isMainNode: 0
+  isMainNode: 1
   isPassive: 0
-  description: Root
+  description: apply "Poison" Effect on Attack for 40% chance
