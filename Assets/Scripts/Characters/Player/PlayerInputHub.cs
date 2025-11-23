@@ -92,7 +92,7 @@ public class PlayerInputHub : MonoBehaviour
         if (!flip) return;
 
         float x = MoveInput.x;
-
+        // 좌우반전
         if (x >  deadzone && !facingRight) ApplyFlip(true);
         else if (x < -deadzone &&  facingRight) ApplyFlip(false);
     }
@@ -124,7 +124,7 @@ public class PlayerInputHub : MonoBehaviour
         facingRight = toRight;
 
         var s = transform.localScale;
-        s.x = toRight ? Mathf.Abs(s.x) : -Mathf.Abs(s.x);
+        s.x = toRight ? -Mathf.Abs(s.x) : Mathf.Abs(s.x);
         s.y = Mathf.Abs(s.y);
         s.z = 1f;
         transform.localScale = s;
