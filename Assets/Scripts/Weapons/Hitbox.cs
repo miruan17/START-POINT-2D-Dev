@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +8,7 @@ public class Hitbox : MonoBehaviour
     public LayerMask targetLayer;
     private BoxCollider2D boxCollider;
     private Character caller;
+    private Skill skill;
     private void Awake()
     {
         caller = GetComponentInParent<Character>();
@@ -30,30 +32,27 @@ public class Hitbox : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Enemy"))
+        if (other.CompareTag("Enemy")) // Hitbox meets Enemy
         {
             Enemy enemy = other.GetComponent<Enemy>();
             caller = GetComponentInParent<Character>();
-            enemy.status.CurrentHP -= caller.status.GetFinal(StatId.ATK);
-            Debug.Log("Hit " + other.name + ", Damage " + caller.status.GetFinal(StatId.ATK));
-
-            //
-            EffectManager enemyManager = enemy.getEffect();
-            EffectManager playerManager = caller.getArgument();
-            foreach (var effect in playerManager.ReturnEffect())
+            Player player = FindObjectOfType<Player>();
+            if (caller != null)
             {
-                if (!Probability.Attempt(effect.chance)) continue;
-                Effect getter = enemyManager.SearchEffectbyId(effect.identifier);
-                if (getter != null)
+                enemy.status.CurrentHP -= caller.status.GetFinal(StatId.ATK);
+                Debug.Log("Hit " + other.name + ", Damage " + caller.status.GetFinal(StatId.ATK));
+                EffectManager enemyManager = enemy.getEffect();
+                if (caller.CompareTag("Player")) //caller = Player
                 {
-                    getter.Refresh(effect);
+                    EffectManager playerManager = player.getArgument();
+                    ApplyEffect.applyEffect(enemy, playerManager);
                 }
-                else
-                {
-                    getter = effect.copy();
-                    getter.Refresh(effect);
-                    enemyManager.AddEffect(getter);
-                }
+            }
+            else // caller isn't Player (called by skill)
+            {
+                skill = GetComponentInParent<Skill>();
+                EffectManager skillManager = skill.getEffect();
+                ApplyEffect.applyEffect(enemy, skillManager);
             }
         }
     }
