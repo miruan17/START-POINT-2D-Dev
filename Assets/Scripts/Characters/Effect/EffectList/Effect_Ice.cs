@@ -3,24 +3,23 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Threading;
 using UnityEngine;
-public enum StatId_Effect_Ice { Ice, Ice_stack, Ice_term } // dmg tick max_stack term
+public enum StatId_Effect_Ice { Ice, Ice_stack, Ice_term, FRZ_slow, FRZ_Aslow } // dmg tick max_stack term
 public class Effect_Ice : Effect   //Manager class
 {
     private Dictionary<StatId_Effect_Ice, Status> _stats = new();
-
-    private readonly float[,] upgradeValue = { { 0, 1, 0, 0 }, { 2, 0, 0, 0 } };
-    private float slow = -0.3f;
     private int level = 0;
     private int stack = 0;
+    private float prevslow;
+    private float prevAslow;
     private bool weaken = false;
-    private bool enhance = false;
     public Effect_Ice(float term, float dmg, int max_stack)
     {
-        chance = 0.4f;
         can_stack = true;
         _stats[StatId_Effect_Ice.Ice] = new Status(dmg);
         _stats[StatId_Effect_Ice.Ice_stack] = new Status(max_stack);
         _stats[StatId_Effect_Ice.Ice_term] = new Status(term);
+        _stats[StatId_Effect_Ice.FRZ_slow] = new Status(0.3f);
+        _stats[StatId_Effect_Ice.FRZ_Aslow] = new Status(0);
     }
     public override void Runtime()
     {
@@ -28,6 +27,18 @@ public class Effect_Ice : Effect   //Manager class
         {
             weaken = true;
             enableWeaken();
+        }
+        else
+        {
+            float nowslow = _stats[StatId_Effect_Ice.FRZ_slow].Get();
+            float nowAslow = _stats[StatId_Effect_Ice.FRZ_Aslow].Get();
+            if (prevslow != nowslow || prevAslow != nowAslow)
+            {
+                disableWeaken();
+                enableWeaken();
+            }
+            prevslow = nowslow;
+            prevAslow = nowAslow;
         }
     }
     public override void Refresh(Effect effect)
@@ -39,6 +50,8 @@ public class Effect_Ice : Effect   //Manager class
         term = _stats[StatId_Effect_Ice.Ice_term].Get();
         level = eff.level;
         if (stack == _stats[StatId_Effect_Ice.Ice_stack].Get()) applyDamage(_stats[StatId_Effect_Ice.Ice].Get());
+        prevAslow = _stats[StatId_Effect_Ice.FRZ_Aslow].Get();
+        prevslow = _stats[StatId_Effect_Ice.FRZ_slow].Get();
     }
     public override void updateValue(float term, float dmg, float tick, int max_stack)
     {
@@ -53,19 +66,15 @@ public class Effect_Ice : Effect   //Manager class
         level++;
         if (level == 1)
         {
-            // 동상 + 1: 발동 확률 5% 증가
-            chance += 0.05f;
+            // 빙결 + 1: 빙결 적 데미지 5 증가 및 빙결 상태 적 공속 20% 감소
+            _stats[StatId_Effect_Ice.Ice].SetDefaultValue(_stats[StatId_Effect_Ice.Ice].getBase() + 5);
+            _stats[StatId_Effect_Ice.FRZ_Aslow].SetDefaultValue(_stats[StatId_Effect_Ice.FRZ_Aslow].getBase() + 0.2f);
         }
         if (level == 2)
         {
-            // 빙결 + 1: 빙결 적 데미지 5 증가 및 빙결 상태 적 공속 20% 감소
-            _stats[StatId_Effect_Ice.Ice].SetDefaultValue(_stats[StatId_Effect_Ice.Ice].getBase() + 5);
-            enhance = true;
         }
         if (level == 3)
         {
-            // 동상 + 2: 슬로우 5% 증가
-            slow -= 0.05f;
         }
     }
     public override Effect copy()
@@ -73,14 +82,13 @@ public class Effect_Ice : Effect   //Manager class
         Effect_Ice effect = new Effect_Ice(_stats[StatId_Effect_Ice.Ice_term].getBase(), _stats[StatId_Effect_Ice.Ice].getBase(), (int)_stats[StatId_Effect_Ice.Ice_stack].getBase());
         effect.identifier = identifier;
         effect.chance = chance;
-        effect.enhance = enhance;
-        effect.slow = slow;
         return effect;
     }
     public void enableWeaken()
     {
         Character obj = manager.GetCharacter();
-        obj.status.Mul(StatId.SPD, identifier, slow);
+        obj.status.Mul(StatId.SPD, identifier, -_stats[StatId_Effect_Ice.FRZ_slow].Get());
+        obj.status.Mul(StatId.APS, identifier, -_stats[StatId_Effect_Ice.FRZ_Aslow].Get());
     }
     public void disableWeaken()
     {
@@ -95,11 +103,5 @@ public class Effect_Ice : Effect   //Manager class
             weaken = false;
         }
         stack = 0;
-    }
-    public void applyDamage(float dmg)
-    {
-        Character obj = manager.GetCharacter();
-        obj.status.CurrentHP -= dmg;
-        Debug.Log("남은 HP: " + obj.status.CurrentHP);
     }
 }

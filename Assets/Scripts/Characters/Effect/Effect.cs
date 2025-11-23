@@ -33,11 +33,18 @@ public abstract class Effect    //Manager class
     {
         term = effect.term;
         startTime = Time.time;
+        chance = effect.chance;
         enable = true;
     }
     public abstract void updateValue(float term, float dmg, float tick, int max_stack = 1);
     public abstract Effect copy();
     public virtual void upgrade() { }
     public virtual void OnExpired() { enable = false; }
+    public void applyDamage(float dmg)
+    {
+        Character obj = manager.GetCharacter();
+        obj.status.CurrentHP -= dmg;
+        Debug.Log("남은 HP: " + obj.status.CurrentHP);
+    }
 }
 

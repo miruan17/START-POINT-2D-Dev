@@ -3,22 +3,25 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Threading;
 using UnityEngine;
-public enum StatId_Effect_Poison { Pos, Pos_tick, Pos_stack, Pos_term } // dmg tick max_stack term
+public enum StatId_Effect_Poison { Pos, Pos_tick, Pos_stack, Pos_term, Weak_ATK, Weak_DEF } // dmg tick max_stack term
 public class Effect_Poison : Effect   //Manager class
 {
     private Dictionary<StatId_Effect_Poison, Status> _stats = new();
     private float prevTime = 0;
     private int level = 0;
     private int stack = 0;
+    private float prevATK;
+    private float prevDEF;
     private bool weaken = false;
     public Effect_Poison(float term, float dmg, float tick, int max_stack)
     {
-        chance = 0.4f;
         can_stack = true;
         _stats[StatId_Effect_Poison.Pos] = new Status(dmg);
         _stats[StatId_Effect_Poison.Pos_tick] = new Status(tick);
         _stats[StatId_Effect_Poison.Pos_stack] = new Status(max_stack);
         _stats[StatId_Effect_Poison.Pos_term] = new Status(term);
+        _stats[StatId_Effect_Poison.Weak_ATK] = new Status(0.15f);
+        _stats[StatId_Effect_Poison.Weak_DEF] = new Status(0.2f);
     }
     public override void Runtime()
     {
@@ -31,6 +34,18 @@ public class Effect_Poison : Effect   //Manager class
                 Debug.Log("취약 적용중");
                 enableWeaken();
                 weaken = true;
+            }
+            else
+            {
+                float nowATK = _stats[StatId_Effect_Poison.Weak_ATK].Get();
+                float nowDEF = _stats[StatId_Effect_Poison.Weak_DEF].Get();
+                if (prevATK != nowATK || prevDEF != nowDEF)
+                {
+                    disableWeaken();
+                    enableWeaken();
+                }
+                prevATK = nowATK;
+                prevDEF = nowDEF;
             }
         }
         else
@@ -56,6 +71,8 @@ public class Effect_Poison : Effect   //Manager class
         if (stack < _stats[StatId_Effect_Poison.Pos_stack].Get()) stack++;
         term = _stats[StatId_Effect_Poison.Pos_term].Get();
         level = eff.level;
+        prevATK = _stats[StatId_Effect_Poison.Weak_ATK].Get();
+        prevDEF = _stats[StatId_Effect_Poison.Weak_DEF].Get();
     }
     public override void updateValue(float term, float dmg, float tick, int max_stack)
     {
@@ -71,13 +88,14 @@ public class Effect_Poison : Effect   //Manager class
         level++;
         if (level == 1)
         {
-            // 중독 + 1: 틱 데미지 + 1
+            //취약 + 1: 공깎 15% -> 18%, 방깎 20% -> 22%, 틱뎀 +1, 유지시간 +2초
+            _stats[StatId_Effect_Poison.Weak_ATK].SetDefaultValue(_stats[StatId_Effect_Poison.Weak_ATK].getBase() + 0.03f);
+            _stats[StatId_Effect_Poison.Weak_DEF].SetDefaultValue(_stats[StatId_Effect_Poison.Weak_DEF].getBase() + 0.02f);
             _stats[StatId_Effect_Poison.Pos].SetDefaultValue(_stats[StatId_Effect_Poison.Pos].getBase() + 1);
+            _stats[StatId_Effect_Poison.Pos_term].SetDefaultValue(_stats[StatId_Effect_Poison.Pos_term].getBase() + 2);
         }
         if (level == 2)
         {
-            // 중독 + 2: 지속시간 2초 증가
-            _stats[StatId_Effect_Poison.Pos_term].SetDefaultValue(_stats[StatId_Effect_Poison.Pos_term].getBase() + term);
         }
         if (level == 3)
         {
@@ -93,8 +111,8 @@ public class Effect_Poison : Effect   //Manager class
     public void enableWeaken()
     {
         Character obj = manager.GetCharacter();
-        obj.status.Mul(StatId.ATK, identifier, -0.15f);
-        obj.status.Mul(StatId.DEF, identifier, -0.2f);
+        obj.status.Mul(StatId.ATK, identifier, -_stats[StatId_Effect_Poison.Weak_ATK].Get());
+        obj.status.Mul(StatId.DEF, identifier, -_stats[StatId_Effect_Poison.Weak_DEF].Get());
     }
     public void disableWeaken()
     {
@@ -109,11 +127,5 @@ public class Effect_Poison : Effect   //Manager class
             weaken = false;
         }
         stack = 0;
-    }
-    public void applyDamage(float dmg)
-    {
-        Character obj = manager.GetCharacter();
-        obj.status.CurrentHP -= dmg;
-        Debug.Log("남은 HP: " + obj.status.CurrentHP);
     }
 }

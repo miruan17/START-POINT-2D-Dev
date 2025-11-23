@@ -89,7 +89,7 @@ public class PlayerAttack : MonoBehaviour
 
     // direction variable
     private Vector2 direction;              // 방향
-    
+
     //Attack Management
     private IEnumerator AttackOrder()
     {
@@ -107,14 +107,14 @@ public class PlayerAttack : MonoBehaviour
         {
             attack = weapon.ComboAttacks[currentCombo];
             hitbox = comboHitboxes[currentCombo];
-            Debug.Log("AttackType: " + $"Combo Attack {currentCombo + 1}");  
+            Debug.Log("AttackType: " + $"Combo Attack {currentCombo + 1}");
         }
         yield return new WaitForSeconds(attack.preDelay);
         hitbox.SetActive(true);
         yield return new WaitForSeconds(attack.hitTime);
         hitbox.SetActive(false);
         yield return new WaitForSeconds(attack.postDelay);
-        
+
         input.flip = true;
         isAttacking = false;
     }
@@ -169,7 +169,7 @@ public class PlayerAttack : MonoBehaviour
         if (Time.time < inputDelay)
         {
             attackCall = false;  // 자동 실행 래치 제거
-            isHolding  = false;  // 누르기 진행 상태 제거
+            isHolding = false;  // 누르기 진행 상태 제거
             return;
         }
         if (!attackCall || isAttacking) return;

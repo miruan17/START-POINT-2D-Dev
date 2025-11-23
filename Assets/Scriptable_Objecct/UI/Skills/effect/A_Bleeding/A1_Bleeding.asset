@@ -24,5 +24,5 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 11400000, guid: 573f46c681565304bb1d480e8b26f36d, type: 2}
   isMainNode: 1
-  isPassive: 0
+  isPassive: 1
   description: apply "Bleeding" Effect on Attack for 40% chance

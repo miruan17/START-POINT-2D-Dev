@@ -60,18 +60,14 @@ public class Effect_Bleeding : Effect   //Manager class
         level++;
         if (level == 1)
         {
-            // 출혈 + 1: 지속시간 1초 증가
-            _stats[StatId_Effect_Bleeding.BLD_term].SetDefaultValue(_stats[StatId_Effect_Bleeding.BLD_term].getBase() + 1);
+            // 과다출혈 + 1: hp 10% -> 11%
+            _stats[StatId_Effect_Bleeding.EXE_BLD].SetDefaultValue(_stats[StatId_Effect_Bleeding.EXE_BLD].getBase() + 0.01f);
         }
         if (level == 2)
         {
-            // 과다출혈 +1: 과다출혈 데미지 1% 증가
-            _stats[StatId_Effect_Bleeding.EXE_BLD].SetDefaultValue(_stats[StatId_Effect_Bleeding.EXE_BLD].getBase() + 0.01f);
         }
         if (level == 3)
         {
-            // 출혈 + 2: 최대스택 2 감소
-            _stats[StatId_Effect_Bleeding.BLD_stack].SetDefaultValue((int)_stats[StatId_Effect_Bleeding.BLD_stack].getBase() - 2);
         }
     }
     public override Effect copy()
@@ -83,11 +79,5 @@ public class Effect_Bleeding : Effect   //Manager class
     public override void OnExpired()
     {
         stack = 0;
-    }
-    public void applyDamage(float dmg)
-    {
-        Character obj = manager.GetCharacter();
-        obj.status.CurrentHP -= dmg;
-        Debug.Log("남은 HP: " + obj.status.CurrentHP);
     }
 }
