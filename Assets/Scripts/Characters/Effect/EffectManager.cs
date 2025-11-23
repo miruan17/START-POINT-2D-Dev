@@ -14,6 +14,10 @@ public class EffectManager  //Manager class
         effectList = new List<Effect>();
         character = ch;
     }
+    public EffectManager()
+    {
+        effectList = new List<Effect>();
+    }
 
     // Effect 추가
     public void AddEffect(String identifier, Effect effect, float term, params float[]? argv)
