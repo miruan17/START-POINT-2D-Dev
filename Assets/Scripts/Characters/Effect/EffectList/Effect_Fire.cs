@@ -32,6 +32,7 @@ public class Effect_Fire : Effect   //Manager class
         Effect_Fire eff = (Effect_Fire)effect;
         _stats = eff._stats; // 해당 구조를 통해 모든 Effect_Bleeding객체는 항상 player의 EffectLib속 Effect_Bleeding 객체의 _stat을 참조
         term = _stats[StatId_Effect_Fire.FIRE_term].Get();
+        chance = effect.chance;
         level = eff.level;
     }
     public override void updateValue(float term, float dmg, float tick, int max_stack) // 기존 base를 변경하는 연산

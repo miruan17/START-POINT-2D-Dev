@@ -3,10 +3,10 @@ using System.Collections;
 using UnityEngine;
 using Unity.Mathematics;
 
-public class Pollution : Skill
+public class FrostField : Skill
 {
     [SerializeField]
-    private float duration = 10f;
+    private float duration = 2f;
     [SerializeField]
     private GameObject hitboxdef;
     private GameObject hitbox;
@@ -18,7 +18,7 @@ public class Pollution : Skill
     private void Start()
     {
         Player player = FindObjectOfType<Player>();
-        Effect effect = player.getEffectLib().getEffectbyID("Poison");
+        Effect effect = player.getEffectLib().getEffectbyID("Ice");
         effectManager.AddEffect(effect);
         hitbox = Instantiate(hitboxdef, this.transform);
         hitbox.SetActive(false);
@@ -33,7 +33,7 @@ public class Pollution : Skill
             hitbox.SetActive(true);
             yield return new WaitForSeconds(0.1f);
             hitbox.SetActive(false);
-            yield return new WaitForSeconds(0.9f);
+            yield return new WaitForSeconds(0.2f);
         }
         Destroy(gameObject);
     }

@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
-
+public enum EnemyState { Normal, Frozen }
 public class Enemy : Character
 {
     public static List<Enemy> AllEnemies = new List<Enemy>();
+    public EnemyState enemyState = EnemyState.Normal;
     public override void DeathTrigger()
     {
         if (status.CurrentHP <= 0)

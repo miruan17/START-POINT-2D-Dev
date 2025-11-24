@@ -13,6 +13,7 @@ public sealed class SkillLib
     private SkillLib()
     {
         skillMap["Pollution"] = new Pollution();
+        skillMap["FrostField"] = new FrostField();
     }
     public static SkillLib Instance
     {

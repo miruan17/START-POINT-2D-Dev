@@ -52,6 +52,7 @@ public class Effect_Lightning : Effect   //Manager class
         Effect_Lightning eff = (Effect_Lightning)effect;
         _stats = eff._stats; // 해당 구조를 통해 모든 Effect_Bleeding객체는 항상 player의 EffectLib속 Effect_Bleeding 객체의 _stat을 참조
         level = eff.level;
+        chance = effect.chance;
         term = 1;
     }
     public override void updateValue(float term, float dmg, float tick, int max_stack) // 기존 base를 변경하는 연산
@@ -79,6 +80,7 @@ public class Effect_Lightning : Effect   //Manager class
     {
         Effect_Lightning effect = new Effect_Lightning(_stats[StatId_Effect_Lightning.LN].getBase(), (int)_stats[StatId_Effect_Lightning.LN_Chain].getBase(), _stats[StatId_Effect_Lightning.LN_Range].getBase());
         effect.identifier = identifier;
+        effect.chance = chance;
         return effect;
     }
 }

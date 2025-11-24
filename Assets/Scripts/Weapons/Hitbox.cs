@@ -37,16 +37,13 @@ public class Hitbox : MonoBehaviour
             Enemy enemy = other.GetComponent<Enemy>();
             caller = GetComponentInParent<Character>();
             Player player = FindObjectOfType<Player>();
-            if (caller != null)
+            if (caller != null) //caller = player
             {
                 enemy.status.CurrentHP -= caller.status.GetFinal(StatId.ATK);
                 Debug.Log("Hit " + other.name + ", Damage " + caller.status.GetFinal(StatId.ATK));
                 EffectManager enemyManager = enemy.getEffect();
-                if (caller.CompareTag("Player")) //caller = Player
-                {
-                    EffectManager playerManager = player.getArgument();
-                    ApplyEffect.applyEffect(enemy, playerManager);
-                }
+                EffectManager playerManager = player.getArgument();
+                ApplyEffect.applyEffect(enemy, playerManager);
             }
             else // caller isn't Player (called by skill)
             {

@@ -14,6 +14,7 @@ public class Effect_Ice : Effect   //Manager class
     private bool weaken = false;
     public Effect_Ice(float term, float dmg, int max_stack)
     {
+        chance = 0.3f;
         can_stack = true;
         _stats[StatId_Effect_Ice.Ice] = new Status(dmg);
         _stats[StatId_Effect_Ice.Ice_stack] = new Status(max_stack);
@@ -86,12 +87,14 @@ public class Effect_Ice : Effect   //Manager class
     }
     public void enableWeaken()
     {
+        Debug.Log("Weaken 활성화");
         Character obj = manager.GetCharacter();
         obj.status.Mul(StatId.SPD, identifier, -_stats[StatId_Effect_Ice.FRZ_slow].Get());
         obj.status.Mul(StatId.APS, identifier, -_stats[StatId_Effect_Ice.FRZ_Aslow].Get());
     }
     public void disableWeaken()
     {
+        Debug.Log("Weaken 해제");
         Character obj = manager.GetCharacter();
         obj.status.RemoveBySource(identifier);
     }

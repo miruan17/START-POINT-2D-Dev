@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: C1
   tag: Ice
-  skillName: Ice
+  skillName: FrostField
   icon: {fileID: 21300000, guid: f6b8b85cbdc82ce439a41ae3d56d57ee, type: 3}
   unlockCost: 1
   cost: 1
@@ -25,4 +25,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: df0c6598876ad7446888c5afed86cadb, type: 2}
   isMainNode: 1
   isPassive: 0
-  description: apply "Ice" Effect on Attack for 40% chance
+  description: Create field apply Effect "Ice"
+  summonSkill: {fileID: 9141830021171458983, guid: b00475232463fc744a861e24eb5f3ecd, type: 3}
