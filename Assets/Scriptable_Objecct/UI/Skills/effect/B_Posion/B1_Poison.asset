@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: B1
   tag: Poison
-  skillName: Poison
+  skillName: Pollution
   icon: {fileID: 21300000, guid: 6960c6bd5088317429f7e0e033bee813, type: 3}
   unlockCost: 1
   cost: 1
@@ -25,4 +25,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c4c129f3fc7bc444db5e1875f002c5f9, type: 2}
   isMainNode: 1
   isPassive: 0
-  description: apply "Poison" Effect on Attack for 40% chance
+  description: Create field apply Effect "Poison"
+  summonSkill: {fileID: 4131258300414567715, guid: 5eedd61acb956ec42971c2f451ccbc24, type: 3}

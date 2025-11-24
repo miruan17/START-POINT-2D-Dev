@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using Unity.Collections;
 using UnityEngine;
 
 public sealed class EffectLib
@@ -15,6 +16,11 @@ public sealed class EffectLib
         effectMap["Poison"] = new Effect_Poison(7f, 2f, 1f, 5);
         effectMap["Ice"] = new Effect_Ice(5f, 10f, 5);
         effectMap["Fire"] = new Effect_Fire(10f, 3f, 1f);
+        effectMap["Lightning"] = new Effect_Lightning(2, 3, 10);
+        foreach (var (x, y) in effectMap)
+        {
+            y.identifier = x;
+        }
     }
     public static EffectLib Instance
     {

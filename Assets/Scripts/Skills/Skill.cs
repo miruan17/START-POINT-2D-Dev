@@ -1,9 +1,10 @@
 using UnityEngine;
-
+public enum SkillType { Summon, Attack, Move }
 public abstract class Skill : MonoBehaviour
 {
     protected EffectManager effectManager;
-    private void Awake()
+    public SkillType skillType;
+    protected virtual void Awake()
     {
         effectManager = new EffectManager();
     }

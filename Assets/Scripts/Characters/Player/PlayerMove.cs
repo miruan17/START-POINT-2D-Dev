@@ -69,7 +69,7 @@ public class PlayerMove : MonoBehaviour
 
         Bounds b = bodyCol.bounds;
         Vector2 boxCenter = new Vector2(b.center.x, b.min.y - groundCheckDepth * 0.5f);
-        Vector2 boxSize   = new Vector2(b.size.x * 0.9f, groundCheckDepth);
+        Vector2 boxSize = new Vector2(b.size.x * 0.9f, groundCheckDepth);
 
         bool hit = Physics2D.OverlapBox(boxCenter, boxSize, 0f, groundMask);
 
@@ -87,7 +87,7 @@ public class PlayerMove : MonoBehaviour
 
         var b = bodyCol.bounds;
         var center = new Vector2(b.center.x, b.min.y - groundCheckDepth * 0.5f);
-        var size   = new Vector2(b.size.x * 0.9f, groundCheckDepth);
+        var size = new Vector2(b.size.x * 0.9f, groundCheckDepth);
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireCube(center, size);
     }

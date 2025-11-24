@@ -6098,6 +6098,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caf59eec70eccb642bc3f402e75f5952, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerSkill: {fileID: 6564182220219136124}
 --- !u!4 &437475523 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4833080236390058, guid: dd3cd0bd2af406d49b8af45b2a369a3f, type: 3}
@@ -10132,52 +10133,6 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
---- !u!1 &649222403
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 649222405}
-  - component: {fileID: 649222404}
-  m_Layer: 0
-  m_Name: Pollution
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &649222404
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 649222403}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 595e4b8a554263440abeafbf61278fb6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  duration: 10
-  hitboxdef: {fileID: 59730645314180040, guid: a18273dd343725e488e5aa78562fc14e, type: 3}
---- !u!4 &649222405
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 649222403}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5, y: 13, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &650372454 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4593512871382138, guid: 2b6f52bde591574488692f7b58753bbb, type: 3}
@@ -34610,7 +34565,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: 9137a6bd31756e54ea0156b8c72fb21d, type: 3}
+  m_Actions: {fileID: -944628639613478452, guid: 1a966d44c7336f44092cd6fb0d2f4927, type: 3}
   m_NotificationBehavior: 3
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
@@ -35371,6 +35326,7 @@ GameObject:
   - component: {fileID: 791573611242424826}
   - component: {fileID: 5086860292871280335}
   - component: {fileID: 3507184387584237048}
+  - component: {fileID: 6564182220219136124}
   - component: {fileID: 3019658623443857929}
   m_Layer: 0
   m_Name: Player
@@ -35379,6 +35335,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &6564182220219136124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6564182220219136123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceae1ed20de8bd949a1dc6e847c736cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeSkill:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &6694594337752118276
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35642,4 +35615,3 @@ SceneRoots:
   - {fileID: 102398490}
   - {fileID: 932413286}
   - {fileID: 627940645}
-  - {fileID: 649222405}

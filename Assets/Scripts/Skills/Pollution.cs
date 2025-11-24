@@ -10,11 +10,15 @@ public class Pollution : Skill
     [SerializeField]
     private GameObject hitboxdef;
     private GameObject hitbox;
+    private void Awake()
+    {
+        base.Awake();
+        skillType = SkillType.Summon;
+    }
     private void Start()
     {
         Player player = FindObjectOfType<Player>();
         Effect effect = player.getEffectLib().getEffectbyID("Poison");
-        if (effect == null) effect = EffectLib.Instance.getEffectbyID("Poison");
         effectManager.AddEffect(effect);
         hitbox = Instantiate(hitboxdef, this.transform);
         hitbox.SetActive(false);
@@ -29,6 +33,7 @@ public class Pollution : Skill
             hitbox.SetActive(false);
             yield return new WaitForSeconds(0.9f);
         }
+        Destroy(gameObject);
     }
 
 }

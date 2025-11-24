@@ -6,11 +6,14 @@ using UnityEngine.InputSystem.Utilities;
 public class SkillHotkeyManager : MonoBehaviour
 {
     private SkillSlot[] slots;
+    public PlayerSkill playerSkill;
 
     private void Awake()
     {
         // Scene 내의 모든 SkillSlot 자동 등록
-        slots = FindObjectsOfType<SkillSlot>(true);
+        slots = FindObjectsOfType<SkillSlot>(true)
+            .OrderBy(s => s.transform.GetSiblingIndex())
+            .ToArray();
         Debug.Log($"[SkillHotkeyManager] {slots.Length} hotkey slots found.");
     }
 
@@ -32,6 +35,7 @@ public class SkillHotkeyManager : MonoBehaviour
         {
             if (Input.GetKeyDown(slot.Hotkey))
             {
+                if (slot.assignedSkill != null && slot.assignedSkill.skillName.Equals(focusedSkill.skillName)) continue;
                 AssignSkillToSlot(focusedSkill, slot);
                 Debug.Log($"[SkillHotkeyManager] {slot.Hotkey} pressed!");
                 break;
@@ -43,13 +47,23 @@ public class SkillHotkeyManager : MonoBehaviour
     private void AssignSkillToSlot(SkillNodeDef skill, SkillSlot targetSlot)
     {
         // 중복 방지: 이미 다른 슬롯에 존재하면 제거
-        foreach (var slot in slots)
+        for (int i = 0; i < 4; i++)
         {
+            var slot = slots[i];
+            Debug.Log(slot.Hotkey);
             if (slot.IsAssigned(skill))
+            {
+                playerSkill.UpdateActiveSkill(i, null);
                 slot.ClearSlot();
+            }
+            if (slot.Equals(targetSlot))
+            {
+                // 새로 지정
+                targetSlot.AssignSkill(skill);
+                playerSkill.UpdateActiveSkill(i, targetSlot.assignedSkill);
+
+            }
         }
 
-        // 새로 지정
-        targetSlot.AssignSkill(skill);
     }
 }

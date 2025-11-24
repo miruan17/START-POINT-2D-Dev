@@ -7,6 +7,9 @@ public class Player : Character
 {
     private List<SkillNodeBase> passiveSkillList;
     private EffectLib effectLib;
+    public PlayerState State { get; private set; } = PlayerState.Normal;
+    public void SetState(PlayerState s) => State = s;
+
     private void Awake()
     {
         base.Awake();
@@ -20,7 +23,6 @@ public class Player : Character
         foreach (var node in passiveSkillList)
         {
             Effect effect = effectLib.getEffectbyID(node.Definition.tag);
-            effect.identifier = node.Definition.tag;
             el.Add(effect);
         }
         argument.setEffectList(el);
