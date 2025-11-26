@@ -47,12 +47,15 @@ public class Hitbox : MonoBehaviour
                 if (enemy.is_Freeze)
                 {
                     enemy.status.CurrentHP -= ((Effect_Freeze)EffectLib.playerEffectLib.getEffectbyID("Freeze")).getDmg();
-                    Debug.Log("DMG by Freeze" + ((Effect_Freeze)EffectLib.playerEffectLib.getEffectbyID("Freeze")).getDmg());
                 }
             }
             else // caller isn't Player (called by skill)
             {
                 skill = GetComponentInParent<Skill>();
+                if (skill.dmg != 0)
+                {
+                    enemy.status.CurrentHP -= skill.dmg;
+                }
                 EffectManager skillManager = skill.getEffect();
                 ApplyEffect.applyEffect(enemy, skillManager.ReturnEffect());
             }

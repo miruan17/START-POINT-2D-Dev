@@ -1370,6 +1370,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterStatus: {fileID: 11400000, guid: 68e23521450fefe42a76e6a19301a823, type: 2}
+  is_Freeze: 0
+  enemyState: 0
 --- !u!1001 &102598563
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9316,11 +9318,11 @@ Transform:
   m_GameObject: {fileID: 627940643}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 9.64, y: 13.26, z: -2}
+  m_LocalPosition: {x: 12.203709, y: -5.0731506, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 901271485}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &627991261 stripped
 Transform:
@@ -14224,6 +14226,7 @@ Transform:
   - {fileID: 359894509}
   - {fileID: 1233704660}
   - {fileID: 1154404990}
+  - {fileID: 627940645}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &901714438
@@ -14664,6 +14667,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterStatus: {fileID: 11400000, guid: 68e23521450fefe42a76e6a19301a823, type: 2}
+  is_Freeze: 0
+  enemyState: 0
   attack: {fileID: 11400000, guid: 9ff68a464af91fe4093b041f37fb709e, type: 2}
 --- !u!70 &932413284
 CapsuleCollider2D:
@@ -16395,8 +16400,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1253632788}
   m_HandleRect: {fileID: 1253632787}
   m_Direction: 2
-  m_Value: 0.58219326
-  m_Size: 0.4590801
+  m_Value: 0.5821934
+  m_Size: 0.45907995
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -27278,7 +27283,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1892626267}
   m_HandleRect: {fileID: 1892626266}
   m_Direction: 0
-  m_Value: 0.6962073
+  m_Value: 0.69620734
   m_Size: 0.34215
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -34553,6 +34558,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flip: 1
   deadzone: 0.01
+  inputEnabled: 1
 --- !u!114 &953554274842003142
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34722,6 +34728,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterStatus: {fileID: 11400000, guid: c36d527a509593f4db75df78e2eb09d4, type: 2}
+  is_Freeze: 0
 --- !u!1 &2233891928856476201
 GameObject:
   m_ObjectHideFlags: 0
@@ -34854,6 +34861,7 @@ GameObject:
   - component: {fileID: 2356391080149477419}
   - component: {fileID: 459930472985909698}
   - component: {fileID: 4830307299797449818}
+  - component: {fileID: 4830307299797449819}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -35161,6 +35169,18 @@ MonoBehaviour:
   m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0
   m_CursorLockBehavior: 0
+--- !u!114 &4830307299797449819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2708609269631107900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f7f518cebc20ab4c97cb29539430557, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &5086860292871280335
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35614,4 +35634,3 @@ SceneRoots:
   - {fileID: 901271485}
   - {fileID: 102398490}
   - {fileID: 932413286}
-  - {fileID: 627940645}

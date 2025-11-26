@@ -6,8 +6,6 @@ using UnityEngine.InputSystem;
 public class Player : Character
 {
     private List<SkillNodeBase> passiveSkillList;
-    public PlayerState State { get; private set; } = PlayerState.Normal;
-    public void SetState(PlayerState s) => State = s;
 
     private void Awake()
     {

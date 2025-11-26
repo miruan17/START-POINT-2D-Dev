@@ -4,6 +4,7 @@ public abstract class Skill : MonoBehaviour
 {
     protected EffectManager effectManager;
     public SkillType skillType;
+    public float dmg = 0;
     protected virtual void Awake()
     {
         effectManager = new EffectManager();

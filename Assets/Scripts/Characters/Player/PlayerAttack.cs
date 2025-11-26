@@ -9,6 +9,7 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] public WeaponDef weapon;
     private PlayerInputHub input;
     private PlayerMove move;
+    private Animator anim;
     [SerializeField] public GameObject hitboxRoot;
 
     //hitboxGenerator
@@ -72,6 +73,7 @@ public class PlayerAttack : MonoBehaviour
     {
         input = GetComponent<PlayerInputHub>();
         move = GetComponent<PlayerMove>();
+        anim = GetComponentInChildren<Animator>();
         WeaponUpdate(weapon);
     }
 
@@ -121,6 +123,7 @@ public class PlayerAttack : MonoBehaviour
 
     private void Update()
     {
+        if (anim.GetBool("ActionLock")) return;
         direction = input.MoveInput;
         if (direction.y > 0)
         {
@@ -165,6 +168,8 @@ public class PlayerAttack : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (anim.GetBool("ActionLock")) return;
+
         // attack pipeline
         if (Time.time < inputDelay)
         {

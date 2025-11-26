@@ -22,7 +22,7 @@ public class Effect_Bleeding : Effect   //Manager class
     public override void Runtime()
     {
         if (_stats[StatId_Effect_Bleeding.BLD_tick].Get() <= 0) return;
-        if (stack > _stats[StatId_Effect_Bleeding.BLD_stack].Get())
+        if (stack >= _stats[StatId_Effect_Bleeding.BLD_stack].Get())
         {
             Character obj = manager.GetCharacter();
             Debug.Log("과다출혈!!!");

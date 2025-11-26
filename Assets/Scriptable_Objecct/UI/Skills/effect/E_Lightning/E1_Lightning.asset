@@ -25,4 +25,5 @@ MonoBehaviour:
   - {fileID: 0}
   isMainNode: 1
   isPassive: 1
-  description: apply "Lightning" Effect on Attack for 40% chance
+  description: apply "Lightning" Effect on Attack for 30% chance
+  summonSkill: {fileID: 0}
