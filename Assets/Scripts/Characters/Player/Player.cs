@@ -6,14 +6,12 @@ using UnityEngine.InputSystem;
 public class Player : Character
 {
     private List<SkillNodeBase> passiveSkillList;
-    private EffectLib effectLib;
     public PlayerState State { get; private set; } = PlayerState.Normal;
     public void SetState(PlayerState s) => State = s;
 
     private void Awake()
     {
         base.Awake();
-        effectLib = new EffectLib();
         passiveSkillList = new List<SkillNodeBase>();
     }
     public void setPassiveSkillList(List<SkillNodeBase> list)
@@ -22,7 +20,7 @@ public class Player : Character
         List<Effect> el = new List<Effect>();
         foreach (var node in passiveSkillList)
         {
-            Effect effect = effectLib.getEffectbyID(node.Definition.tag);
+            Effect effect = EffectLib.playerEffectLib.getEffectbyID(node.Definition.tag);
             el.Add(effect);
         }
         argument.setEffectList(el);
@@ -36,5 +34,4 @@ public class Player : Character
             gameObject.SetActive(false);
         }
     }
-    public EffectLib getEffectLib() { return effectLib; }
 }

@@ -18,7 +18,7 @@ public class FrostField : Skill
     private void Start()
     {
         Player player = FindObjectOfType<Player>();
-        Effect effect = player.getEffectLib().getEffectbyID("Ice");
+        Effect effect = EffectLib.playerEffectLib.getEffectbyID("Ice");
         effectManager.AddEffect(effect);
         hitbox = Instantiate(hitboxdef, this.transform);
         hitbox.SetActive(false);
@@ -33,7 +33,7 @@ public class FrostField : Skill
             hitbox.SetActive(true);
             yield return new WaitForSeconds(0.1f);
             hitbox.SetActive(false);
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.7f);
         }
         Destroy(gameObject);
     }

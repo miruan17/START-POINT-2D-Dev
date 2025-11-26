@@ -15,6 +15,7 @@ public abstract class Effect    //Manager class
     public float chance = 1;
     public bool IsExpired => RemainingTime <= 0;
     public bool enable = false;
+    public bool expired = false;
 
     //stack
     public bool can_stack = false;
@@ -35,11 +36,12 @@ public abstract class Effect    //Manager class
         startTime = Time.time;
         chance = effect.chance;
         enable = true;
+        expired = false;
     }
     public abstract void updateValue(float term, float dmg, float tick, int max_stack = 1);
     public abstract Effect copy();
     public virtual void upgrade() { }
-    public virtual void OnExpired() { enable = false; }
+    public virtual void OnExpired() { enable = false; expired = true; }
     public void applyDamage(float dmg)
     {
         Character obj = manager.GetCharacter();

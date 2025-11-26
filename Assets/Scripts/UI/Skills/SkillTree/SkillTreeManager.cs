@@ -65,8 +65,7 @@ public class SkillTreeManager : MonoBehaviour, ISkillPointProvider
     {
         if (!unlocked.Definition.isMainNode)
         {
-            Player player = FindObjectOfType<Player>();
-            Effect getter = player.getEffectLib().getEffectbyID(unlocked.Definition.tag);
+            Effect getter = EffectLib.playerEffectLib.getEffectbyID(unlocked.Definition.tag);
             if (getter != null) // is upgrade node
             {
                 getter.upgrade();

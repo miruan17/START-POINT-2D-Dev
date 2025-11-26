@@ -17,6 +17,7 @@ public abstract class Character : MonoBehaviour
     public CharacterStatusManager status;
     protected EffectManager effect;
     protected EffectManager argument;
+    public bool is_Freeze = false;
 
     protected virtual void Awake()
     {

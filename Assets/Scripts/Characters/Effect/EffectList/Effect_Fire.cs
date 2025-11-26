@@ -66,9 +66,4 @@ public class Effect_Fire : Effect   //Manager class
         effect.chance = chance;
         return effect;
     }
-    public override void OnExpired()
-    {
-    }
-
-
 }

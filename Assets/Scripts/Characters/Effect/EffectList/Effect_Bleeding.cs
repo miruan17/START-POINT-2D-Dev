@@ -42,7 +42,7 @@ public class Effect_Bleeding : Effect   //Manager class
         base.Refresh(effect);
         Effect_Bleeding eff = (Effect_Bleeding)effect;
         _stats = eff._stats; // 해당 구조를 통해 모든 Effect_Bleeding객체는 항상 player의 EffectLib속 Effect_Bleeding 객체의 _stat을 참조 
-        if (stack <= _stats[StatId_Effect_Bleeding.BLD_stack].Get()) stack++;
+        if (stack < _stats[StatId_Effect_Bleeding.BLD_stack].Get()) stack++;
         term = _stats[StatId_Effect_Bleeding.BLD_term].Get();
         level = eff.level;
     }
@@ -78,6 +78,7 @@ public class Effect_Bleeding : Effect   //Manager class
     }
     public override void OnExpired()
     {
+        base.OnExpired();
         stack = 0;
     }
 }

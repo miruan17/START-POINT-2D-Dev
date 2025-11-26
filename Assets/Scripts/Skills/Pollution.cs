@@ -18,7 +18,7 @@ public class Pollution : Skill
     private void Start()
     {
         Player player = FindObjectOfType<Player>();
-        Effect effect = player.getEffectLib().getEffectbyID("Poison");
+        Effect effect = EffectLib.playerEffectLib.getEffectbyID("Poison");
         effectManager.AddEffect(effect);
         hitbox = Instantiate(hitboxdef, this.transform);
         hitbox.SetActive(false);

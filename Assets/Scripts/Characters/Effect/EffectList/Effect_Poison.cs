@@ -121,6 +121,7 @@ public class Effect_Poison : Effect   //Manager class
     }
     public override void OnExpired()
     {
+        base.OnExpired();
         if (weaken)
         {
             disableWeaken();

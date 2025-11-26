@@ -14,7 +14,7 @@ public class Effect_Ice : Effect   //Manager class
     private bool weaken = false;
     public Effect_Ice(float term, float dmg, int max_stack)
     {
-        chance = 0.3f;
+        chance = 1f;
         can_stack = true;
         _stats[StatId_Effect_Ice.Ice] = new Status(dmg);
         _stats[StatId_Effect_Ice.Ice_stack] = new Status(max_stack);
@@ -24,6 +24,7 @@ public class Effect_Ice : Effect   //Manager class
     }
     public override void Runtime()
     {
+        if (!enable) return;
         if (!weaken)
         {
             weaken = true;
@@ -47,12 +48,19 @@ public class Effect_Ice : Effect   //Manager class
         base.Refresh(effect);
         Effect_Ice eff = (Effect_Ice)effect;
         _stats = eff._stats;
-        if (stack < _stats[StatId_Effect_Ice.Ice_stack].Get()) stack++;
         term = _stats[StatId_Effect_Ice.Ice_term].Get();
         level = eff.level;
-        if (stack == _stats[StatId_Effect_Ice.Ice_stack].Get()) applyDamage(_stats[StatId_Effect_Ice.Ice].Get());
         prevAslow = _stats[StatId_Effect_Ice.FRZ_Aslow].Get();
         prevslow = _stats[StatId_Effect_Ice.FRZ_slow].Get();
+        if (stack < _stats[StatId_Effect_Ice.Ice_stack].Get()) stack++;
+        else if (stack == _stats[StatId_Effect_Ice.Ice_stack].Get())
+        {
+            enable = false;
+            stack = 0;
+            Debug.Log("DMG by ice 3 stack");
+            applyDamage(_stats[StatId_Effect_Ice.Ice].Get());
+            ApplyEffect.applyEffect(manager.GetCharacter(), new List<Effect> { EffectLib.playerEffectLib.getEffectbyID("Freeze") });
+        }
     }
     public override void updateValue(float term, float dmg, float tick, int max_stack)
     {
@@ -100,6 +108,7 @@ public class Effect_Ice : Effect   //Manager class
     }
     public override void OnExpired()
     {
+        base.OnExpired();
         if (weaken)
         {
             disableWeaken();

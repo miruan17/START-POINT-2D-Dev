@@ -67,7 +67,8 @@ public class EffectManager  //Manager class
             if (!effect.IsExpired && effect.enable) effect.Runtime();
             else
             {
-                effect.OnExpired();
+                if (!effect.expired)
+                    effect.OnExpired();
                 effect.enable = false;
             }
         }
