@@ -1,20 +1,23 @@
+using System.Collections.Generic;
+using System.Numerics;
 using UnityEngine;
+
+[DisallowMultipleComponent]
 
 public abstract class Character : MonoBehaviour
 {
     [Header("StatusDef")]
-    public StatusDef status;
+    public CharacterStatusDef characterStatus;
 
     protected SpriteRenderer spriteRenderer;
     protected Rigidbody2D rigid;
     protected Animator anim;
     protected Collider2D bodyCol;
 
-    protected StatusManager stats;
-
-    // Runtime value
-    protected float currentHp;
-    protected float currentSp;
+    public CharacterStatusManager status;
+    protected EffectManager effect;
+    protected EffectManager argument;
+    public bool is_Freeze = false;
 
     protected virtual void Awake()
     {
@@ -22,54 +25,38 @@ public abstract class Character : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
         bodyCol = GetComponent<Collider2D>();
-
-        BuildStatus();
+        status = new CharacterStatusManager(characterStatus);
+        effect = new EffectManager(this);
+        argument = new EffectManager(this);
     }
 
-    private void BuildStatus()
+    #region Status Area
+
+
+
+
+    #endregion
+
+
+
+    #region Effect Area
+
+    public EffectManager getEffect()
     {
-        stats = new StatusManager();
-
-        stats.SetBase(StatusType.Hp, status.DefaultHp);
-        stats.SetBase(StatusType.Sp, status.DefaultSp);
-        stats.SetBase(StatusType.Atk, status.DefaultAtk);
-        stats.SetBase(StatusType.Aps, status.DefaultAps);
-        stats.SetBase(StatusType.Def, status.DefaultDef);
-        stats.SetBase(StatusType.Spd, status.DefaultSpd);
-
-        // runtime value
-        currentHp = stats.GetFinal(StatusType.Hp);
-        currentSp = stats.GetFinal(StatusType.Sp);
+        return effect;
     }
+    public EffectManager getArgument()
+    {
+        return argument;
+    }
+    #endregion
 
-    // Final value
-    public float FinalHp => stats.GetFinal(StatusType.Hp);
-    public float FinalSp => stats.GetFinal(StatusType.Sp);
-    public float FinalAtk => stats.GetFinal(StatusType.Atk);
-    public float FinalAps => stats.GetFinal(StatusType.Aps);
-    public float FinalDef => stats.GetFinal(StatusType.Def);
-    public float FinalSpd => stats.GetFinal(StatusType.Spd);
-
-    // Wrapper Method - Modifier
-    public void ApplyAdditional(string sourceId, StatusSourceKind kind, StatusType type, float value)
-        => stats.AddModifier(new StatusModifier(sourceId, kind, type, StatusModKind.Additional, value));
-
-    public void ApplyMultiple(string sourceId, StatusSourceKind kind, StatusType type, float valueAsRatio)
-        => stats.AddModifier(new StatusModifier(sourceId, kind, type, StatusModKind.Multiple, valueAsRatio));
-
-    public void RemoveBySource(string sourceId) => stats.RemoveBySource(sourceId);
-
-    //System.collections.Generic namespace의 Dictionary
-    public System.Collections.Generic.Dictionary<StatusSourceKind, StatContribution>
-        GetContributionsByKind(StatusType stat) => stats.GetContributionsByKind(stat);
+    public abstract void DeathTrigger();
 
     private void FixedUpdate()
     {
-        currentHp = FinalHp;
-        currentSp = FinalSp;
-        if (currentHp <= 0)
-        {
-            //DeathEvent
-        }
+        // 지향 구조
+        DeathTrigger();
+        effect.RuntimeEffect();
     }
 }

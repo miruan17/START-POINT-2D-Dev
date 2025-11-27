@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Unity.VisualScripting;
 
 public partial class SkillRegisterManager : MonoBehaviour
 {
@@ -45,7 +46,13 @@ public partial class SkillRegisterManager : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.RightArrow))
             MoveFocus(NavDir.Right);
     }
-
+    private void OnDisable()
+    {
+        _focusedIcon = null;
+        _focusedIndex = -1;
+        CurrentFocusedSkill = null;
+        RefreshFocusVisual();
+    }
     public void FocusIcon(int index)
     {
         if (index < 0 || index >= spawnedIcons.Count)

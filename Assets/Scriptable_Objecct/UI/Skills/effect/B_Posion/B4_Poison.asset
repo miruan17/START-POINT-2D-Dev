@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aba6c6de8a7e41242bfd88a029673d6f, type: 3}
+  m_Name: B4_Poison
+  m_EditorClassIdentifier: 
+  id: B4
+  tag: Poison
+  skillName: Weaken_up
+  icon: {fileID: 21300000, guid: 6960c6bd5088317429f7e0e033bee813, type: 3}
+  unlockCost: 1
+  cost: 1
+  prerequisiteSkills:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: a319937e579d8474686788d751d1c71f, type: 2}
+  - {fileID: 11400000, guid: 83624188429de2b4fb9722c44f67477d, type: 2}
+  - {fileID: 11400000, guid: 4e9a6f85072a9d348bdb2a44fae72885, type: 2}
+  isMainNode: 0
+  isPassive: 1
+  description: upgrade Effect "Weaken"

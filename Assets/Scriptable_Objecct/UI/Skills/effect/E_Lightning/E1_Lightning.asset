@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aba6c6de8a7e41242bfd88a029673d6f, type: 3}
+  m_Name: E1_Lightning
+  m_EditorClassIdentifier: 
+  id: E1
+  tag: Lightning
+  skillName: Lightning
+  icon: {fileID: 21300000, guid: 61dab0b6e506c6a43b12d9fde15b2393, type: 3}
+  unlockCost: 1
+  cost: 1
+  prerequisiteSkills:
+  - {fileID: 11400000, guid: f43cc5bd8c26c0641b55c233d58d79c8, type: 2}
+  - {fileID: 11400000, guid: df0c6598876ad7446888c5afed86cadb, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  isMainNode: 1
+  isPassive: 1
+  description: apply "Lightning" Effect on Attack for 30% chance
+  summonSkill: {fileID: 0}

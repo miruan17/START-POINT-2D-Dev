@@ -13,14 +13,16 @@ MonoBehaviour:
   m_Name: Root_Skill
   m_EditorClassIdentifier: 
   id: 0
+  tag: None
   skillName: Root
   icon: {fileID: 0}
   unlockCost: 1
   cost: 1
   prerequisiteSkills:
-  - {fileID: 11400000, guid: 573f46c681565304bb1d480e8b26f36d, type: 2}
-  - {fileID: 11400000, guid: 09cc0815d4ba5b74aa782693bf265454, type: 2}
-  - {fileID: 0}
   - {fileID: 11400000, guid: c4c129f3fc7bc444db5e1875f002c5f9, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   isMainNode: 0
+  isPassive: 0
   description: Root

@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aba6c6de8a7e41242bfd88a029673d6f, type: 3}
+  m_Name: A1_Bleeding
+  m_EditorClassIdentifier: 
+  id: A1
+  tag: Bleeding
+  skillName: Scar
+  icon: {fileID: 21300000, guid: c67fbf9375ad5c34399c2849430ca7f7, type: 3}
+  unlockCost: 1
+  cost: 1
+  prerequisiteSkills:
+  - {fileID: 11400000, guid: f81c260a690fdf74a8b01c42f7f95e5d, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 573f46c681565304bb1d480e8b26f36d, type: 2}
+  isMainNode: 1
+  isPassive: 0
+  description: attack 4times with Effect "Bleeding"
+  summonSkill: {fileID: 6219839629781617116, guid: 5a56ab14f06076c4196f0fed49c9b33b, type: 3}

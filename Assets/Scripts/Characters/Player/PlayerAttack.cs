@@ -9,6 +9,7 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] public WeaponDef weapon;
     private PlayerInputHub input;
     private PlayerMove move;
+    private Animator anim;
     [SerializeField] public GameObject hitboxRoot;
 
     //hitboxGenerator
@@ -72,6 +73,7 @@ public class PlayerAttack : MonoBehaviour
     {
         input = GetComponent<PlayerInputHub>();
         move = GetComponent<PlayerMove>();
+        anim = GetComponentInChildren<Animator>();
         WeaponUpdate(weapon);
     }
 
@@ -89,37 +91,39 @@ public class PlayerAttack : MonoBehaviour
 
     // direction variable
     private Vector2 direction;              // 방향
-    
+
     //Attack Management
     private IEnumerator AttackOrder()
     {
         input.flip = false;
         AttackDef attack;
         GameObject hitbox;
+        Debug.Log("Caster: " + this.name);
         if (holdTime > weapon.ComboDeadline)
         {
             attack = weapon.EnhancedAttack;
             hitbox = enhancedHitbox;
-            Debug.Log("Enhanced Attack");
+            Debug.Log("AttackType: Enhanced Attack");
         }
         else
         {
             attack = weapon.ComboAttacks[currentCombo];
             hitbox = comboHitboxes[currentCombo];
-            Debug.Log($"Combo Attack {currentCombo + 1}");  
+            Debug.Log("AttackType: " + $"Combo Attack {currentCombo + 1}");
         }
         yield return new WaitForSeconds(attack.preDelay);
         hitbox.SetActive(true);
         yield return new WaitForSeconds(attack.hitTime);
         hitbox.SetActive(false);
         yield return new WaitForSeconds(attack.postDelay);
-        
+
         input.flip = true;
         isAttacking = false;
     }
 
     private void Update()
     {
+        if (anim.GetBool("ActionLock")) return;
         direction = input.MoveInput;
         if (direction.y > 0)
         {
@@ -164,11 +168,13 @@ public class PlayerAttack : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (anim.GetBool("ActionLock")) return;
+
         // attack pipeline
         if (Time.time < inputDelay)
         {
             attackCall = false;  // 자동 실행 래치 제거
-            isHolding  = false;  // 누르기 진행 상태 제거
+            isHolding = false;  // 누르기 진행 상태 제거
             return;
         }
         if (!attackCall || isAttacking) return;

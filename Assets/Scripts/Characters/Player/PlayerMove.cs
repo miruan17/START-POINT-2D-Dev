@@ -12,9 +12,6 @@ public class PlayerMove : MonoBehaviour
     public float speedScale = 1.0f;
     private float Speed;
 
-    private float accel = 1.0f;
-    private float deccel = 1.0f;
-
     [Header("Jump")]
     public float jumpPower = 13f;
 
@@ -35,16 +32,19 @@ public class PlayerMove : MonoBehaviour
 
     private void Update()
     {
-        Speed = speedScale * player.FinalSpd;
+        if (anim.GetBool("ActionLock")) return;
+        Speed = speedScale * player.status.GetFinal(StatId.SPD);
 
-        anim.SetBool("Move", Mathf.Abs(rigid.velocity.x) > 0.01f);
+        anim.SetBool("Move", Mathf.Abs(rigid.velocity.x) > 0.01f && isGrounded);
+        anim.SetBool("Jump", !isGrounded);
     }
 
     private void FixedUpdate()
     {
+        if (anim.GetBool("ActionLock")) return;
         // ground check
         isGrounded = OverlapGround();
-        anim.SetBool("Jump", !isGrounded);
+        //anim.SetBool("Jump", !isGrounded);
 
         // move
         float h = Mathf.Clamp(input.MoveInput.x, -1f, 1f);
@@ -52,17 +52,20 @@ public class PlayerMove : MonoBehaviour
         {
             rigid.AddForce(Vector2.right * h * 2f, ForceMode2D.Impulse);
         }
+        else
+        {
+            rigid.AddForce(Vector2.right * h * 0.33f, ForceMode2D.Impulse);
+        }
 
         // speed maximum
         float vx = Mathf.Clamp(rigid.velocity.x, -Speed, Speed);
         rigid.velocity = new Vector2(vx, rigid.velocity.y);
 
         // jump
-        if (input.JumpRequest() && isGrounded && !anim.GetBool("Jump"))
+        if (input.JumpRequest() && isGrounded)
         {
             rigid.velocity = new Vector2(rigid.velocity.x, 0f);
             rigid.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
-            anim.SetBool("Jump", true);
         }
     }
 
@@ -72,7 +75,7 @@ public class PlayerMove : MonoBehaviour
 
         Bounds b = bodyCol.bounds;
         Vector2 boxCenter = new Vector2(b.center.x, b.min.y - groundCheckDepth * 0.5f);
-        Vector2 boxSize   = new Vector2(b.size.x * 0.9f, groundCheckDepth);
+        Vector2 boxSize = new Vector2(b.size.x * 0.9f, groundCheckDepth);
 
         bool hit = Physics2D.OverlapBox(boxCenter, boxSize, 0f, groundMask);
 
@@ -90,7 +93,7 @@ public class PlayerMove : MonoBehaviour
 
         var b = bodyCol.bounds;
         var center = new Vector2(b.center.x, b.min.y - groundCheckDepth * 0.5f);
-        var size   = new Vector2(b.size.x * 0.9f, groundCheckDepth);
+        var size = new Vector2(b.size.x * 0.9f, groundCheckDepth);
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireCube(center, size);
     }

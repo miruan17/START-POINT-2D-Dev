@@ -11,7 +11,7 @@ public class AttackDef : ScriptableObject
     [Header("Hitbox")]
     public GameObject Hitbox;
     public float speed = 0f;
-    
+
     [Tooltip("Delay")]
     [Min(0f)] public float preDelay = 0.1f;
     [Min(0f)] public float hitTime = 0.1f;
