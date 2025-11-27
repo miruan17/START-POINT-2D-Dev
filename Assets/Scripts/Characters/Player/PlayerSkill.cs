@@ -24,16 +24,16 @@ public class PlayerSkill : MonoBehaviour
                 if (skill.skillType == SkillType.Summon)
                 {
                     Instantiate(activeSkill[i].summonSkill, player.transform.position, player.transform.rotation);
-                    ActionLockSystem.Instance.LockOnTime(0.5f, anim, input);
+                    //ActionLockSystem.Instance.LockOnTime(0.5f, anim, input);
                 }
                 else if (skill.skillType == SkillType.Attack)
                 {
                     Instantiate(activeSkill[i].summonSkill, player.transform.position, player.transform.rotation);
-                    ActionLockSystem.Instance.LockOnTime(0.5f, anim, input);
+                    //ActionLockSystem.Instance.LockOnTime(0.5f, anim, input);
                 }
                 else if (skill.skillType == SkillType.Move)
                 {
-                    ActionLockSystem.Instance.LockOnTime(0.3f, anim, input);
+                    //ActionLockSystem.Instance.LockOnTime(0.3f, anim, input);
                 }
             }
         }
