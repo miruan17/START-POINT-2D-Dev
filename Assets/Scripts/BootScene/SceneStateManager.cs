@@ -1,20 +1,21 @@
-
-using System;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
-
-public class SceneStateManager
+public class GameStateManager
 {
     private IGameState currentState;
-    public SceneStateManager()
+
+    public void ChangeState(IGameState newState)
     {
-        
+        if (currentState != null)
+        {
+            currentState.Exit();
+        }
+
+        currentState = newState;
+
+        if (currentState != null)
+        {
+            currentState.Enter();
+        }
     }
-    public void changeScene(IGameState state)
-    {
-        currentState.UnGenerateScene();
-        currentState = state;
-        currentState.GenerateScene();
-    }
+
+    public IGameState GetCurrentState() => currentState;
 }

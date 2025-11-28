@@ -1,66 +1,85 @@
-using Unity.Collections;
 using UnityEngine.SceneManagement;
 
 public interface IGameState
 {
-    public void GenerateScene();
-    public void UnGenerateScene();
-    public string Get();
+    void Enter();
+    void Exit();
+    string GetName();
 }
 
+#region Title State
 public class TitleState : IGameState
 {
-    private string stateName="TitleState";
+    private string stateName = "TitleState";
+    private string sceneName = "TitleScene";
 
-    public void GenerateScene()
+    public void Enter()
     {
-        SceneManager.LoadSceneAsync(stateName,LoadSceneMode.Additive);
+        SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
     }
-    public void UnGenerateScene()
+
+    public void Exit()
     {
-        SceneManager.UnloadSceneAsync(stateName);
+        SceneManager.UnloadSceneAsync(sceneName);
     }
-    public string Get() => stateName;
+
+    public string GetName() => stateName;
 }
+#endregion
 
+
+#region Village State
 public class VillageState : IGameState
 {
-    private string stateName="VillageState";
-    public void GenerateScene()
-    {
-        SceneManager.LoadSceneAsync(stateName,LoadSceneMode.Additive);
-    }
-    public void UnGenerateScene()
-    {
-        SceneManager.UnloadSceneAsync(stateName);
-    }
-    public string Get() => stateName;
-}
+    private string stateName = "VillageState";
+    private string sceneName = "VillageScene";
 
+    public void Enter()
+    {
+        SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+    }
+
+    public void Exit()
+    {
+        SceneManager.UnloadSceneAsync(sceneName);
+    }
+
+    public string GetName() => stateName;
+}
+#endregion
+
+
+#region State State
 public class StageState : IGameState
 {
-    private string stateName="StageState";
-    private string[] scenelist;
+    private string stateName = "StageState";
 
-    public StageState(string[] sceneList)
+    private string stageId;
+    private string startRoomId;
+    private string startRoomSceneName;
+
+    public StageState(string stageId, string startRoomId, string startRoomSceneName)
     {
-        this.scenelist = sceneList;
+        this.stageId = stageId;
+        this.startRoomId = startRoomId;
+        this.startRoomSceneName = startRoomSceneName;
     }
 
-    // Stage Generator
-    public void GenerateScene()
+    public void Enter()
     {
-        foreach(string x in scenelist)
-        {
-        SceneManager.LoadSceneAsync(x,LoadSceneMode.Additive);
-        }
+        GameManager.Instance.StartStage(stageId, startRoomId, startRoomSceneName);
     }
-    public void UnGenerateScene()
+
+    public void Exit()
     {
-        foreach(string x in scenelist)
+        if (GameManager.Instance.RoomSceneManager != null)
         {
-        SceneManager.UnloadSceneAsync(x);
+            GameManager.Instance.RoomSceneManager.UnloadCurrentRoom();
         }
+
+        GameManager.Instance.ClearStage();
     }
-    public string Get() => stateName;
+
+    public string GetName() => stateName;
 }
+#endregion
