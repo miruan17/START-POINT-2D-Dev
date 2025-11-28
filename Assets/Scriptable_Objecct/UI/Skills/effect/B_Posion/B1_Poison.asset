@@ -25,5 +25,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c4c129f3fc7bc444db5e1875f002c5f9, type: 2}
   isMainNode: 1
   isPassive: 0
+  isBasic: 1
   description: Create field apply Effect "Poison"
   summonSkill: {fileID: 4131258300414567715, guid: 5eedd61acb956ec42971c2f451ccbc24, type: 3}

@@ -12,6 +12,7 @@ public partial class SkillTree : MonoBehaviour
 
     private readonly Dictionary<string, SkillNodeBase> nodes = new();
     private readonly Dictionary<SkillNodeDef, SkillNodeBase> nodeMapByDef = new();
+    public IReadOnlyDictionary<string, SkillNodeBase> Nodes => nodes;
     public void BindPointProvider(ISkillPointProvider provider) => points = provider;
     public void BindSkillTreeManager(SkillTreeManager parent) => this.parent = parent;
     void Awake()
@@ -59,9 +60,17 @@ public partial class SkillTree : MonoBehaviour
     public void RefreshAll()
     {
         foreach (var n in nodes.Values) n.RefreshVisual();
+        var lineDrawer = parent.GetComponent<SkillTreeLineDrawer>();
+        Debug.Log(lineDrawer);
+        if (lineDrawer != null)
+            lineDrawer.RedrawLines();
     }
     public string getTreeId()
     {
         return treeId;
+    }
+    public bool TryGetNode(SkillNodeDef def, out SkillNodeBase node)
+    {
+        return nodeMapByDef.TryGetValue(def, out node);
     }
 }

@@ -13,11 +13,12 @@ public class SkillNodeDef : ScriptableObject
     public SkillNodeDef[] prerequisiteSkills = new SkillNodeDef[4]; // IDs of nodes that must be unlocked first
     public bool isMainNode = false;              // optional: mark main vs sub
     public bool isPassive = false;
+    public bool isBasic = false;
+
 
     [TextArea(2, 5)]
     public string description; // 스킬 설명
     public Skill summonSkill;
-
     public SkillNodeDef Clone() // 얕은 복제용 메서드
     {
         var clone = Instantiate(this);

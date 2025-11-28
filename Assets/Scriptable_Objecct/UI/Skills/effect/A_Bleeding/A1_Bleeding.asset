@@ -25,5 +25,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 573f46c681565304bb1d480e8b26f36d, type: 2}
   isMainNode: 1
   isPassive: 0
+  isBasic: 1
   description: attack 4times with Effect "Bleeding"
   summonSkill: {fileID: 6219839629781617116, guid: 5a56ab14f06076c4196f0fed49c9b33b, type: 3}

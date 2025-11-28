@@ -76,8 +76,8 @@ public class Effect_Ice : Effect   //Manager class
         if (level == 1)
         {
             // 빙결 + 1: 빙결 적 데미지 5 증가 및 빙결 상태 적 공속 20% 감소
-            _stats[StatId_Effect_Ice.Ice].SetDefaultValue(_stats[StatId_Effect_Ice.Ice].getBase() + 5);
             _stats[StatId_Effect_Ice.FRZ_Aslow].SetDefaultValue(_stats[StatId_Effect_Ice.FRZ_Aslow].getBase() + 0.2f);
+            EffectLib.playerEffectLib.getEffectbyID("Freeze").upgrade();
         }
         if (level == 2)
         {

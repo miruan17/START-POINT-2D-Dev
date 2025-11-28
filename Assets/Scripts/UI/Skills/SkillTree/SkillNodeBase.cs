@@ -39,8 +39,7 @@ public abstract class SkillNodeBase : MonoBehaviour, IPointerClickHandler, ISubm
     {
         if (IsUnlocked || definition == null) return false;
         if (Owner.AvailablePoints < definition.cost) return false;
-        if (definition.prerequisiteSkills.All(p => p == null))
-            return true;
+        if (definition.isBasic) return true;
         return definition.prerequisiteSkills.Any(p => p != null && Owner.IsNodeUnlocked(p.id));
     }
 
