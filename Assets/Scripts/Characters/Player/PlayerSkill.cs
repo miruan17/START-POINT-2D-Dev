@@ -21,6 +21,7 @@ public class PlayerSkill : MonoBehaviour
             if (activeSkill[i] != null && input.SkillRequest(i))
             {
                 Skill skill = SkillLib.Instance.getSkillbyID(activeSkill[i].skillName);
+                Debug.Log(skill.skillType);
                 if (skill.skillType == SkillType.Summon)
                 {
                     Instantiate(activeSkill[i].summonSkill, player.transform.position, player.transform.rotation);
@@ -28,7 +29,8 @@ public class PlayerSkill : MonoBehaviour
                 }
                 else if (skill.skillType == SkillType.Attack)
                 {
-                    Instantiate(activeSkill[i].summonSkill, player.transform.position, player.transform.rotation);
+                    var obj = Instantiate(activeSkill[i].summonSkill, player.transform.position, player.transform.rotation);
+                    obj.transform.SetParent(player.transform);
                     //ActionLockSystem.Instance.LockOnTime(0.5f, anim, input);
                 }
                 else if (skill.skillType == SkillType.Move)

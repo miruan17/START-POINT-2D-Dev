@@ -8,9 +8,14 @@ public class Scar : Skill
     [SerializeField]
     private GameObject hitboxdef;
     private GameObject hitbox;
+    [SerializeField]
+    private GameObject spawnVFX;
     private void Awake()
     {
         base.Awake();
+    }
+    public Scar()
+    {
         skillType = SkillType.Attack;
         dmg = 4;
     }
@@ -21,11 +26,13 @@ public class Scar : Skill
         effectManager.AddEffect(effect);
         hitbox = Instantiate(hitboxdef, this.transform);
         hitbox.SetActive(false);
+        hitbox.SetActive(true);
+        hitbox.GetComponent<Hitbox>().PlayVFX(spawnVFX, 1);
         StartCoroutine(Attack());
     }
     private IEnumerator Attack()
     {
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 5; i++)
         {
             Debug.Log("Scar");
             hitbox.SetActive(true);

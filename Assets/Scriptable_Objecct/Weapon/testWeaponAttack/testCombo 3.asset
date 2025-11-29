@@ -24,7 +24,7 @@ MonoBehaviour:
   targetMask:
     serializedVersion: 2
     m_Bits: 256
-  spawnVFX: {fileID: 0}
+  spawnVFX: {fileID: 2643456570128007814, guid: a628950077959c24bb2c85c1e0dcc29e, type: 3}
   hitVFX: {fileID: 0}
   spawnSFX: {fileID: 0}
   hitSFX: {fileID: 0}

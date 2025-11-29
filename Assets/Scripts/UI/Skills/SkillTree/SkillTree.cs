@@ -61,7 +61,6 @@ public partial class SkillTree : MonoBehaviour
     {
         foreach (var n in nodes.Values) n.RefreshVisual();
         var lineDrawer = parent.GetComponent<SkillTreeLineDrawer>();
-        Debug.Log(lineDrawer);
         if (lineDrawer != null)
             lineDrawer.RedrawLines();
     }

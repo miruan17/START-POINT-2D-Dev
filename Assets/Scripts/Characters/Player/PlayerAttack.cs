@@ -113,6 +113,7 @@ public class PlayerAttack : MonoBehaviour
         }
         yield return new WaitForSeconds(attack.preDelay);
         hitbox.SetActive(true);
+        hitbox.GetComponent<Hitbox>().PlayVFX(attack.spawnVFX, attack.hitTime);
         yield return new WaitForSeconds(attack.hitTime);
         hitbox.SetActive(false);
         yield return new WaitForSeconds(attack.postDelay);

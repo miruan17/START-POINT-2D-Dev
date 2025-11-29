@@ -13,6 +13,9 @@ public class Pollution : Skill
     private void Awake()
     {
         base.Awake();
+    }
+    public Pollution()
+    {
         skillType = SkillType.Summon;
     }
     private void Start()
@@ -22,6 +25,7 @@ public class Pollution : Skill
         effectManager.AddEffect(effect);
         hitbox = Instantiate(hitboxdef, this.transform);
         hitbox.SetActive(false);
+        hitbox.SetActive(true);
         StartCoroutine(Attack());
     }
     private IEnumerator Attack()

@@ -13,6 +13,9 @@ public class FrostField : Skill
     private void Awake()
     {
         base.Awake();
+    }
+    public FrostField()
+    {
         skillType = SkillType.Summon;
     }
     private void Start()
@@ -22,6 +25,7 @@ public class FrostField : Skill
         effectManager.AddEffect(effect);
         hitbox = Instantiate(hitboxdef, this.transform);
         hitbox.SetActive(false);
+        hitbox.SetActive(true);
         StartCoroutine(Attack());
     }
     private IEnumerator Attack()

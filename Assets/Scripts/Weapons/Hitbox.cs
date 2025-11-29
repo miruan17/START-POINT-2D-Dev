@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -28,6 +29,46 @@ public class Hitbox : MonoBehaviour
         Gizmos.matrix = transform.localToWorldMatrix;
 
         Gizmos.DrawWireCube(boxCollider.offset, boxCollider.size);
+    }
+    public void PlayVFX(GameObject VFX, float duration)
+    {
+        if (VFX == null) return;
+
+        GameObject vfxObj = Instantiate(VFX, transform.position, transform.rotation);
+
+        BoxCollider2D col = GetComponent<BoxCollider2D>();
+
+        Vector2 worldHitboxSize = Vector2.Scale(col.size, transform.lossyScale);
+
+        VFXFollow follow = vfxObj.GetComponent<VFXFollow>();
+        if (follow != null)
+            follow.target = this.transform;
+
+        SpriteRenderer sr = vfxObj.GetComponent<SpriteRenderer>();
+        VFXAnimator animator = vfxObj.GetComponent<VFXAnimator>();
+
+        if (sr != null)
+        {
+            Vector2 spriteSize = sr.sprite.bounds.size;
+
+            float scaleX = worldHitboxSize.x / spriteSize.x;
+            float scaleY = worldHitboxSize.y / spriteSize.y;
+
+            if (animator != null)
+            {
+                scaleX *= animator.xsize;
+                scaleY *= animator.ysize;
+            }
+
+            vfxObj.transform.localScale = new Vector3(scaleX, scaleY, 1f);
+
+            Debug.Log("imgScale:" + scaleX + ", " + scaleY);
+        }
+
+        if (animator != null)
+            animator.duration = duration;
+
+        Debug.Log("hitboxScale:" + transform.localScale);
     }
 
     void OnTriggerEnter2D(Collider2D other)
