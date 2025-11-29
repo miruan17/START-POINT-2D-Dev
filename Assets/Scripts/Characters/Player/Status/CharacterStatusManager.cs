@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-public enum StatId { HP, SP, ATK, APS, DEF, SPD }
+public enum StatId { HP, SP, ATK, APS, DEF, SPD, JP }
 public sealed class CharacterStatusManager  // Manager class
 {
     // Public resource(readOnly)
@@ -20,6 +20,7 @@ public sealed class CharacterStatusManager  // Manager class
         _stats[StatId.APS] = new Status(def.APS);
         _stats[StatId.DEF] = new Status(def.DEF);
         _stats[StatId.SPD] = new Status(def.SPD);
+        _stats[StatId.JP] = new Status(def.JP);
 
         CurrentHP = _stats[StatId.HP].Get();
         CurrentSP = _stats[StatId.SP].Get();

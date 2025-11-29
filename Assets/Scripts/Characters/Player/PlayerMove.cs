@@ -14,11 +14,11 @@ public class PlayerMove : MonoBehaviour
 
     [Header("Jump")]
     public float jumpPower = 13f;
+    public float jumpNum;
 
     [Header("Ground Check")]
     public float groundCheckDepth = 0.1f;
     public LayerMask groundMask;
-
     public bool isGrounded;
 
     private void Awake()
@@ -28,6 +28,7 @@ public class PlayerMove : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         anim = GetComponentInChildren<Animator>();
         bodyCol = GetComponent<Collider2D>();
+        jumpNum = player.status.GetFinal(StatId.JP);
     }
 
     private void Update()
@@ -51,6 +52,7 @@ public class PlayerMove : MonoBehaviour
         if (isGrounded)
         {
             rigid.AddForce(Vector2.right * h * 2f, ForceMode2D.Impulse);
+            jumpNum = player.status.GetFinal(StatId.JP);
         }
         else
         {
@@ -62,10 +64,11 @@ public class PlayerMove : MonoBehaviour
         rigid.velocity = new Vector2(vx, rigid.velocity.y);
 
         // jump
-        if (input.JumpRequest() && isGrounded)
+        if (input.JumpRequest() && jumpNum >= 1)
         {
             rigid.velocity = new Vector2(rigid.velocity.x, 0f);
             rigid.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
+            jumpNum--;
         }
     }
 

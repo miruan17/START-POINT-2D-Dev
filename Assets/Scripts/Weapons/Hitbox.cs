@@ -59,16 +59,11 @@ public class Hitbox : MonoBehaviour
                 scaleX *= animator.xsize;
                 scaleY *= animator.ysize;
             }
-
             vfxObj.transform.localScale = new Vector3(scaleX, scaleY, 1f);
-
-            Debug.Log("imgScale:" + scaleX + ", " + scaleY);
         }
 
         if (animator != null)
             animator.duration = duration;
-
-        Debug.Log("hitboxScale:" + transform.localScale);
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -80,6 +75,7 @@ public class Hitbox : MonoBehaviour
             Player player = FindObjectOfType<Player>();
             if (caller != null) //caller = player
             {
+                createHitVFX(other);
                 enemy.status.CurrentHP -= caller.status.GetFinal(StatId.ATK);
                 Debug.Log("Hit " + other.name + ", Damage " + caller.status.GetFinal(StatId.ATK));
                 EffectManager enemyManager = enemy.getEffect();
@@ -97,9 +93,18 @@ public class Hitbox : MonoBehaviour
                 {
                     enemy.status.CurrentHP -= skill.dmg;
                 }
+                if (skill.skillType == SkillType.Attack) createHitVFX(other);
                 EffectManager skillManager = skill.getEffect();
                 ApplyEffect.applyEffect(enemy, skillManager.ReturnEffect());
             }
         }
+    }
+    void createHitVFX(Collider2D other)
+    {
+        Vector2 hitPoint = Physics2D.ClosestPoint(transform.position, other);
+        GameObject obj = Instantiate(HitVFX.Instance.spawnVFX, hitPoint, Quaternion.identity);
+        SpriteRenderer sr = obj.GetComponent<SpriteRenderer>();
+        VFXAnimator animator = obj.GetComponent<VFXAnimator>();
+
     }
 }

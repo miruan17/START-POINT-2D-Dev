@@ -15,4 +15,6 @@ public class CharacterStatusDef : ScriptableObject
     public float DEF;
     [Header("SPD(Speed)")]
     public float SPD;
+    [Header("Jump(JP)")]
+    public float JP;
 }
