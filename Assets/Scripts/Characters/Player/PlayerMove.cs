@@ -42,9 +42,9 @@ public class PlayerMove : MonoBehaviour
 
     private void FixedUpdate()
     {
+        isGrounded = OverlapGround();
         if (anim.GetBool("ActionLock")) return;
         // ground check
-        isGrounded = OverlapGround();
         //anim.SetBool("Jump", !isGrounded);
 
         // move

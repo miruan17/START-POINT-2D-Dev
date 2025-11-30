@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aba6c6de8a7e41242bfd88a029673d6f, type: 3}
-  m_Name: Root_Skill
+  m_Name: FastDrop
   m_EditorClassIdentifier: 
-  id: 0
-  tag: None
-  skillName: Root
-  icon: {fileID: 0}
+  id: FastDrop
+  tag: FastDrop
+  skillName: FastDrop
+  icon: {fileID: 21300000, guid: 61dab0b6e506c6a43b12d9fde15b2393, type: 3}
   unlockCost: 1
   cost: 1
   prerequisiteSkills:
-  - {fileID: 11400000, guid: c4c129f3fc7bc444db5e1875f002c5f9, type: 2}
   - {fileID: 0}
   - {fileID: 11400000, guid: 2c336a87a3704e045bd5f444181a0139, type: 2}
   - {fileID: 0}
-  isMainNode: 0
+  - {fileID: 0}
+  isMainNode: 1
   isPassive: 0
-  isBasic: 0
-  description: Root
+  isBasic: 1
+  description: Drop faster to ground
   summonSkill: {fileID: 0}

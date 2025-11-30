@@ -208,4 +208,13 @@ public class PlayerAttack : MonoBehaviour
         }
         attackCall = false;
     }
+    public void ForceReleaseAttack() // 차징중 ActionLock 발동시 즉시 처리
+    {
+        if (!isHolding) return;
+
+        isHolding = false;
+        holdTime = Time.time - pressTime;
+        attackCall = true;
+    }
+
 }

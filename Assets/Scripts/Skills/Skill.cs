@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 public enum SkillType { Summon, Attack, Move }
 public abstract class Skill : MonoBehaviour

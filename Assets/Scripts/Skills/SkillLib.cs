@@ -15,6 +15,8 @@ public sealed class SkillLib
         skillMap["Pollution"] = new Pollution();
         skillMap["FrostField"] = new FrostField();
         skillMap["Scar"] = new Scar();
+        skillMap["Dash"] = new Dash();
+        skillMap["FastDrop"] = new FastDrop();
     }
     public static SkillLib Instance
     {

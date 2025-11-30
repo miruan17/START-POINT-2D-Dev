@@ -16,7 +16,7 @@ public class PlayerInputHub : MonoBehaviour
 
     public bool flip = true;
     [SerializeField] private float deadzone = 0.1f;
-    private bool facingRight = true;
+    public bool facingRight = true;
 
 
     private bool jumpRequested;
