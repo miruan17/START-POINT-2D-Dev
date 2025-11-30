@@ -66,17 +66,14 @@ public partial class SkillTree : MonoBehaviour
 
     public void MoveFocus(NavDir dir)
     {
-
+        Debug.Log("from: " + _focused.Definition.id);
         if (_focused == null || _focused.Definition == null) return;
-
         var links = _focused.Definition.prerequisiteSkills; // SkillNodeDef[4]
         int idx = (int)dir;
         if (links == null || idx < 0 || idx >= links.Length) return;
-
         //누른 방향에 해당하는 노드가 존재할때만 이동
         var targetDef = links[idx];
         if (targetDef == null) return;
-
         if (nodeMapByDef.TryGetValue(targetDef, out var targetNode) && targetNode != null)
             FocusNode(targetNode);
     }

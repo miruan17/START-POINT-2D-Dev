@@ -54,7 +54,6 @@ MonoBehaviour:
   definition: {fileID: 0}
   iconImage: {fileID: 4968866615983942074}
   button: {fileID: 7399770000407261997}
-  player: {fileID: 5735397477755418158, guid: a183cc0177a3c7d4c88b803286b1c656, type: 3}
 --- !u!222 &-519436084324985024
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -106,7 +105,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
