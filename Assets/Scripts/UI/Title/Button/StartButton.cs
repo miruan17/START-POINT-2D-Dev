@@ -1,11 +1,13 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class StartButton : MonoBehaviour, ISubmitHandler
 {
     public void OnSubmit(BaseEventData eventData)
     {
         Debug.Log($"{gameObject.name} Submitted");
-        GameManager.Instance.GameStateManager.ChangeState(new VillageState());
+        SceneManager.LoadSceneAsync("BootScene", LoadSceneMode.Single);
     }
 }

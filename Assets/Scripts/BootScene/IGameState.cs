@@ -8,6 +8,8 @@ public interface IGameState
 }
 
 #region Title State
+// 공사중
+/*
 public class TitleState : IGameState
 {
     private string stateName = "TitleState";
@@ -25,6 +27,7 @@ public class TitleState : IGameState
 
     public string GetName() => stateName;
 }
+*/
 #endregion
 
 
@@ -80,6 +83,23 @@ public class StageState : IGameState
         GameManager.Instance.ClearStage();
     }
 
+    public string GetName() => stateName;
+}
+#endregion
+
+
+#region RewardState
+public class RewardState : IGameState
+{
+    private string stateName = "RewardState";
+    public void Enter()
+    {
+        
+    }
+    public void Exit()
+    {
+        
+    }
     public string GetName() => stateName;
 }
 #endregion

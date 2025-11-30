@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -27,7 +28,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        GameStateManager.ChangeState(new TitleState());
+        GameStateManager.ChangeState(new VillageState());
     }
 
     public void StartStage(string stageId, string startRoomId, string startRoomSceneName)
