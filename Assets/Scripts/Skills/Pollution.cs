@@ -25,6 +25,8 @@ public class Pollution : Skill
         effectManager.AddEffect(effect);
         hitbox = Instantiate(hitboxdef, this.transform);
         hitbox.SetActive(false);
+        hitbox.GetComponent<Hitbox>().PlayVFX(spawnVFX, 1);
+        hitbox.GetComponent<Hitbox>().hitVFX = hitVFX;
         hitbox.SetActive(true);
         StartCoroutine(Attack());
     }

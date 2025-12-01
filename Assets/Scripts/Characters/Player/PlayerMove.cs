@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
@@ -20,6 +21,8 @@ public class PlayerMove : MonoBehaviour
     public float groundCheckDepth = 0.1f;
     public LayerMask groundMask;
     public bool isGrounded;
+    public bool prevGrounded = false;
+    public float maxheight = 0;
 
     private void Awake()
     {
@@ -43,20 +46,45 @@ public class PlayerMove : MonoBehaviour
     private void FixedUpdate()
     {
         isGrounded = OverlapGround();
+        if (isGrounded != prevGrounded)
+        {
+            if (isGrounded) // air -> ground
+            {
+                jumpNum = player.status.GetFinal(StatId.JP);
+                // 일정 거리 이상 낙하 시 착지 이펙트
+                float distance = Mathf.Abs(bodyCol.bounds.min.y - maxheight);
+                if (distance >= 10f)
+                {
+                    Vector3 spawnPos = new Vector3(bodyCol.bounds.center.x, bodyCol.bounds.min.y, 0f);
+                    var vfx = Instantiate(player.landingVFX, spawnPos, Quaternion.identity);
+                    vfx.transform.SetParent(player.transform);
+                    if (!input.facingRight)
+                    {
+                        Vector3 scale = vfx.transform.localScale;
+                        scale.x *= -1;
+                        vfx.transform.localScale = scale;
+                    }
+                }
+                maxheight = bodyCol.bounds.min.y;
+            }
+            else // ground -> air
+            {
+                jumpNum--;
+            }
+        }
+        prevGrounded = isGrounded;
         if (anim.GetBool("ActionLock")) return;
-        // ground check
-        //anim.SetBool("Jump", !isGrounded);
 
         // move
         float h = Mathf.Clamp(input.MoveInput.x, -1f, 1f);
         if (isGrounded)
         {
             rigid.AddForce(Vector2.right * h * 2f, ForceMode2D.Impulse);
-            jumpNum = player.status.GetFinal(StatId.JP);
         }
         else
         {
             rigid.AddForce(Vector2.right * h * 0.33f, ForceMode2D.Impulse);
+            maxheight = Mathf.Max(maxheight, bodyCol.bounds.min.y);
         }
 
         // speed maximum
@@ -68,6 +96,15 @@ public class PlayerMove : MonoBehaviour
         {
             rigid.velocity = new Vector2(rigid.velocity.x, 0f);
             rigid.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
+            Vector3 spawnPos = new Vector3(bodyCol.bounds.center.x, bodyCol.bounds.min.y, 0f);
+            var vfx = Instantiate(player.jumpVFX, spawnPos, Quaternion.identity);
+            vfx.transform.SetParent(player.transform);
+            if (!input.facingRight)
+            {
+                Vector3 scale = vfx.transform.localScale;
+                scale.x *= -1;
+                vfx.transform.localScale = scale;
+            }
             jumpNum--;
         }
     }

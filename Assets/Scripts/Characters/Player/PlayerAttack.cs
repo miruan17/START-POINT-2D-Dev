@@ -47,6 +47,9 @@ public class PlayerAttack : MonoBehaviour
         if (weapon.EnhancedAttack != null && weapon.EnhancedAttack.Hitbox != null)
         {
             enhancedHitbox = Instantiate(weapon.EnhancedAttack.Hitbox, hitboxRoot.transform);
+            //hitVFX 바인딩
+            enhancedHitbox.GetComponent<Hitbox>().hitVFX = weapon.EnhancedAttack.hitVFX;
+
             enhancedHitbox.SetActive(false);
             enhancedHitbox.name = $"{weapon.displayName}_Enhanced";
         }
@@ -60,6 +63,10 @@ public class PlayerAttack : MonoBehaviour
         {
             var comboDef = weapon.ComboAttacks[i];
             GameObject combo = Instantiate(comboDef.Hitbox, hitboxRoot.transform);
+
+            //hitVFX 바인딩
+            combo.GetComponent<Hitbox>().hitVFX = comboDef.hitVFX;
+
             combo.SetActive(false);
             combo.name = $"{weapon.displayName}_Combo_{i + 1}";
             comboHitboxes.Add(combo);

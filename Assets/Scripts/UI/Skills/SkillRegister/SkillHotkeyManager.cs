@@ -14,7 +14,6 @@ public class SkillHotkeyManager : MonoBehaviour
         slots = FindObjectsOfType<SkillSlot>(true)
             .OrderBy(s => s.transform.GetSiblingIndex())
             .ToArray();
-        Debug.Log($"[SkillHotkeyManager] {slots.Length} hotkey slots found.");
     }
 
     private void Update()
@@ -37,7 +36,6 @@ public class SkillHotkeyManager : MonoBehaviour
             {
                 if (slot.assignedSkill != null && slot.assignedSkill.skillName.Equals(focusedSkill.skillName)) continue;
                 AssignSkillToSlot(focusedSkill, slot);
-                Debug.Log($"[SkillHotkeyManager] {slot.Hotkey} pressed!");
                 break;
             }
         }
@@ -50,7 +48,6 @@ public class SkillHotkeyManager : MonoBehaviour
         for (int i = 0; i < 4; i++)
         {
             var slot = slots[i];
-            Debug.Log(slot.Hotkey);
             if (slot.IsAssigned(skill))
             {
                 playerSkill.UpdateActiveSkill(i, null);

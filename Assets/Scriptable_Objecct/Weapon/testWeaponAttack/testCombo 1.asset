@@ -25,7 +25,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   spawnVFX: {fileID: 2643456570128007814, guid: a628950077959c24bb2c85c1e0dcc29e, type: 3}
-  hitVFX: {fileID: 0}
+  hitVFX: {fileID: 2643456570128007814, guid: 05e575dd030b62a4fa42605987f3755a, type: 3}
   spawnSFX: {fileID: 0}
   hitSFX: {fileID: 0}
   flipOffsetWithFacing: 1

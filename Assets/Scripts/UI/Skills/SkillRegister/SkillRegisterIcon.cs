@@ -21,14 +21,7 @@ public class SkillRegisterIcon : MonoBehaviour, IPointerClickHandler, ISubmitHan
     }
     private void HandleClick(bool isKeyboard)
     {
-        if (isKeyboard)
-        {
-            Debug.Log("keyboard");
-        }
-        else
-        {
+        if (!isKeyboard)
             if (parent != null) parent.FocusIcon(index);
-            Debug.Log("mouse");
-        }
     }
 }

@@ -6,6 +6,7 @@ using UnityEngine;
 [ExecuteAlways]
 public class Hitbox : MonoBehaviour
 {
+    public GameObject hitVFX;
     public LayerMask targetLayer;
     private BoxCollider2D boxCollider;
     private Character caller;
@@ -73,22 +74,25 @@ public class Hitbox : MonoBehaviour
             Enemy enemy = other.GetComponent<Enemy>();
             caller = GetComponentInParent<Character>();
             Player player = FindObjectOfType<Player>();
-            if (caller != null) //caller = player
+            skill = GetComponentInParent<Skill>();
+            if (skill == null)
             {
-                createHitVFX(other);
-                enemy.status.CurrentHP -= caller.status.GetFinal(StatId.ATK);
-                Debug.Log("Hit " + other.name + ", Damage " + caller.status.GetFinal(StatId.ATK));
-                EffectManager enemyManager = enemy.getEffect();
-                EffectManager playerManager = player.getArgument();
-                ApplyEffect.applyEffect(enemy, playerManager.ReturnEffect());
-                if (enemy.is_Freeze)
+                if (caller.CompareTag("Player")) //caller = player
                 {
-                    enemy.status.CurrentHP -= ((Effect_Freeze)EffectLib.playerEffectLib.getEffectbyID("Freeze")).getDmg();
+                    createHitVFX(other);
+                    enemy.status.CurrentHP -= caller.status.GetFinal(StatId.ATK);
+                    Debug.Log("Hit " + other.name + ", Damage " + caller.status.GetFinal(StatId.ATK));
+                    EffectManager enemyManager = enemy.getEffect();
+                    EffectManager playerManager = player.getArgument();
+                    ApplyEffect.applyEffect(enemy, playerManager.ReturnEffect());
+                    if (enemy.is_Freeze)
+                    {
+                        enemy.status.CurrentHP -= ((Effect_Freeze)EffectLib.playerEffectLib.getEffectbyID("Freeze")).getDmg();
+                    }
                 }
             }
-            else // caller isn't Player (called by skill)
+            else // called by skill
             {
-                skill = GetComponentInParent<Skill>();
                 if (skill.dmg != 0)
                 {
                     enemy.status.CurrentHP -= skill.dmg;
@@ -101,8 +105,9 @@ public class Hitbox : MonoBehaviour
     }
     void createHitVFX(Collider2D other)
     {
+        if (hitVFX == null) return;
         Vector2 hitPoint = Physics2D.ClosestPoint(transform.position, other);
-        GameObject obj = Instantiate(HitVFX.Instance.spawnVFX, hitPoint, Quaternion.identity);
+        GameObject obj = Instantiate(hitVFX, hitPoint, Quaternion.identity);
         SpriteRenderer sr = obj.GetComponent<SpriteRenderer>();
         VFXAnimator animator = obj.GetComponent<VFXAnimator>();
 

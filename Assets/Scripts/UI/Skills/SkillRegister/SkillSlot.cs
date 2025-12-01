@@ -27,7 +27,6 @@ public class SkillSlot : MonoBehaviour
             iconImage.sprite = skill.icon;
             iconImage.enabled = true;
         }
-
         Debug.Log($"[SkillSlot] {hotkey} assigned to {skill.skillName}");
     }
 

@@ -176,7 +176,6 @@ public class PlayerInputHub : MonoBehaviour
     private void OnSkill(InputAction.CallbackContext ctx, int idx)
     {
         if (!inputEnabled) return;
-        Debug.Log(idx);
         skillRequested[idx] = true;
     }
 

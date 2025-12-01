@@ -39,7 +39,6 @@ public class SkillTreeManager : MonoBehaviour, ISkillPointProvider
         if (cost <= 0) return true;
         if (useableSkillPoints < cost)
         {
-            //Debug.Log($"Not enough points. Need {cost - useableSkillPoints} more.");
             return false;
         }
         useableSkillPoints -= cost;

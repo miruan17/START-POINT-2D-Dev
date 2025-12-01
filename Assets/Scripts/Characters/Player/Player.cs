@@ -6,7 +6,8 @@ using UnityEngine.InputSystem;
 public class Player : Character
 {
     private List<SkillNodeBase> passiveSkillList;
-
+    public GameObject jumpVFX;
+    public GameObject landingVFX;
     private void Awake()
     {
         base.Awake();
