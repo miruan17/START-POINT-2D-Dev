@@ -31,12 +31,6 @@ public class GameManager : MonoBehaviour
         GameStateManager.ChangeState(new VillageState());
     }
 
-    public void StartStage(string stageId, string startRoomId, string startRoomSceneName)
-    {
-        CurrentStage = new StageRuntime(stageId);
-        RoomSceneManager.ChangeRoom(startRoomId, startRoomSceneName);
-    }
-
     // 게임오버 시 세션 지우기
     public void ClearStage()
     {
