@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public enum Navigate
 {
+    spawn,
     left,
     right,
     up,
@@ -52,6 +53,8 @@ public class RoomSession
 {
     public int RoomId;
     public string RoomName;
+    // 주의: 새로운 Room 기준이 아니라 기존의 Room 기준
+    private Dictionary<Transform, Navigate> passage;
 
     public RoomSession(int roomId, string roomName)
     {
@@ -104,7 +107,7 @@ public class StageState : IGameState
                     break;
 
                 case Navigate.right:
-                   targetId += 1;
+                    targetId += 1;
                     break;
 
                 default:

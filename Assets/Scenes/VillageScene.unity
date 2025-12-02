@@ -27546,6 +27546,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1250703925703248291, guid: 981534bf111e59441834650e93b69d14, type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2579590865102767076, guid: 981534bf111e59441834650e93b69d14, type: 3}
       propertyPath: m_Name
       value: Portal
@@ -27612,11 +27616,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7161683360795999493, guid: 981534bf111e59441834650e93b69d14, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 1.9
+      value: 38.85
       objectReference: {fileID: 0}
     - target: {fileID: 7161683360795999493, guid: 981534bf111e59441834650e93b69d14, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 13.52
+      value: 17.47
       objectReference: {fileID: 0}
     - target: {fileID: 7161683360795999493, guid: 981534bf111e59441834650e93b69d14, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
