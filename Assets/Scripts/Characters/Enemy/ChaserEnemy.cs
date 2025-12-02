@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class ChaserEnemy : NormalEnemy
 {
     protected override void PatrolUpdate()
