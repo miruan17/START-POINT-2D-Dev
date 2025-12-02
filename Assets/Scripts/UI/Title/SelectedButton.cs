@@ -3,27 +3,33 @@ using UnityEngine.EventSystems;
 
 public class SelectedButton : MonoBehaviour, ISelectHandler, IDeselectHandler
 {
-    [Header("Target")]
-    [SerializeField] private Transform target;
+    [Header("Text")]
+    [SerializeField] private Transform text;
+
+    [Header("Sprite")]
+    [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private Sprite selectedButton;
+    [SerializeField] private Sprite unselectedButton;
 
     [Header("Scale Settings")]
     [SerializeField] private Vector3 normalScale = Vector3.one;
     [SerializeField] private Vector3 selectedScale = new Vector3(1.15f, 1.15f, 1f);
     [SerializeField] private float animDuration = 0.08f;
 
+    [Header("")] 
     private Coroutine scaleRoutine;
 
     private void Awake()
     {
-        if (target == null)
+        if (text == null)
         {
             if (transform.childCount > 0)
-                target = transform.GetChild(0) as RectTransform;
+                text = transform.GetChild(0) as RectTransform;
         }
 
-        if (target != null)
+        if (text != null)
         {
-            normalScale = target.localScale;
+            normalScale = text.localScale;
         }
         else
         {
@@ -33,14 +39,16 @@ public class SelectedButton : MonoBehaviour, ISelectHandler, IDeselectHandler
 
     public void OnSelect(BaseEventData eventData)
     {
-        if (target == null) return;
+        if (text == null) return;
         StartScaleAnimation(selectedScale);
+        spriteRenderer.sprite = selectedButton;
     }
 
     public void OnDeselect(BaseEventData eventData)
     {
-        if (target == null) return;
+        if (text == null) return;
         StartScaleAnimation(normalScale);
+        spriteRenderer.sprite = unselectedButton;
     }
     
     private void StartScaleAnimation(Vector3 targetScale)
@@ -53,17 +61,17 @@ public class SelectedButton : MonoBehaviour, ISelectHandler, IDeselectHandler
 
     private System.Collections.IEnumerator ScaleRoutine(Vector3 targetScale)
     {
-        Vector3 startScale = target.localScale;
+        Vector3 startScale = text.localScale;
         float t = 0f;
 
         while (t < animDuration)
         {
             t += Time.unscaledDeltaTime;
             float progress = Mathf.Clamp01(t / animDuration);
-            target.localScale = Vector3.Lerp(startScale, targetScale, progress);
+            text.localScale = Vector3.Lerp(startScale, targetScale, progress);
             yield return null;
         }
 
-        target.localScale = targetScale;
+        text.localScale = targetScale;
     }
 }
