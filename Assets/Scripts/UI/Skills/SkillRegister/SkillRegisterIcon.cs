@@ -12,6 +12,7 @@ public class SkillRegisterIcon : MonoBehaviour, IPointerClickHandler, ISubmitHan
     [SerializeField] public Button interactBtn;
     public void OnPointerClick(PointerEventData eventData)
     {
+        UIFocusController.Instance.OnClicked(2);
         HandleClick(isKeyboard: false);
     }
 

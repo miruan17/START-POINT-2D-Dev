@@ -36,9 +36,18 @@ public class UI_Manager : MonoBehaviour
         }
         else
         {
-            if (Input.GetKeyDown(entries[current].key) || Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(entries[current].key))
             {
                 Close();
+            }
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                if (entries[current].key == KeyCode.K)
+                {
+                    var controller = entries[current].window.GetComponent<UIFocusController>();
+                    if (!controller.isEnter) Close();
+                }
+                else Close();
             }
         }
     }

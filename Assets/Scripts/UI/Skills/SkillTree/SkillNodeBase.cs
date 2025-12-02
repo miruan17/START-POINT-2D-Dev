@@ -69,6 +69,8 @@ public abstract class SkillNodeBase : MonoBehaviour, IPointerClickHandler, ISubm
 
     public void OnPointerClick(PointerEventData eventData)
     {
+
+        UIFocusController.Instance.OnClicked(1);
         HandleClick(isKeyboard: false);
     }
 
