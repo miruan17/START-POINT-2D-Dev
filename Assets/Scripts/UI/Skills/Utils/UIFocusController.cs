@@ -28,8 +28,8 @@ public class UIFocusController : MonoBehaviour
     }
     private void OnEnable()
     {
-        currentFocus = UIFocusTarget.SkillPanel;
         nextFocus = UIFocusTarget.SkillPanel;
+        SetFocus(nextFocus);
         EventSystem.current.SetSelectedGameObject(null);
     }
     private void Update()
