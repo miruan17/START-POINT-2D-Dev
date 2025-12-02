@@ -15,6 +15,7 @@ public interface IGameState
 {
     void Enter();
     void Exit();
+    void Move(Navigate navigate);
     string GetName();
 }
 
@@ -35,6 +36,10 @@ public class VillageState : IGameState
         SceneManager.UnloadSceneAsync(sceneName);
     }
 
+    public void Move(Navigate navigate)
+    {
+        return;
+    }
     public string GetName() => stateName;
 }
 #endregion
@@ -88,7 +93,6 @@ public class StageState : IGameState
     {
         SceneManager.UnloadSceneAsync(currentSession.RoomName);
     }
-
     public void Move(Navigate nav)
     {
     int targetId = currentSession.RoomId;
@@ -96,8 +100,8 @@ public class StageState : IGameState
         switch (nav)
             {
                 case Navigate.left:
-                   targetId -= 1;
-                   break;
+                    targetId -= 1;
+                    break;
 
                 case Navigate.right:
                    targetId += 1;
@@ -111,6 +115,11 @@ public class StageState : IGameState
         {
             return;
         }
+        SceneManager.UnloadSceneAsync(currentSession.RoomName);
+
+        // Session Update
+        currentSession = sessionData[targetId];
+        SceneManager.LoadSceneAsync(currentSession.RoomName, LoadSceneMode.Additive);
     }
 
     public string GetName() => stateName;
@@ -129,6 +138,11 @@ public class RewardState : IGameState
     public void Exit()
     {
         
+    }
+
+    public void Move(Navigate navigate)
+    {
+        return;
     }
     public string GetName() => stateName;
 }

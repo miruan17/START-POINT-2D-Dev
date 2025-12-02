@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class RoomPortal : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField]
+    public Navigate navigate;
+    void OnTriggerStay2D(Collider2D other)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (other.CompareTag("Player"))
+        {
+            GameManager.Instance.GameStateManager.GetCurrentState().Move(navigate);
+        }
     }
 }
