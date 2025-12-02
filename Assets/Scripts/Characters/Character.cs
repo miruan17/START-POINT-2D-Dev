@@ -53,7 +53,7 @@ public abstract class Character : MonoBehaviour
 
     public abstract void DeathTrigger();
 
-    private void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         // 지향 구조
         DeathTrigger();
