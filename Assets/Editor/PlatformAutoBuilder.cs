@@ -5,6 +5,8 @@ using System.Collections.Generic;
 public class PlatformID : MonoBehaviour
 {
     public int platformGroupID = -1;
+    public bool leftBlocked = false;
+    public bool rightBlocked = false;
 }
 
 public class FallPoint : MonoBehaviour
@@ -18,18 +20,24 @@ public class PlatformAutoBuilder : EditorWindow
     [MenuItem("Tools/Build Platform Groups + Fall Points")]
     public static void BuildPlatformGroups()
     {
-        // 1) Gather all active PolygonCollider2D in the scene
+        // ============================
+        // 1) Gather Platform colliders
+        // ============================
         PolygonCollider2D[] cols = GameObject.FindObjectsByType<PolygonCollider2D>(
             FindObjectsInactive.Exclude,
             FindObjectsSortMode.None
         );
 
         List<PolygonCollider2D> platforms = new List<PolygonCollider2D>();
+        List<PolygonCollider2D> walls = new List<PolygonCollider2D>();   // ★ NEW ★
 
         foreach (var col in cols)
         {
             if (col.gameObject.layer == LayerMask.NameToLayer("Platform"))
                 platforms.Add(col);
+
+            else if (col.gameObject.layer == LayerMask.NameToLayer("Wall")) // ★ NEW ★
+                walls.Add(col);
         }
 
         if (platforms.Count == 0)
@@ -44,7 +52,9 @@ public class PlatformAutoBuilder : EditorWindow
         for (int i = 0; i < n; i++)
             parent[i] = i;
 
-        // Union-Find
+        // ============================
+        // 2) Union-Find
+        // ============================
         int Find(int x)
         {
             if (parent[x] == x) return x;
@@ -58,7 +68,9 @@ public class PlatformAutoBuilder : EditorWindow
             if (a != b) parent[b] = a;
         }
 
-        // 2) Group by bounding-box intersection
+        // ==========
+        // 3) Grouping by intersection
+        // ==========
         for (int i = 0; i < n; i++)
         {
             for (int j = i + 1; j < n; j++)
@@ -68,11 +80,12 @@ public class PlatformAutoBuilder : EditorWindow
             }
         }
 
-        // ---------- NEW GROUP MAP BUILDING (lowest Y group = 0) ----------
+        // ======================================================
+        // 4) Sort group roots so that the lowest Y platform = ID 0
+        // ======================================================
         HashSet<int> uniqueRoots = new HashSet<int>();
         Dictionary<int, float> rootMinY = new Dictionary<int, float>();
 
-        // 1) collect roots and track lowest Y per group
         for (int i = 0; i < n; i++)
         {
             int root = Find(i);
@@ -86,19 +99,17 @@ public class PlatformAutoBuilder : EditorWindow
                 rootMinY[root] = Mathf.Min(rootMinY[root], y);
         }
 
-        // 2) sort roots by minY (ascending)
         List<int> sortedRoots = new List<int>(uniqueRoots);
         sortedRoots.Sort((a, b) => rootMinY[a].CompareTo(rootMinY[b]));
 
-        // 3) build groupMap: lowest Y root becomes groupID = 0
         Dictionary<int, int> groupMap = new Dictionary<int, int>();
 
         for (int i = 0; i < sortedRoots.Count; i++)
-        {
-            groupMap[sortedRoots[i]] = i; // i starts from 0
-        }
+            groupMap[sortedRoots[i]] = i; // lowest = 0
 
-        // 4) assign PlatformID based on reordered groups
+        // ======================================================
+        // 5) Assign PlatformID
+        // ======================================================
         for (int i = 0; i < n; i++)
         {
             int root = Find(i);
@@ -111,61 +122,41 @@ public class PlatformAutoBuilder : EditorWindow
             EditorUtility.SetDirty(id);
         }
 
+        // ============================
+        // 7) Fall Point Generation
+        // ============================
+        int platformMask = LayerMask.GetMask("Platform");
 
-        // Delete old fall points
-        foreach (var fp in GameObject.FindObjectsByType<FallPoint>(
-            FindObjectsInactive.Exclude,
-            FindObjectsSortMode.None))
+        foreach (var col in platforms)
         {
-            GameObject.DestroyImmediate(fp.gameObject);
-        }
-
-        // 4) Generate Fall Points
-        float sampleStep = 0.3f;
-        float forwardOffset = 0.2f;
-        float rayDownDist = 1.0f;
-
-        for (int i = 0; i < n; i++)
-        {
-            PolygonCollider2D col = platforms[i];
             PlatformID pid = col.GetComponent<PlatformID>();
             int groupID = pid.platformGroupID;
 
+            // ★ NEW RULE #1: Lowest platform (ID 0) → DO NOT generate fall points
             Bounds b = col.bounds;
             float left = b.min.x;
             float right = b.max.x;
             float top = b.max.y;
 
-            for (float x = left; x <= right; x += sampleStep)
+            foreach (var w in walls)
             {
-                // Position directly above platform
-                Vector2 foot = new Vector2(x, top + 0.05f);
+                if (w.bounds.Intersects(new Bounds(new Vector3(left - 0.1f, top), new Vector3(0.2f, b.size.y))))
+                    pid.leftBlocked = true;
 
-                // Ray 1: current foot must detect ground
-                bool groundBelow =
-                    Physics2D.Raycast(foot, Vector2.down, rayDownDist, 1 << LayerMask.NameToLayer("Platform"));
-
-                if (!groundBelow) continue;
-
-                // Ray 2: foot slightly forward must NOT detect ground
-                Vector2 forwardPos = new Vector2(x + forwardOffset, top + 0.05f);
-                bool forwardGround =
-                    Physics2D.Raycast(forwardPos, Vector2.down, rayDownDist, 1 << LayerMask.NameToLayer("Platform"));
-
-                if (forwardGround) continue;
-
-                // Fall point confirmed
-                GameObject fp = new GameObject($"FallPoint_{groupID}_{x:F2}");
-                fp.transform.position = foot;
-
-                FallPoint fall = fp.AddComponent<FallPoint>();
-                fall.platformGroupID = groupID;
-                fall.worldPos = foot;
-
-                EditorUtility.SetDirty(fall);
+                if (w.bounds.Intersects(new Bounds(new Vector3(right + 0.1f, top), new Vector3(0.2f, b.size.y))))
+                    pid.rightBlocked = true;
+            }
+            foreach (var c in platforms)
+            {
+                PlatformID pid1 = c.GetComponent<PlatformID>();
+                if (pid1.platformGroupID == groupID)
+                {
+                    pid.leftBlocked = (pid.leftBlocked || pid1.leftBlocked) ? true : false;
+                    pid.rightBlocked = (pid.rightBlocked || pid1.rightBlocked) ? true : false;
+                }
             }
         }
 
-        Debug.Log($"[PlatformAutoBuilder] Done! Platform Groups = {groupMap.Count}, FallPoints generated.");
+        Debug.Log($"[PlatformAutoBuilder] DONE! Groups = {groupMap.Count} (Lowest = ID 0), FallPoints generated.");
     }
 }
