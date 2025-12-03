@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 public class Enemy : Character
@@ -14,6 +15,7 @@ public class Enemy : Character
     public float frozenTimer = 0f;
     public float Speed = 4.0f;
     protected bool isGrounded = true;
+    public bool prevGrounded = false;
 
     public bool facingRight = true;
 
@@ -38,6 +40,16 @@ public class Enemy : Character
     {
         base.FixedUpdate();
         isGrounded = OverlapGround();
+        if (isGrounded != prevGrounded)
+        {
+            if (isGrounded) // air -> ground
+            {
+                // PlatformGroupID 갱신
+                PlatformGroupID pid = FindPlatform();
+                if (pid != null) currentPlatform = pid;
+            }
+        }
+        prevGrounded = isGrounded;
         StateUpdate();
     }
     private void Update()
@@ -93,6 +105,17 @@ public class Enemy : Character
         if (player == null) return false;
         return Vector2.Distance(transform.position, player.transform.position) < range;
     }
+    protected bool PlayerInAttackRange(float range)
+    {
+        Player player = FindObjectOfType<Player>();
+        if (player == null) return false;
+        return Mathf.Abs(player.transform.localPosition.x - transform.localPosition.x) < range;
+    }
+    protected PlatformGroupID getPlayerPlatformGroupID()
+    {
+        Player player = FindObjectOfType<Player>();
+        return player.currentPlatform;
+    }
     protected bool OverlapGround()
     {
         if (!bodyCol) return false;
@@ -135,5 +158,30 @@ public class Enemy : Character
         s.x *= -1;
         transform.localScale = s;
     }
+    public Vector3 getPlayerPosition()
+    {
+        Player player = FindObjectOfType<Player>();
+        return player.transform.localPosition;
+    }
 
+    public void MoveRight()
+    {
+        Vector2 v = rigid.velocity;
+        v.x = Speed;
+        rigid.velocity = v;
+        if (!facingRight) Flip();
+    }
+    public void MoveLeft()
+    {
+        Vector2 v = rigid.velocity;
+        v.x = -Speed;
+        rigid.velocity = v;
+        if (facingRight) Flip();
+    }
+    public void StopMove()
+    {
+        Vector2 v = rigid.velocity;
+        v.x = 0;
+        rigid.velocity = v;
+    }
 }

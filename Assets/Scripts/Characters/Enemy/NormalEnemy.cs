@@ -82,7 +82,7 @@ public class NormalEnemy : Enemy
             return;
         }
         // Chase → Attack
-        if (PlayerInRange(attackRange))
+        if (PlayerInAttackRange(attackRange))
         {
             state = EnemyState.Attack;
             return;
@@ -92,6 +92,33 @@ public class NormalEnemy : Enemy
         {
             state = EnemyState.Idle;
             return;
+        }
+        if (isGrounded)
+        {
+            // dx > 0 -> enemy, player || dx < 0 -> player, enemy
+            float dx = getPlayerPosition().x - transform.localPosition.x;
+
+            if (getPlayerPlatformGroupID().platformGroupID == currentPlatform.platformGroupID || currentPlatform.leftBlocked && currentPlatform.rightBlocked)
+            {
+                // player와 enemy가 같은 블럭 또는 양쪽이 막혀있는 경우(가장 아래층)
+                if (dx > 0) MoveRight();
+                else if (dx == 0) StopMove();
+                else MoveLeft();
+            }
+            else
+            {
+                // 다른 블럭일 경우
+                if (dx > 0)
+                {
+                    if (currentPlatform.rightBlocked) MoveLeft();
+                    else MoveRight();
+                }
+                else
+                {
+                    if (currentPlatform.leftBlocked) MoveRight();
+                    else MoveLeft();
+                }
+            }
         }
     }
 

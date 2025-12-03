@@ -68,6 +68,10 @@ public class PlayerMove : MonoBehaviour
                     }
                 }
                 maxheight = bodyCol.bounds.min.y;
+
+                // PlatformGroupID 갱신
+                PlatformGroupID pid = player.FindPlatform();
+                if (pid != null) player.currentPlatform = pid;
             }
             else // ground -> air
             {
@@ -124,9 +128,9 @@ public class PlayerMove : MonoBehaviour
 
         bool hit = Physics2D.OverlapBox(boxCenter, boxSize, 0f, groundMask);
 
-        Debug.DrawLine(new Vector2(boxCenter.x - boxSize.x / 2f, boxCenter.y),
-                       new Vector2(boxCenter.x + boxSize.x / 2f, boxCenter.y),
-                       hit ? Color.green : Color.red);
+        // Debug.DrawLine(new Vector2(boxCenter.x - boxSize.x / 2f, boxCenter.y),
+        //                new Vector2(boxCenter.x + boxSize.x / 2f, boxCenter.y),
+        //                hit ? Color.green : Color.red);
 
         return hit;
     }
