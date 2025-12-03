@@ -106,6 +106,8 @@ public class PlatformAutoBuilder : EditorWindow
                 id = platforms[i].gameObject.AddComponent<PlatformGroupID>();
 
             id.platformGroupID = groupMap[root];
+            id.leftBlocked = false;
+            id.rightBlocked = false;
             EditorUtility.SetDirty(id);
         }
 
@@ -118,7 +120,6 @@ public class PlatformAutoBuilder : EditorWindow
         {
             PlatformGroupID pid = col.GetComponent<PlatformGroupID>();
             int groupID = pid.platformGroupID;
-
             // ★ NEW RULE #1: Lowest platform (ID 0) → DO NOT generate fall points
             Bounds b = col.bounds;
             float left = b.min.x;
@@ -138,8 +139,8 @@ public class PlatformAutoBuilder : EditorWindow
                 PlatformGroupID pid1 = c.GetComponent<PlatformGroupID>();
                 if (pid1.platformGroupID == groupID)
                 {
-                    pid.leftBlocked = (pid.leftBlocked || pid1.leftBlocked) ? true : false;
-                    pid.rightBlocked = (pid.rightBlocked || pid1.rightBlocked) ? true : false;
+                    pid1.leftBlocked = (pid.leftBlocked || pid1.leftBlocked) ? true : false;
+                    pid1.rightBlocked = (pid.rightBlocked || pid1.rightBlocked) ? true : false;
                 }
             }
         }
