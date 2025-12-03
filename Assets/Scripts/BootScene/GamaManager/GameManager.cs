@@ -7,8 +7,7 @@ public class GameManager : MonoBehaviour
 
     public GameStateManager GameStateManager { get; private set; }
 
-    public StageRuntime CurrentStage { get; private set; }
-    public RoomSceneManager RoomSceneManager { get; private set; }
+    public GameObject player;
 
     private void Awake()
     {
@@ -22,8 +21,6 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         GameStateManager = new GameStateManager();
-
-        RoomSceneManager = new RoomSceneManager(this);
     }
 
     private void Start()
@@ -31,11 +28,11 @@ public class GameManager : MonoBehaviour
         GameStateManager.ChangeState(new VillageState());
     }
 
-    // 게임오버 시 세션 지우기
-    public void ClearStage()
+    public void setPlayer(Vector2 vector2)
     {
-        CurrentStage = null;
-        // 필요하면 세이브/로드 시스템 연동도 여기서
+        Rigidbody2D rb = player.GetComponent<Rigidbody2D>();
+        rb.velocity = Vector2.zero;
+        player.transform.position = vector2;
     }
 }
 
