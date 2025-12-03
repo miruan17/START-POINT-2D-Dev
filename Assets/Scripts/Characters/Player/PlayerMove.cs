@@ -36,6 +36,8 @@ public class PlayerMove : MonoBehaviour
 
     private void Update()
     {
+        if (anim.GetBool("Dash")) anim.SetBool("ActionLock", true);
+        else anim.SetBool("ActionLock", false);
         if (anim.GetBool("ActionLock")) return;
         Speed = speedScale * player.status.GetFinal(StatId.SPD);
 
@@ -96,6 +98,8 @@ public class PlayerMove : MonoBehaviour
         {
             rigid.velocity = new Vector2(rigid.velocity.x, 0f);
             rigid.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
+
+            // 점프VFX
             Vector3 spawnPos = new Vector3(bodyCol.bounds.center.x, bodyCol.bounds.min.y, 0f);
             var vfx = Instantiate(player.jumpVFX, spawnPos, Quaternion.identity);
             vfx.transform.SetParent(player.transform);
@@ -105,6 +109,7 @@ public class PlayerMove : MonoBehaviour
                 scale.x *= -1;
                 vfx.transform.localScale = scale;
             }
+
             jumpNum--;
         }
     }

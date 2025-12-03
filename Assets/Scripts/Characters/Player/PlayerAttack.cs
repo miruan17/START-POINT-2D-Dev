@@ -106,6 +106,7 @@ public class PlayerAttack : MonoBehaviour
         AttackDef attack;
         GameObject hitbox;
         Debug.Log("Caster: " + this.name);
+        anim.SetTrigger("AttackTrigger");
         if (holdTime > weapon.ComboDeadline)
         {
             attack = weapon.EnhancedAttack;
@@ -177,7 +178,6 @@ public class PlayerAttack : MonoBehaviour
     private void FixedUpdate()
     {
         if (anim.GetBool("ActionLock")) return;
-
         // attack pipeline
         if (Time.time < inputDelay)
         {

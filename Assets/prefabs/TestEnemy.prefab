@@ -208,7 +208,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterStatus: {fileID: 11400000, guid: 68e23521450fefe42a76e6a19301a823, type: 2}
   is_Freeze: 0
-  enemyState: 0
+  groundCheckDepth: 0.05
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 64
+  state: 0
+  isRage: 0
+  idlePatrolInterval: 1
+  idleToPatrolChance: 0.15
+  patrolToIdleChance: 0.15
+  frozenTimer: 0
+  facingRight: 1
   attack: {fileID: 11400000, guid: 9ff68a464af91fe4093b041f37fb709e, type: 2}
 --- !u!1 &4846030792733065212
 GameObject:
@@ -305,7 +315,7 @@ Animator:
   m_GameObject: {fileID: 4846030792733065212}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: cc2b58e96d76ba24b8c761390aaf1a88, type: 2}
+  m_Controller: {fileID: 9100000, guid: 48f1de8c1e6c95743b434bef3fb90c7e, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

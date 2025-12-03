@@ -5,7 +5,7 @@ using UnityEngine;
 public enum StatId_Effect_Freeze { FRZ, FRZ_term } // dmg, term
 public class Effect_Freeze : Effect   //Manager class
 {
-    private Dictionary<StatId_Effect_Freeze, Status> _stats = new();
+    public Dictionary<StatId_Effect_Freeze, Status> _stats = new();
     int level = 0;
     public Effect_Freeze(float term, float dmg)
     {
@@ -25,6 +25,7 @@ public class Effect_Freeze : Effect   //Manager class
         term = _stats[StatId_Effect_Freeze.FRZ_term].Get();
         level = eff.level;
         Debug.Log("in Freeze: " + manager);
+        if (manager.GetCharacter().CompareTag("Enemy")) ((Enemy)manager.GetCharacter()).frozenTimer = 0;
         manager.GetCharacter().is_Freeze = true;
     }
     public override void updateValue(float term, float dmg, float tick, int max_stack) // 기존 base를 변경하는 연산

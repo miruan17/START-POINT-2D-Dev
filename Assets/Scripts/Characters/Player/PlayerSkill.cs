@@ -9,12 +9,15 @@ public class PlayerSkill : MonoBehaviour
     private Player player;
     private Animator anim;
     private Collider2D bodyCol;
+    private SpriteRenderer sr;
     private void Awake()
     {
         input = GetComponent<PlayerInputHub>();
         player = GetComponentInParent<Player>();
         anim = GetComponentInChildren<Animator>();
         bodyCol = GetComponent<Collider2D>();
+        sr = GetComponentInChildren<SpriteRenderer>();
+        Debug.Log(sr);
     }
     private void Update()
     {
@@ -37,6 +40,7 @@ public class PlayerSkill : MonoBehaviour
                 {
                     if (activeSkill[i].skillName == "Dash")
                     {
+                        anim.SetBool("Dash", true);
                         StartCoroutine(Dash());
                     }
                     if (activeSkill[i].skillName == "FastDrop")
@@ -57,8 +61,6 @@ public class PlayerSkill : MonoBehaviour
     {
         float dashDuration = 0.2f;
         float dashSpeed = 40f;
-
-        ActionLockSystem.Instance.LockOnTime(dashDuration, anim, input);
         float gap = bodyCol.bounds.center.x - bodyCol.bounds.min.x;
         Vector3 spawnPos = new Vector3(bodyCol.bounds.center.x + (input.facingRight ? -gap : gap), bodyCol.bounds.center.y);
         Instantiate(player.jumpVFX, spawnPos, input.facingRight ? Quaternion.Euler(0f, 0f, 90f) : Quaternion.Euler(0f, 0f, 270f));
@@ -73,6 +75,7 @@ public class PlayerSkill : MonoBehaviour
             yield return null;
         }
         rigid.velocity = new Vector2(0f, 0f);
+        anim.SetBool("Dash", false);
     }
 
     private IEnumerator FastDrop()

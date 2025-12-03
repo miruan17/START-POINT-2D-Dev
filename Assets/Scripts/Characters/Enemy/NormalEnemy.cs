@@ -1,16 +1,25 @@
+using Unity.Burst.Intrinsics;
 using UnityEngine;
 
 public class NormalEnemy : Enemy
 {
     public float detectRange = 5f;
+    public float detectRangeOnChase = 10f;
     public float attackRange = 1.5f;
 
     protected override void IdleUpdate()
     {
+        if (is_Freeze)
+        {
+            idlePatrolTimer = 0;
+            state = EnemyState.Frozen;
+            return;
+        }
         if (PlayerInRange(detectRange) || isRage)
         {
             idlePatrolTimer = 0;
             state = EnemyState.Chase;
+            return;
         }
         idlePatrolTimer += Time.deltaTime;
 
@@ -30,10 +39,17 @@ public class NormalEnemy : Enemy
 
     protected override void PatrolUpdate()
     {
+        if (is_Freeze)
+        {
+            idlePatrolTimer = 0;
+            state = EnemyState.Frozen;
+            return;
+        }
         if (PlayerInRange(detectRange) || isRage)
         {
             idlePatrolTimer = 0;
             state = EnemyState.Chase;
+            return;
         }
         idlePatrolTimer += Time.deltaTime;
 
@@ -48,21 +64,35 @@ public class NormalEnemy : Enemy
             }
         }
         // 일반 Patrol 행동(이동 등)
+        if (isGrounded)
+        {
+            Vector2 v = rigid.velocity;
+            v.x = facingRight ? Speed : -Speed;
+            rigid.velocity = v;
+            if (CheckFrontAir() || Probability.Attempt(0.01f)) Flip();
+        }
     }
 
 
     protected override void ChaseUpdate()
     {
+        if (is_Freeze)
+        {
+            state = EnemyState.Frozen;
+            return;
+        }
         // Chase → Attack
         if (PlayerInRange(attackRange))
         {
             state = EnemyState.Attack;
             return;
         }
-
         // Chase → Idle
-        if (!isRage && !PlayerInRange(detectRange))
+        if (!isRage && !PlayerInRange(detectRangeOnChase))
+        {
             state = EnemyState.Idle;
+            return;
+        }
     }
 
     protected override void AttackUpdate()

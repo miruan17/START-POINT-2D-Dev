@@ -23,7 +23,7 @@ public abstract class Character : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        anim = GetComponent<Animator>();
+        anim = GetComponentInChildren<Animator>();
         bodyCol = GetComponent<Collider2D>();
         status = new CharacterStatusManager(characterStatus);
         effect = new EffectManager(this);
