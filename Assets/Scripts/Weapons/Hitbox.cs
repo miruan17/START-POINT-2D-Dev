@@ -73,6 +73,7 @@ public class Hitbox : MonoBehaviour
             return;
         if (other.CompareTag("Enemy")) // Hitbox meets Enemy
         {
+            Debug.Log("PTE");
             Enemy enemy = other.GetComponent<Enemy>();
             caller = GetComponentInParent<Character>();
             Player player = FindObjectOfType<Player>();
@@ -107,10 +108,13 @@ public class Hitbox : MonoBehaviour
         else
         {
             caller = GetComponentInParent<Character>();
-            Player player = FindObjectOfType<Player>();
-            createHitVFX(other);
-            player.status.CurrentHP -= caller.status.GetFinal(StatId.ATK);
-            ApplyEffect.applyEffect(player, caller.getArgument().ReturnEffect());
+            if (caller.CompareTag("Enemy"))
+            {
+                Player player = FindObjectOfType<Player>();
+                createHitVFX(other);
+                player.status.CurrentHP -= caller.status.GetFinal(StatId.ATK);
+                ApplyEffect.applyEffect(player, caller.getArgument().ReturnEffect());
+            }
         }
     }
     void createHitVFX(Collider2D other)
