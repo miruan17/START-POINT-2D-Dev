@@ -10,6 +10,7 @@ public class PlayerAttack : MonoBehaviour
     private PlayerInputHub input;
     private PlayerMove move;
     private Animator anim;
+    private Player player;
     [SerializeField] public GameObject hitboxRoot;
 
     //hitboxGenerator
@@ -81,6 +82,7 @@ public class PlayerAttack : MonoBehaviour
         input = GetComponent<PlayerInputHub>();
         move = GetComponent<PlayerMove>();
         anim = GetComponentInChildren<Animator>();
+        player = GetComponent<Player>();
         WeaponUpdate(weapon);
     }
 
@@ -106,7 +108,6 @@ public class PlayerAttack : MonoBehaviour
         AttackDef attack;
         GameObject hitbox;
         Debug.Log("Caster: " + this.name);
-        anim.SetTrigger("AttackTrigger");
         if (holdTime > weapon.ComboDeadline)
         {
             attack = weapon.EnhancedAttack;
@@ -120,6 +121,8 @@ public class PlayerAttack : MonoBehaviour
             Debug.Log("AttackType: " + $"Combo Attack {currentCombo + 1}");
         }
         yield return new WaitForSeconds(attack.preDelay);
+        anim.SetFloat("SpeedMultiplier", player.attackClip.length / attack.hitTime);
+        anim.SetTrigger("AttackTrigger");
         hitbox.SetActive(true);
         hitbox.GetComponent<Hitbox>().PlayVFX(attack.spawnVFX, attack.hitTime);
         yield return new WaitForSeconds(attack.hitTime);

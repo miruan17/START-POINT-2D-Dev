@@ -69,6 +69,8 @@ public class Hitbox : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
+        if ((targetLayer & (1 << other.gameObject.layer)) == 0)
+            return;
         if (other.CompareTag("Enemy")) // Hitbox meets Enemy
         {
             Enemy enemy = other.GetComponent<Enemy>();
@@ -101,6 +103,14 @@ public class Hitbox : MonoBehaviour
                 EffectManager skillManager = skill.getEffect();
                 ApplyEffect.applyEffect(enemy, skillManager.ReturnEffect());
             }
+        }
+        else
+        {
+            caller = GetComponentInParent<Character>();
+            Player player = FindObjectOfType<Player>();
+            createHitVFX(other);
+            player.status.CurrentHP -= caller.status.GetFinal(StatId.ATK);
+            ApplyEffect.applyEffect(player, caller.getArgument().ReturnEffect());
         }
     }
     void createHitVFX(Collider2D other)

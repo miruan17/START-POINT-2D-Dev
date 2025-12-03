@@ -12,6 +12,7 @@ public abstract class Character : MonoBehaviour
     protected SpriteRenderer spriteRenderer;
     protected Rigidbody2D rigid;
     protected Animator anim;
+    public AnimationClip attackClip;
     protected Collider2D bodyCol;
 
     public CharacterStatusManager status;
@@ -29,6 +30,17 @@ public abstract class Character : MonoBehaviour
         status = new CharacterStatusManager(characterStatus);
         effect = new EffectManager(this);
         argument = new EffectManager(this);
+
+        RuntimeAnimatorController ac = anim.runtimeAnimatorController;
+
+        foreach (var clip in ac.animationClips)
+        {
+            if (clip.name == "PlayerAttack")
+            {
+                attackClip = clip;
+                break;
+            }
+        }
     }
 
     #region Status Area

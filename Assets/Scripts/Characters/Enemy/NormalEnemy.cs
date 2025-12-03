@@ -1,11 +1,12 @@
+using System.Collections;
 using Unity.Burst.Intrinsics;
 using UnityEngine;
 
 public class NormalEnemy : Enemy
 {
-    public float detectRange = 5f;
-    public float detectRangeOnChase = 10f;
-    public float attackRange = 1.5f;
+    public float detectRange = 7f;
+    public float detectRangeOnChase = 12f;
+    public float attackRange = 3.5f;
 
     protected override void IdleUpdate()
     {
@@ -81,18 +82,6 @@ public class NormalEnemy : Enemy
             state = EnemyState.Frozen;
             return;
         }
-        // Chase → Attack
-        if (PlayerInAttackRange(attackRange))
-        {
-            state = EnemyState.Attack;
-            return;
-        }
-        // Chase → Idle
-        if (!isRage && !PlayerInRange(detectRangeOnChase))
-        {
-            state = EnemyState.Idle;
-            return;
-        }
         if (isGrounded)
         {
             // dx > 0 -> enemy, player || dx < 0 -> player, enemy
@@ -120,11 +109,46 @@ public class NormalEnemy : Enemy
                 }
             }
         }
+        // Chase → Attack
+        if (PlayerInAttackRange(attackRange) && PlayerInRange(attackRange))
+        {
+            StopMove();
+            state = EnemyState.Attack;
+            return;
+        }
+        // Chase → Idle
+        if (!isRage && !PlayerInRange(detectRangeOnChase))
+        {
+            state = EnemyState.Idle;
+            return;
+        }
     }
 
     protected override void AttackUpdate()
     {
-        // Attack이 끝나면 다시 Chase
-        state = EnemyState.Chase;
+        if (AttackTimer <= 0)
+        {
+            //어택 코루틴
+            StartCoroutine(Attack());
+        }
+        AttackTimer += Time.deltaTime;
+        if (AttackTimer >= AttackTime)
+        {
+            state = EnemyState.Chase;
+            AttackTimer = 0;
+        }
+    }
+    public IEnumerator Attack()
+    {
+        yield return new WaitForSeconds(attackDef.preDelay);
+        //hitbox on
+        anim.SetFloat("SpeedMultiplier", attackClip.length / attackDef.hitTime);
+        anim.SetTrigger("AttackTrigger");
+        hitbox.SetActive(true);
+        hitbox.GetComponent<Hitbox>().PlayVFX(attackDef.spawnVFX, attackDef.hitTime);
+        yield return new WaitForSeconds(attackDef.hitTime);
+        //hitbox off
+        hitbox.SetActive(false);
+        yield return new WaitForSeconds(attackDef.postDelay);
     }
 }

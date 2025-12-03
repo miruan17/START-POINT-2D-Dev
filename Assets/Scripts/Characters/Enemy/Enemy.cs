@@ -3,9 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 public class Enemy : Character
 {
+    [Header("Ground Check")]
     public float groundCheckDepth = 0.1f;
     public LayerMask groundMask;
+    protected bool isGrounded = true;
+    public bool prevGrounded = false;
+
+    [Header("")]
     public static List<Enemy> AllEnemies = new List<Enemy>();
+
+    [Header("State")]
     public EnemyState state = EnemyState.Idle;
     public bool isRage = false;
     protected float idlePatrolTimer = 0f;
@@ -13,10 +20,15 @@ public class Enemy : Character
     public float idleToPatrolChance = 0.3f;
     public float patrolToIdleChance = 0.15f;
     public float frozenTimer = 0f;
-    public float Speed = 4.0f;
-    protected bool isGrounded = true;
-    public bool prevGrounded = false;
+    [Header("State")]
+    public float AttackTime;
+    public float AttackTimer = 0f;
+    public GameObject hitbox;
+    [SerializeField] public GameObject hitboxRoot;
 
+    [Header("ETC.")]
+    public float Speed = 4.0f;
+    public AttackDef attackDef;
     public bool facingRight = true;
 
     public override void DeathTrigger()
@@ -31,6 +43,14 @@ public class Enemy : Character
     private void OnEnable()
     {
         AllEnemies.Add(this);
+    }
+    protected override void Awake()
+    {
+        base.Awake();
+        AttackTime = attackDef.hitTime + attackDef.preDelay + attackDef.postDelay;
+        hitbox = Instantiate(attackDef.Hitbox, hitboxRoot.transform);
+        hitbox.GetComponent<Hitbox>().hitVFX = attackDef.hitVFX;
+        hitbox.SetActive(false);
     }
     private void OnDisable()
     {
@@ -101,19 +121,19 @@ public class Enemy : Character
     }
     protected bool PlayerInRange(float range)
     {
-        Player player = FindObjectOfType<Player>();
+        Player player = FindObjectOfType<Player>(true);
         if (player == null) return false;
         return Vector2.Distance(transform.position, player.transform.position) < range;
     }
     protected bool PlayerInAttackRange(float range)
     {
-        Player player = FindObjectOfType<Player>();
+        Player player = FindObjectOfType<Player>(true);
         if (player == null) return false;
         return Mathf.Abs(player.transform.localPosition.x - transform.localPosition.x) < range;
     }
     protected PlatformGroupID getPlayerPlatformGroupID()
     {
-        Player player = FindObjectOfType<Player>();
+        Player player = FindObjectOfType<Player>(true);
         return player.currentPlatform;
     }
     protected bool OverlapGround()
@@ -160,7 +180,7 @@ public class Enemy : Character
     }
     public Vector3 getPlayerPosition()
     {
-        Player player = FindObjectOfType<Player>();
+        Player player = FindObjectOfType<Player>(true);
         return player.transform.localPosition;
     }
 
