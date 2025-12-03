@@ -7479,6 +7479,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterStatus: {fileID: 11400000, guid: c36d527a509593f4db75df78e2eb09d4, type: 2}
+  currentPlatform: {fileID: 0}
   is_Freeze: 0
   jumpVFX: {fileID: 2643456570128007814, guid: 41244f5b1f581be468444964633ddf11, type: 3}
   landingVFX: {fileID: 2643456570128007814, guid: 8f8077d320dd31745a8df0aec659a875, type: 3}
@@ -7721,7 +7722,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 4
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -7947,7 +7948,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speedScale: 2
-  jumpPower: 13
+  jumpPower: 20
   jumpNum: 0
   groundCheckDepth: 0.05
   groundMask:
@@ -7956,6 +7957,15 @@ MonoBehaviour:
   isGrounded: 0
   prevGrounded: 1
   maxheight: 0
+  groundAccelAmount: 10
+  groundDecelAmount: 15
+  airAccelAmount: 6
+  airDecelAmount: 8
+  gravityScale: 4
+  fallGravityScale: 5
+  maxFallSpeed: -50
+  coyoteTime: 0.1
+  jumpBufferTime: 0.1
 --- !u!1 &5222597186520824706
 GameObject:
   m_ObjectHideFlags: 0

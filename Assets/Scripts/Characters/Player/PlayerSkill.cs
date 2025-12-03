@@ -80,7 +80,7 @@ public class PlayerSkill : MonoBehaviour
 
     private IEnumerator FastDrop()
     {
-        float downwardSpeed = -100f;     // 빠른 하강 속도
+        float downwardSpeed = -50f;     // 빠른 하강 속도
         Rigidbody2D rigid = GetComponent<Rigidbody2D>();
         PlayerMove move = GetComponent<PlayerMove>();
         // ActionLock과 입력 차단
