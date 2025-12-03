@@ -15,6 +15,7 @@ public class PlayerMove : MonoBehaviour
 
     [Header("Jump")]
     public float jumpPower = 13f;
+    public float maxjump = 1;
     public float jumpNum;
 
     [Header("Ground Check")]
@@ -95,7 +96,7 @@ public class PlayerMove : MonoBehaviour
         {
             if (isGrounded) // air -> ground
             {
-                jumpNum = player.status.GetFinal(StatId.JP);
+                jumpNum = maxjump;
 
                 // 일정 거리 이상 낙하 시 착지 이펙트
                 float distance = Mathf.Abs(bodyCol.bounds.min.y - maxheight);
@@ -163,6 +164,10 @@ public class PlayerMove : MonoBehaviour
         // 점프 버퍼 안에 있고, 점프 가능 상태면 점프 수행
         if (jumpBufferCounter > 0f && jumpNum >= 1 && (canCoyoteJump || canAirJump || isGrounded))
         {
+            if (isGrounded)
+            {
+                jumpNum++;
+            }
             // 실제로 점프 실행하면 버퍼/코요테 소모
             jumpBufferCounter = 0f;
             coyoteCounter = 0f;

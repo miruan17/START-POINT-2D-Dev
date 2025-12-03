@@ -7949,7 +7949,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speedScale: 2
   jumpPower: 20
-  jumpNum: 0
+  maxjump: 2
+  jumpNum: 2
   groundCheckDepth: 0.05
   groundMask:
     serializedVersion: 2
