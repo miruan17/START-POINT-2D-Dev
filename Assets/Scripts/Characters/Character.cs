@@ -1,5 +1,5 @@
-using System;
 using System.Collections.Generic;
+using System.Numerics;
 using UnityEngine;
 
 [DisallowMultipleComponent]
@@ -17,7 +17,6 @@ public abstract class Character : MonoBehaviour
     public CharacterStatusManager status;
     protected EffectManager effect;
     protected EffectManager argument;
-    public PlatformGroupID currentPlatform;
     public bool is_Freeze = false;
 
     protected virtual void Awake()
@@ -59,40 +58,5 @@ public abstract class Character : MonoBehaviour
         // 지향 구조
         DeathTrigger();
         effect.RuntimeEffect();
-    }
-
-    public PlatformGroupID FindPlatform()
-    {
-        int platformMask = LayerMask.GetMask("Platform");
-
-        float halfWidth = bodyCol.bounds.extents.x * 0.9f;
-        float rayLength = 0.3f;
-
-        // ★ Collider의 정확한 발바닥 위치
-        float footY = bodyCol.bounds.min.y - 0.05f;
-
-        Vector2[] offsets =
-        {
-        new Vector2(-halfWidth, 0),
-        new Vector2(0, 0),
-        new Vector2(halfWidth, 0),
-    };
-
-        foreach (var off in offsets)
-        {
-            Vector2 origin = new Vector2(transform.position.x + off.x, footY);
-
-            RaycastHit2D hit = Physics2D.Raycast(
-                origin,
-                Vector2.down,
-                rayLength,
-                platformMask
-            );
-
-            if (hit.collider != null)
-                return hit.collider.GetComponent<PlatformGroupID>();
-        }
-
-        return null;
     }
 }

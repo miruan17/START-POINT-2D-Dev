@@ -2,6 +2,19 @@ using UnityEngine;
 using UnityEditor;
 using System.Collections.Generic;
 
+public class PlatformID : MonoBehaviour
+{
+    public int platformGroupID = -1;
+    public bool leftBlocked = false;
+    public bool rightBlocked = false;
+}
+
+public class FallPoint : MonoBehaviour
+{
+    public int platformGroupID;
+    public Vector2 worldPos;
+}
+
 public class PlatformAutoBuilder : EditorWindow
 {
     [MenuItem("Tools/Build Platform Groups + Fall Points")]
@@ -95,15 +108,15 @@ public class PlatformAutoBuilder : EditorWindow
             groupMap[sortedRoots[i]] = i; // lowest = 0
 
         // ======================================================
-        // 5) Assign PlatformGroupID
+        // 5) Assign PlatformID
         // ======================================================
         for (int i = 0; i < n; i++)
         {
             int root = Find(i);
 
-            PlatformGroupID id = platforms[i].GetComponent<PlatformGroupID>();
+            PlatformID id = platforms[i].GetComponent<PlatformID>();
             if (id == null)
-                id = platforms[i].gameObject.AddComponent<PlatformGroupID>();
+                id = platforms[i].gameObject.AddComponent<PlatformID>();
 
             id.platformGroupID = groupMap[root];
             EditorUtility.SetDirty(id);
@@ -116,7 +129,7 @@ public class PlatformAutoBuilder : EditorWindow
 
         foreach (var col in platforms)
         {
-            PlatformGroupID pid = col.GetComponent<PlatformGroupID>();
+            PlatformID pid = col.GetComponent<PlatformID>();
             int groupID = pid.platformGroupID;
 
             // ★ NEW RULE #1: Lowest platform (ID 0) → DO NOT generate fall points
@@ -135,7 +148,7 @@ public class PlatformAutoBuilder : EditorWindow
             }
             foreach (var c in platforms)
             {
-                PlatformGroupID pid1 = c.GetComponent<PlatformGroupID>();
+                PlatformID pid1 = c.GetComponent<PlatformID>();
                 if (pid1.platformGroupID == groupID)
                 {
                     pid.leftBlocked = (pid.leftBlocked || pid1.leftBlocked) ? true : false;
