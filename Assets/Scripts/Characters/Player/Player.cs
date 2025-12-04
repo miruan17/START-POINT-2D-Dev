@@ -14,7 +14,7 @@ public class Player : Character
     public AudioClip levelupSFX;
     public GameObject lightning;
 
-    private int level = 0;
+    private int level = 1;
     private int xpMeter = 5;
     private int currentXp = 0;
     private void Awake()
