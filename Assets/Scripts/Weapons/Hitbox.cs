@@ -73,7 +73,7 @@ public class Hitbox : MonoBehaviour
             return;
         if (other.CompareTag("Enemy")) // Hitbox meets Enemy
         {
-            Enemy enemy = other.GetComponent<Enemy>();
+            Enemy enemy = other.GetComponentInParent<Enemy>();
             caller = GetComponentInParent<Character>();
             Player player = FindObjectOfType<Player>();
             skill = GetComponentInParent<Skill>();
