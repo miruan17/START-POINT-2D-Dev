@@ -9,6 +9,7 @@ public class Player : Character
     public GameObject jumpVFX;
     public GameObject landingVFX;
     public AudioClip jumpSFX;
+    public AudioClip landingSFX;
     private void Awake()
     {
         base.Awake();

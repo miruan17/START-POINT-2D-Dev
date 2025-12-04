@@ -111,6 +111,7 @@ public class PlayerMove : MonoBehaviour
                         scale.x *= -1;
                         vfx.transform.localScale = scale;
                     }
+                    AudioManager.Instance.PlaySFX(player.landingSFX);
                 }
                 maxheight = bodyCol.bounds.min.y;
 

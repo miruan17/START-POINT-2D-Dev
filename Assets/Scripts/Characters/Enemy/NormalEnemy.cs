@@ -133,7 +133,6 @@ public class NormalEnemy : Enemy
         }
         hitbox.SetActive(true);
         AudioManager.Instance.PlaySFX(attackDef.spawnSFX);
-        hitbox.GetComponent<Hitbox>().attackDef = attackDef;
         hitbox.GetComponent<Hitbox>().PlayVFX(attackDef.spawnVFX, attackDef.hitTime);
         yield return new WaitForSeconds(attackDef.hitTime);
         //hitbox off

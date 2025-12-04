@@ -7870,6 +7870,7 @@ MonoBehaviour:
   jumpVFX: {fileID: 2643456570128007814, guid: 41244f5b1f581be468444964633ddf11, type: 3}
   landingVFX: {fileID: 2643456570128007814, guid: 8f8077d320dd31745a8df0aec659a875, type: 3}
   jumpSFX: {fileID: 8300000, guid: 61d91dd08ca53484588f6cdb20b23c68, type: 3}
+  landingSFX: {fileID: 8300000, guid: 6f05c5769ea01dc4d833a37d77a0eee4, type: 3}
 --- !u!1 &2233891928856476201
 GameObject:
   m_ObjectHideFlags: 0

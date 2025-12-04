@@ -27,5 +27,5 @@ MonoBehaviour:
   spawnVFX: {fileID: 2643456570128007814, guid: a628950077959c24bb2c85c1e0dcc29e, type: 3}
   hitVFX: {fileID: 2643456570128007814, guid: 05e575dd030b62a4fa42605987f3755a, type: 3}
   spawnSFX: {fileID: 8300000, guid: e258564c20fedfd4ebb1ac3653b981fa, type: 3}
-  hitSFX: {fileID: 8300000, guid: a0945224349fc894d87d0e57415e3709, type: 3}
+  hitSFX: {fileID: 8300000, guid: 8d4a8f8d836d08b40ad9d7f47e18be39, type: 3}
   flipOffsetWithFacing: 1

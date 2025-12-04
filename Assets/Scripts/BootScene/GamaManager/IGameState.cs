@@ -60,9 +60,9 @@ public class StageState : IGameState
         this.stageLevel = stageLevel;
 
         // RoomGenerate
-        roomDatas.Add(new RoomSession(0,stageLevel,Resources.Load<StageDefaultSettings>("Level/RoomSettings1")));
-        roomDatas.Add(new RoomSession(1,stageLevel,Resources.Load<StageDefaultSettings>("Level/RoomSettings2")));
-        roomDatas.Add(new RoomSession(2,stageLevel,Resources.Load<StageDefaultSettings>("Level/RoomSettings3")));
+        roomDatas.Add(new RoomSession(0, stageLevel, Resources.Load<StageDefaultSettings>("Level/RoomSettings1")));
+        roomDatas.Add(new RoomSession(1, stageLevel, Resources.Load<StageDefaultSettings>("Level/RoomSettings2")));
+        roomDatas.Add(new RoomSession(2, stageLevel, Resources.Load<StageDefaultSettings>("Level/RoomSettings3")));
 
         currentRoomSession = roomDatas[0];
     }
@@ -79,17 +79,18 @@ public class StageState : IGameState
             if (es.settings.prefab == null) continue;
 
             Vector2 pos = es.settings.spawnPoint;
-            GameManager.Instance.CharacterInstantiate(es.settings.prefab,pos);
+            GameManager.Instance.CharacterInstantiate(es.settings.prefab, pos, es.enemyId);
 
         }
     }
 
     public void Exit()
     {
-        Enemy[] enemies = GameObject.FindObjectsOfType<Enemy>();
-
+        Enemy[] enemies = GameObject.FindObjectsOfType<Enemy>(true);
         foreach (var enemy in enemies)
         {
+            if (!enemy.gameObject.activeInHierarchy)
+                currentRoomSession.RemoveEnemy(GameManager.Instance.enemies[enemy.gameObject]);
             GameObject.Destroy(enemy.gameObject);
         }
         SceneManager.UnloadSceneAsync(currentRoomSession.roomSceneName);
@@ -140,11 +141,11 @@ public class RewardState : IGameState
     private string stateName = "RewardState";
     public void Enter()
     {
-        
+
     }
     public void Exit()
     {
-        
+
     }
 
     public void Move(Navigate navigate)

@@ -1,6 +1,7 @@
 public class GameStateManager
 {
     private IGameState currentState;
+    public GameManager parent;
 
     public void ChangeState(IGameState newState)
     {
@@ -8,9 +9,8 @@ public class GameStateManager
         {
             currentState.Exit();
         }
-
         currentState = newState;
-
+        GameManager.Instance.clearEnemies();
         if (currentState != null)
         {
             currentState.Enter();
