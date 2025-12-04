@@ -73,6 +73,7 @@ public class Hitbox : MonoBehaviour
             return;
         if (other.CompareTag("Enemy")) // Hitbox meets Enemy
         {
+            Debug.Log("test");
             Enemy enemy = other.GetComponentInParent<Enemy>();
             caller = GetComponentInParent<Character>();
             Player player = FindObjectOfType<Player>();
@@ -81,6 +82,7 @@ public class Hitbox : MonoBehaviour
             {
                 if (caller.CompareTag("Player")) //caller = player
                 {
+                    Debug.Log(caller.name);
                     createHitVFX(other);
                     enemy.ApplyHit("Attack", 0.2f);
                     enemy.status.CurrentHP -= caller.status.GetFinal(StatId.ATK);

@@ -3,7 +3,7 @@ guid: 14565ac76e867a3449c331c7a9d393e4
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -20,11 +20,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -63,6 +64,8 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -74,6 +77,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -86,6 +90,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -98,6 +103,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -110,6 +116,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -483,26 +490,25 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      AcidRain_13: 1932064688
-      AcidRain_9: 1837199783
-      AcidRain_6: -821413012
-      AcidRain_15: -2031891573
-      AcidRain_12: -913250681
-      AcidRain_7: -1637223963
       AcidRain_0: -1722329559
-      AcidRain_8: -1743216650
-      AcidRain_3: -1224558421
-      AcidRain_11: 1936770812
-      AcidRain_5: 1967993499
-      AcidRain_2: 464829883
-      AcidRain_4: -2107203492
       AcidRain_1: -470659034
-      AcidRain_16: 1315208081
       AcidRain_10: 954604772
+      AcidRain_11: 1936770812
+      AcidRain_12: -913250681
+      AcidRain_13: 1932064688
       AcidRain_14: 1221409611
-  spritePackingTag: 
+      AcidRain_15: -2031891573
+      AcidRain_16: 1315208081
+      AcidRain_2: 464829883
+      AcidRain_3: -1224558421
+      AcidRain_4: -2107203492
+      AcidRain_5: 1967993499
+      AcidRain_6: -821413012
+      AcidRain_7: -1637223963
+      AcidRain_8: -1743216650
+      AcidRain_9: 1837199783
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
