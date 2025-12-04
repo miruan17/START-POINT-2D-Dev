@@ -122,7 +122,7 @@ public class PlayerAttack : MonoBehaviour
             hitbox = comboHitboxes[currentCombo];
             Debug.Log("AttackType: " + $"Combo Attack {currentCombo + 1}");
         }
-        anim.SetFloat("SpeedMultiplier", player.attackClip.length / (attack.hitTime + attack.preDelay));
+        anim.SetFloat("SpeedMultiplier", 1.5f);
         anim.SetTrigger("AttackTrigger");
         yield return new WaitForSeconds(attack.preDelay);
         hitbox.SetActive(true);

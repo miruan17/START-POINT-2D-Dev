@@ -68,7 +68,11 @@ public class PlayerSkill : MonoBehaviour
                     scale.x = Mathf.Abs(scale.x) * (input.facingRight ? 1f : -1f);
                     obj.transform.localScale = scale;
                     if (skill.skillType == SkillType.Attack)
+                    {
+                        anim.SetFloat("SpeedMultiplier", 4);
+                        anim.SetTrigger("ScarTrigger");
                         obj.transform.SetParent(player.transform);
+                    }
                 }
                 if (skill.skillType == SkillType.Move)
                 {

@@ -16,11 +16,11 @@ MonoBehaviour:
   useSP: 0
   Hitbox: {fileID: 59730645314180040, guid: 07f71c24d29764f4ab560b2b462cdca8, type: 3}
   speed: 0
-  preDelay: 0
+  preDelay: 0.2
   hitTime: 0.1
   postDelay: 0.1
   DamageScale: 1
-  knockback: {x: 0, y: 0}
+  knockback: {x: 2, y: 0}
   targetMask:
     serializedVersion: 2
     m_Bits: 256

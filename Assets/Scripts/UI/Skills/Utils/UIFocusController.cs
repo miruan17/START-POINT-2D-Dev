@@ -64,6 +64,7 @@ public class UIFocusController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 nextFocus = UIFocusTarget.SkillPanel;
+                EventSystem.current?.SetSelectedGameObject(null);
                 SetFocus(nextFocus);
             }
         }

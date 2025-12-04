@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class UI_Manager : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class UI_Manager : MonoBehaviour
     }
     public UI_Keys DefaultEntry;
     public List<UI_Keys> entries = new List<UI_Keys>();
+    public Player player;
+    public PlayerInputHub input;
 
     int current = -1;
 
@@ -19,6 +22,8 @@ public class UI_Manager : MonoBehaviour
         DefaultEntry.window.SetActive(true);
         for (int i = 0; i < entries.Count; i++)
             if (entries[i].window) entries[i].window.SetActive(false);
+        player = FindObjectOfType<Player>();
+        input = player.GetComponent<PlayerInputHub>();
     }
 
     void Update()
@@ -29,6 +34,7 @@ public class UI_Manager : MonoBehaviour
             {
                 if (entries[i].window && Input.GetKeyDown(entries[i].key))
                 {
+                    input.DisableInput();
                     Open(i);
                     break;
                 }
@@ -38,6 +44,7 @@ public class UI_Manager : MonoBehaviour
         {
             if (Input.GetKeyDown(entries[current].key))
             {
+                input.EnableInput();
                 Close();
             }
             if (Input.GetKeyDown(KeyCode.Escape))
@@ -45,9 +52,9 @@ public class UI_Manager : MonoBehaviour
                 if (entries[current].key == KeyCode.K)
                 {
                     var controller = entries[current].window.GetComponent<UIFocusController>();
-                    if (!controller.isEnter) Close();
+                    if (!controller.isEnter) { input.EnableInput(); Close(); }
                 }
-                else Close();
+                else { input.EnableInput(); Close(); }
             }
         }
     }
