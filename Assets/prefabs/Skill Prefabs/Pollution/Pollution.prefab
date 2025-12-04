@@ -45,6 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillType: 0
-  summon: {fileID: 4131258300414567715}
+  dmg: 0
+  spawnVFX: {fileID: 2643456570128007814, guid: 195f1423b0108f44e8e97072e0512489, type: 3}
+  hitVFX: {fileID: 0}
   duration: 10
   hitboxdef: {fileID: 59730645314180040, guid: 4db00dcca4f95844c87c13572a6041de, type: 3}
