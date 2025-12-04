@@ -131,6 +131,24 @@ public class Enemy : Character
         hitTimer = 0f;
 
         state = EnemyState.Hit;
+
+        ApplyKnockback(new Vector2(0, 0), 0);
+    }
+    public void ApplyHit(String source, float duration, Vector2 knockback, float attackerx)
+    {
+        ApplyHit(source, duration);
+        ApplyKnockback(knockback, attackerx);
+    }
+    public void ApplyKnockback(Vector2 force, float attacker)
+    {
+        if (rigid == null) return;
+        Debug.Log("in akb");
+        // 공격자가 왼쪽에 있으면 +, 오른쪽에 있으면 - 방향 적용
+        float direction = (transform.position.x - attacker) >= 0 ? 1f : -1f;
+        Vector2 finalForce = new Vector2(force.x * direction, force.y);
+
+        rigid.velocity = new Vector2(0, rigid.velocity.y); // 기존 수평속도 초기화
+        rigid.AddForce(finalForce, ForceMode2D.Impulse);
     }
     protected bool PlayerInRange(float range)
     {

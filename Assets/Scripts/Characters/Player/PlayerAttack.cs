@@ -50,6 +50,7 @@ public class PlayerAttack : MonoBehaviour
             enhancedHitbox = Instantiate(weapon.EnhancedAttack.Hitbox, hitboxRoot.transform);
             //hitVFX 바인딩
             enhancedHitbox.GetComponent<Hitbox>().hitVFX = weapon.EnhancedAttack.hitVFX;
+            enhancedHitbox.GetComponent<Hitbox>().attackDef = weapon.EnhancedAttack;
 
             enhancedHitbox.SetActive(false);
             enhancedHitbox.name = $"{weapon.displayName}_Enhanced";
@@ -67,6 +68,7 @@ public class PlayerAttack : MonoBehaviour
 
             //hitVFX 바인딩
             combo.GetComponent<Hitbox>().hitVFX = comboDef.hitVFX;
+            combo.GetComponent<Hitbox>().attackDef = comboDef;
 
             combo.SetActive(false);
             combo.name = $"{weapon.displayName}_Combo_{i + 1}";
@@ -120,9 +122,9 @@ public class PlayerAttack : MonoBehaviour
             hitbox = comboHitboxes[currentCombo];
             Debug.Log("AttackType: " + $"Combo Attack {currentCombo + 1}");
         }
-        yield return new WaitForSeconds(attack.preDelay);
-        anim.SetFloat("SpeedMultiplier", player.attackClip.length / attack.hitTime);
+        anim.SetFloat("SpeedMultiplier", player.attackClip.length / (attack.hitTime + attack.preDelay));
         anim.SetTrigger("AttackTrigger");
+        yield return new WaitForSeconds(attack.preDelay);
         hitbox.SetActive(true);
         hitbox.GetComponent<Hitbox>().PlayVFX(attack.spawnVFX, attack.hitTime);
         yield return new WaitForSeconds(attack.hitTime);

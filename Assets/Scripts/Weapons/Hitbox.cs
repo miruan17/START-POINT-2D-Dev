@@ -8,6 +8,7 @@ public class Hitbox : MonoBehaviour
 {
     public GameObject hitVFX;
     public LayerMask targetLayer;
+    public AttackDef attackDef;
     private BoxCollider2D boxCollider;
     private Character caller;
     private Skill skill;
@@ -73,7 +74,6 @@ public class Hitbox : MonoBehaviour
             return;
         if (other.CompareTag("Enemy")) // Hitbox meets Enemy
         {
-            Debug.Log("test");
             Enemy enemy = other.GetComponentInParent<Enemy>();
             caller = GetComponentInParent<Character>();
             Player player = FindObjectOfType<Player>();
@@ -82,9 +82,9 @@ public class Hitbox : MonoBehaviour
             {
                 if (caller.CompareTag("Player")) //caller = player
                 {
-                    Debug.Log(caller.name);
                     createHitVFX(other);
-                    enemy.ApplyHit("Attack", 0.2f);
+                    enemy.ApplyHit("Attack", 0.2f, attackDef.knockback, caller.transform.position.x);
+
                     enemy.status.CurrentHP -= caller.status.GetFinal(StatId.ATK);
                     Debug.Log("Hit " + other.name + ", Damage " + caller.status.GetFinal(StatId.ATK));
                     EffectManager enemyManager = enemy.getEffect();
