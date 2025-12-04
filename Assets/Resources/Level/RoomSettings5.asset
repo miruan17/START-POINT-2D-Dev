@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77e869a86ff14054a924bc50f7632d3f, type: 3}
+  m_Name: RoomSettings5
+  m_EditorClassIdentifier: 
+  stageName: 6
+  sceneName: stage6
+  left: {x: -6, y: 4}
+  right: {x: 0, y: 0}
+  up: {x: 0, y: 0}
+  down: {x: 0, y: 0}
+  spawn: {x: 0, y: 0}
+  enemyList:
+  - {fileID: 11400000, guid: 0f18c1edc3a2e1f419ad8f810fd3ada9, type: 2}
+  - {fileID: 11400000, guid: afbdee12b0fd7704e9c393eb5e39dc51, type: 2}
+  - {fileID: 11400000, guid: 8e2b4cdfa8f3a8b4eb3a41a0e5991bb3, type: 2}
+  - {fileID: 11400000, guid: f89881ef55cd6ab46b4420f19519ab6e, type: 2}
+  - {fileID: 11400000, guid: 1506580cbe99032469a17737671efe61, type: 2}
+  - {fileID: 11400000, guid: 16d05b6311e7c2543bbfbee7bf24a938, type: 2}
+  - {fileID: 11400000, guid: 634e34b956e351047872e3e529c69d1b, type: 2}
+  - {fileID: 11400000, guid: 634e34b956e351047872e3e529c69d1b, type: 2}
+  - {fileID: 11400000, guid: 634e34b956e351047872e3e529c69d1b, type: 2}
+  - {fileID: 11400000, guid: 634e34b956e351047872e3e529c69d1b, type: 2}
