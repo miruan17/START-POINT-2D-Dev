@@ -19,3 +19,14 @@ MonoBehaviour:
   up: {x: 0, y: 0}
   down: {x: 0, y: 0}
   spawn: {x: 0, y: 0}
+  enemyList:
+  - {fileID: 11400000, guid: 69f36612ba0b8ac4daf9bf228407a6cd, type: 2}
+  - {fileID: 11400000, guid: ea60a35e72e52d043b7cbca721d73d2f, type: 2}
+  - {fileID: 11400000, guid: 361fe03fa853b444f9ce0578daf137d0, type: 2}
+  - {fileID: 11400000, guid: f38d5c01d61d6184fb569e28721098d1, type: 2}
+  - {fileID: 11400000, guid: e96cdeafeb9e57e48a92fb4e1d00efec, type: 2}
+  - {fileID: 11400000, guid: 190eb1cad7133aa468cbaa244d9826b3, type: 2}
+  - {fileID: 11400000, guid: cd34de4d8f53dbd4ead8edf09507c596, type: 2}
+  - {fileID: 11400000, guid: fc6253225ef44844d9a857f269c89789, type: 2}
+  - {fileID: 11400000, guid: 71f709ff13a1f8c45aa3bcc81ccbef7a, type: 2}
+  - {fileID: 11400000, guid: 3472e2fd45ddeb748a5a9101ca6634e6, type: 2}

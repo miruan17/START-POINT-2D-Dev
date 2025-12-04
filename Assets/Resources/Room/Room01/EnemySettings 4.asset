@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyLevel: 0
   prefab: {fileID: 7904728693013186092, guid: 1c36515f78b737046b7dac8bd6e05991, type: 3}
-  spawnPoint: {x: 0, y: 10}
+  spawnPoint: {x: 45, y: 32}
