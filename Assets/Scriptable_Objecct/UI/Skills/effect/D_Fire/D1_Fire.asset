@@ -15,7 +15,7 @@ MonoBehaviour:
   id: D1
   tag: Fire
   skillName: Fire
-  icon: {fileID: 21300000, guid: 2a5c892bdd014164da633b8c6fd0f246, type: 3}
+  icon: {fileID: 1288189066, guid: c2dbb1cdeb2665f44a26cfb78a1524be, type: 3}
   unlockCost: 1
   cost: 1
   prerequisiteSkills:
@@ -26,5 +26,6 @@ MonoBehaviour:
   isMainNode: 1
   isPassive: 1
   isBasic: 1
+  coolTime: 0
   description: apply "Fire" Effect on Attack for 40% chance
   summonSkill: {fileID: 0}

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b79498e0478e43645a32a019242c9d6e
+guid: 7c34f7cb8d5ae864086d6d865b3e1da0
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,85 +97,64 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Character_Attack_0
+      name: mainSkillNode_Move_Base_0
       rect:
         serializedVersion: 2
-        x: 56
-        y: 643
-        width: 260
-        height: 396
+        x: 5
+        y: 1
+        width: 120
+        height: 137
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 820680f0caf709f41b10b9f3dcdfc9fd
-      internalID: 632830188
+      spriteID: b194566d1bb051e46970503c529070dd
+      internalID: 576013605
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Character_Attack_1
+      name: mainSkillNode_Move_Base_1
       rect:
         serializedVersion: 2
-        x: 441
-        y: 644
-        width: 354
-        height: 395
+        x: 154
+        y: 0
+        width: 120
+        height: 138
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 22a73f0012852f744a66577afe146f02
-      internalID: 731346128
+      spriteID: 13479694123795b4fb328b4a68ea323d
+      internalID: 583938929
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Character_Attack_2
+      name: mainSkillNode_Move_Base_2
       rect:
         serializedVersion: 2
-        x: 800
-        y: 638
-        width: 337
-        height: 401
+        x: 303
+        y: 0
+        width: 120
+        height: 138
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6d17ecdbcf1744f4db4c1256fdea0f7e
-      internalID: -589550332
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Character_Attack_3
-      rect:
-        serializedVersion: 2
-        x: 1145
-        y: 622
-        width: 218
-        height: 399
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 15be08153c9ca574682785e1a1bafc61
-      internalID: 711346266
+      spriteID: 473cd603ffc988d4cb77b387643c467e
+      internalID: 1713363649
       vertices: []
       indices: 
       edges: []
@@ -191,10 +170,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Character_Attack_0: 632830188
-      Character_Attack_1: 731346128
-      Character_Attack_2: -589550332
-      Character_Attack_3: 711346266
+      mainSkillNode_Move_Base_0: 576013605
+      mainSkillNode_Move_Base_1: 583938929
+      mainSkillNode_Move_Base_2: 1713363649
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

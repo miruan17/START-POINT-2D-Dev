@@ -15,7 +15,7 @@ MonoBehaviour:
   id: DoubleJump
   tag: DoubleJump
   skillName: DoubleJump
-  icon: {fileID: 21300000, guid: c67fbf9375ad5c34399c2849430ca7f7, type: 3}
+  icon: {fileID: 576013605, guid: 7c34f7cb8d5ae864086d6d865b3e1da0, type: 3}
   unlockCost: 1
   cost: 1
   prerequisiteSkills:
@@ -26,5 +26,6 @@ MonoBehaviour:
   isMainNode: 1
   isPassive: 1
   isBasic: 1
+  coolTime: 0
   description: Can jump one time more in air
   summonSkill: {fileID: 0}

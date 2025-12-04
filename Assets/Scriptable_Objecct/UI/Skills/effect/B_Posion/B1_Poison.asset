@@ -15,7 +15,7 @@ MonoBehaviour:
   id: B1
   tag: Poison
   skillName: Pollution
-  icon: {fileID: 21300000, guid: 6960c6bd5088317429f7e0e033bee813, type: 3}
+  icon: {fileID: 1702692269, guid: c2dbb1cdeb2665f44a26cfb78a1524be, type: 3}
   unlockCost: 1
   cost: 1
   prerequisiteSkills:

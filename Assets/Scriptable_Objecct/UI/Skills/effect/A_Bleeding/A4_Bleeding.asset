@@ -15,7 +15,7 @@ MonoBehaviour:
   id: A4
   tag: Bleeding
   skillName: Exe_Bleeding_up
-  icon: {fileID: 21300000, guid: bb67b03c2969d104caba950c446f8c8d, type: 3}
+  icon: {fileID: 361098094, guid: b58aa3d6fa81b394686f33b0c4818f8d, type: 3}
   unlockCost: 1
   cost: 1
   prerequisiteSkills:
@@ -25,4 +25,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e0e019eae066d554189e3aa1d426eb58, type: 2}
   isMainNode: 0
   isPassive: 1
+  isBasic: 0
+  coolTime: 0
   description: upgrade Effect "EXE_Bleeding"
+  summonSkill: {fileID: 0}

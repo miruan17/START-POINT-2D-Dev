@@ -15,7 +15,7 @@ MonoBehaviour:
   id: C2
   tag: DEF
   skillName: Ice_DEF_up
-  icon: {fileID: 21300000, guid: 0825dfa25de4551469e65496af7b3c71, type: 3}
+  icon: {fileID: -462673887, guid: a467d390ebccac945bc070c14fcd001a, type: 3}
   unlockCost: 1
   cost: 1
   prerequisiteSkills:

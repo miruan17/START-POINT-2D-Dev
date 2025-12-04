@@ -15,7 +15,7 @@ MonoBehaviour:
   id: E1
   tag: Lightning
   skillName: Lightning
-  icon: {fileID: 21300000, guid: 61dab0b6e506c6a43b12d9fde15b2393, type: 3}
+  icon: {fileID: 206795451, guid: c2dbb1cdeb2665f44a26cfb78a1524be, type: 3}
   unlockCost: 1
   cost: 1
   prerequisiteSkills:
@@ -26,5 +26,6 @@ MonoBehaviour:
   isMainNode: 1
   isPassive: 1
   isBasic: 1
+  coolTime: 0
   description: apply "Lightning" Effect on Attack for 30% chance
   summonSkill: {fileID: 0}
