@@ -85,7 +85,6 @@ public class Hitbox : MonoBehaviour
                 {
                     createHitVFX(other);
                     enemy.ApplyHit("Attack", 0.2f, attackDef.knockback, caller.transform.position.x);
-
                     enemy.status.CurrentHP -= caller.status.GetFinal(StatId.ATK);
                     Debug.Log("Hit " + other.name + ", Damage " + caller.status.GetFinal(StatId.ATK));
                     EffectManager enemyManager = enemy.getEffect();
@@ -126,9 +125,10 @@ public class Hitbox : MonoBehaviour
     }
     void createHitVFX(Collider2D other)
     {
-        if (hitVFX == null) return;
+        if (attackDef == null || attackDef.hitVFX == null) return;
+        AudioManager.Instance.PlaySFX(attackDef.hitSFX);
         Vector2 hitPoint = Physics2D.ClosestPoint(transform.position, other);
-        GameObject obj = Instantiate(hitVFX, hitPoint, Quaternion.identity);
+        GameObject obj = Instantiate(attackDef.hitVFX, hitPoint, Quaternion.identity);
         SpriteRenderer sr = obj.GetComponent<SpriteRenderer>();
         VFXAnimator animator = obj.GetComponent<VFXAnimator>();
 

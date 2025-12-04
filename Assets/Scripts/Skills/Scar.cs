@@ -7,9 +7,12 @@ using UnityEngine.InputSystem;
 public class Scar : Skill
 {
     [SerializeField]
+    private AttackDef attackDef;
+    [SerializeField]
     private GameObject hitboxdef;
     private GameObject hitbox;
     PlayerInputHub input;
+
     private void Awake()
     {
         base.Awake();
@@ -27,7 +30,7 @@ public class Scar : Skill
         hitbox = Instantiate(hitboxdef, this.transform);
         hitbox.SetActive(false);
         hitbox.GetComponent<Hitbox>().PlayVFX(spawnVFX, 0.5f);
-        hitbox.GetComponent<Hitbox>().hitVFX = hitVFX;
+        hitbox.GetComponent<Hitbox>().attackDef = attackDef;
         hitbox.SetActive(true);
         StartCoroutine(Attack());
     }
@@ -36,6 +39,7 @@ public class Scar : Skill
         input.flip = false;
         for (int i = 0; i < 5; i++)
         {
+            AudioManager.Instance.PlaySFX(attackDef.spawnSFX);
             hitbox.SetActive(true);
             yield return new WaitForSeconds(0.05f);
             hitbox.SetActive(false);

@@ -132,8 +132,9 @@ public class NormalEnemy : Enemy
             anim.SetBool("AttackDelay", false); yield break;
         }
         hitbox.SetActive(true);
+        AudioManager.Instance.PlaySFX(attackDef.spawnSFX);
+        hitbox.GetComponent<Hitbox>().attackDef = attackDef;
         hitbox.GetComponent<Hitbox>().PlayVFX(attackDef.spawnVFX, attackDef.hitTime);
-        OnAttackHit();
         yield return new WaitForSeconds(attackDef.hitTime);
         //hitbox off
         hitbox.SetActive(false);
@@ -143,8 +144,5 @@ public class NormalEnemy : Enemy
         }
         yield return new WaitForSeconds(attackDef.postDelay);
         anim.SetBool("AttackDelay", false);
-    }
-    public void OnAttackHit()
-    {
     }
 }

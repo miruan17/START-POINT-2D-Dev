@@ -8,6 +8,7 @@ public class Player : Character
     private List<SkillNodeBase> passiveSkillList;
     public GameObject jumpVFX;
     public GameObject landingVFX;
+    public AudioClip jumpSFX;
     private void Awake()
     {
         base.Awake();

@@ -48,4 +48,5 @@ MonoBehaviour:
   dmg: 4
   spawnVFX: {fileID: 2643456570128007814, guid: 2aa33cf6e642d944fac840bff88d47d4, type: 3}
   hitVFX: {fileID: 2643456570128007814, guid: 05e575dd030b62a4fa42605987f3755a, type: 3}
+  attackDef: {fileID: 11400000, guid: dc092bf5c1cb39044a0634a6fcc04f3d, type: 2}
   hitboxdef: {fileID: 59730645314180040, guid: d2a2c4c3cab10da44966cb10c2d18d1f, type: 3}

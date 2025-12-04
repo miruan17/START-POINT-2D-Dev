@@ -31,7 +31,7 @@ public class PlayerMove : MonoBehaviour
     public float airAccelAmount = 6f;       // 공중 가속
     public float airDecelAmount = 8f;       // 공중 감속
 
-    
+
     [Header("Custom Gravity")]
     public float gravityScale = 1.0f;        // 기본 중력
     public float fallGravityScale = 1.5f;    // 하강 중 강화된 중력
@@ -185,7 +185,9 @@ public class PlayerMove : MonoBehaviour
                 scale.x *= -1;
                 vfx.transform.localScale = scale;
             }
-
+            Debug.Log(player.jumpSFX);
+            Debug.Log(AudioManager.Instance);
+            AudioManager.Instance.PlaySFX(player.jumpSFX);
             jumpNum--;
         }
 

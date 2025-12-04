@@ -51,8 +51,8 @@ public class Enemy : Character
         base.Awake();
         AttackTime = attackDef.hitTime + attackDef.preDelay + attackDef.postDelay;
         hitbox = Instantiate(attackDef.Hitbox, hitboxRoot.transform);
-        hitbox.GetComponent<Hitbox>().hitVFX = attackDef.hitVFX;
         hitbox.SetActive(false);
+        hitbox.GetComponent<Hitbox>().attackDef = attackDef;
     }
     private void OnDisable()
     {

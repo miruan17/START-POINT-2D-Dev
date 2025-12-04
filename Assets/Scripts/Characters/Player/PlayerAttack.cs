@@ -126,6 +126,7 @@ public class PlayerAttack : MonoBehaviour
         anim.SetTrigger("AttackTrigger");
         yield return new WaitForSeconds(attack.preDelay);
         hitbox.SetActive(true);
+        AudioManager.Instance.PlaySFX(attack.spawnSFX);
         hitbox.GetComponent<Hitbox>().PlayVFX(attack.spawnVFX, attack.hitTime);
         yield return new WaitForSeconds(attack.hitTime);
         hitbox.SetActive(false);
