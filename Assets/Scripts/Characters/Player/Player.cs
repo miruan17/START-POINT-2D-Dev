@@ -11,11 +11,11 @@ public class Player : Character
     public GameObject landingVFX;
     public AudioClip jumpSFX;
     public AudioClip landingSFX;
+    public AudioClip levelupSFX;
 
     private int level = 0;
     private int xpMeter = 5;
     private int currentXp = 0;
-
     private void Awake()
     {
         base.Awake();
@@ -49,6 +49,7 @@ public class Player : Character
         {
             currentXp -= 5;
             level++;
+            AudioManager.Instance.PlaySFX(levelupSFX);
             FindObjectOfType<SkillTreeManager>(true).AddPoints(2);
             Debug.Log("Level Up");
         }
