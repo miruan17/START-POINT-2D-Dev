@@ -41,7 +41,9 @@ public class Player : Character
             Debug.Log(this.name + "Dead");
             gameObject.SetActive(false);
             GameManager.Instance.GameStateManager.ChangeState(new VillageState());
-            GameManager.Instance.setPlayer(new Vector2(0, 15));
+            GameManager.Instance.setPlayer(new Vector2(-30, 20));
+            gameObject.SetActive(true);
+            status.CurrentHP = status.GetFinal(StatId.HP);
         }
     }
 
