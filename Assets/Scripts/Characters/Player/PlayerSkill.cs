@@ -106,7 +106,7 @@ public class PlayerSkill : MonoBehaviour
         Rigidbody2D rigid = GetComponent<Rigidbody2D>();
         float dir = input.facingRight ? 1f : -1f;
         rigid.velocity = new Vector2(dir * dashSpeed, 0f);
-
+        AudioManager.Instance.PlaySFX(player.jumpSFX);
         float start = Time.time;
         while (Time.time < start + dashDuration)
         {

@@ -25,8 +25,8 @@ public class FrostField : Skill
         effectManager.AddEffect(effect);
         hitbox = Instantiate(hitboxdef, this.transform);
         hitbox.SetActive(false);
-        hitbox.GetComponent<Hitbox>().PlayVFX(spawnVFX, 1);
         hitbox.GetComponent<Hitbox>().hitVFX = hitVFX;
+        StartCoroutine(VFX());
         hitbox.SetActive(true);
         StartCoroutine(Attack());
     }
@@ -43,5 +43,12 @@ public class FrostField : Skill
         }
         Destroy(gameObject);
     }
-
+    private IEnumerator VFX()
+    {
+        for (int i = 0; i < 2; i++)
+        {
+            hitbox.GetComponent<Hitbox>().PlayVFX(spawnVFX, 1);
+            yield return new WaitForSeconds(1);
+        }
+    }
 }

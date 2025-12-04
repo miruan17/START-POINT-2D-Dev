@@ -25,7 +25,7 @@ public class Pollution : Skill
         effectManager.AddEffect(effect);
         hitbox = Instantiate(hitboxdef, this.transform);
         hitbox.SetActive(false);
-        hitbox.GetComponent<Hitbox>().PlayVFX(spawnVFX, 1);
+        StartCoroutine(VFX());
         hitbox.GetComponent<Hitbox>().hitVFX = hitVFX;
         hitbox.SetActive(true);
         StartCoroutine(Attack());
@@ -43,5 +43,12 @@ public class Pollution : Skill
         }
         Destroy(gameObject);
     }
-
+    private IEnumerator VFX()
+    {
+        for (int i = 0; i < 10; i++)
+        {
+            hitbox.GetComponent<Hitbox>().PlayVFX(spawnVFX, 1);
+            yield return new WaitForSeconds(1);
+        }
+    }
 }
