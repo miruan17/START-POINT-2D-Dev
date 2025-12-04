@@ -72,7 +72,8 @@ public class Hitbox : MonoBehaviour
     {
         if ((targetLayer & (1 << other.gameObject.layer)) == 0)
             return;
-        if (other.CompareTag("Enemy")) // Hitbox meets Enemy
+        Character otherCharactor = other.GetComponentInParent<Character>();
+        if (otherCharactor.CompareTag("Enemy")) // Hitbox meets Enemy
         {
             Enemy enemy = other.GetComponentInParent<Enemy>();
             caller = GetComponentInParent<Character>();

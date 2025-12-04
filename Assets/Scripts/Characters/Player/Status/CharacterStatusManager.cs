@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-public enum StatId { HP, SP, ATK, APS, DEF, SPD, JP }
+public enum StatId { HP, SP, ATK, APS, DEF, SPD, JP, AP }
 public sealed class CharacterStatusManager  // Manager class
 {
     // Public resource(readOnly)
@@ -21,6 +21,7 @@ public sealed class CharacterStatusManager  // Manager class
         _stats[StatId.DEF] = new Status(def.DEF);
         _stats[StatId.SPD] = new Status(def.SPD);
         _stats[StatId.JP] = new Status(def.JP);
+        _stats[StatId.AP] = new Status(0);
 
         CurrentHP = _stats[StatId.HP].Get();
         CurrentSP = _stats[StatId.SP].Get();
@@ -46,6 +47,16 @@ public sealed class CharacterStatusManager  // Manager class
     {
         _stats[id].AddModifier(source, value, StatusType.Multi);
     }
+    public void Add(String id, String source, float value)
+    {
+        if (TryParseStatId(id, out StatId result))
+            _stats[result].AddModifier(source, value, StatusType.Add);
+    }
+    public void Mul(String id, String source, float value)
+    {
+        if (TryParseStatId(id, out StatId result))
+            _stats[result].AddModifier(source, value, StatusType.Multi);
+    }
 
 
     // Remove
@@ -57,5 +68,12 @@ public sealed class CharacterStatusManager  // Manager class
     {
         foreach (var kv in _stats) kv.Value.RemoveModifier(source);
     }
+
+    // string -> StatId convertor
+    public static bool TryParseStatId(string value, out StatId result)
+    {
+        return Enum.TryParse(value, true, out result);
+    }
+
 
 }

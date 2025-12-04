@@ -25,4 +25,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a319937e579d8474686788d751d1c71f, type: 2}
   isMainNode: 0
   isPassive: 1
+  isBasic: 0
+  coolTime: 5
   description: Speed +5
+  summonSkill: {fileID: 0}

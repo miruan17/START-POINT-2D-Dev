@@ -62,6 +62,7 @@ public class SkillTreeManager : MonoBehaviour, ISkillPointProvider
     // Unlocked Skill을 list에 추가
     public void addUnlockedSkilltoList(SkillNodeBase unlocked)
     {
+        Player player = FindObjectOfType<Player>();
         if (!unlocked.Definition.isMainNode)
         {
             Effect getter = EffectLib.playerEffectLib.getEffectbyID(unlocked.Definition.tag);
@@ -71,14 +72,19 @@ public class SkillTreeManager : MonoBehaviour, ISkillPointProvider
             }
             else // normal subnode (ex. hp up, speed up ...)
             {
-
+                player.status.Add(unlocked.Definition.tag, "SubSkillNode", unlocked.Definition.coolTime);
+                if (unlocked.Definition.tag.Equals("HP")) player.status.CurrentHP += unlocked.Definition.coolTime;
             }
             return;
         }
         if (unlocked.Definition.isPassive)
         {
+            if (unlocked.Definition.skillName.Equals("DoubleJump"))
+            {
+                player.GetComponent<PlayerMove>().maxjump++;
+                return;
+            }
             unlockedPassiveList.Add(unlocked);
-            Player player = FindObjectOfType<Player>();
             player.setPassiveSkillList(unlockedPassiveList);
             return;
         }

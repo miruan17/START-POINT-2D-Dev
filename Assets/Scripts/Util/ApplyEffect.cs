@@ -8,6 +8,7 @@ public static class ApplyEffect
         EffectManager toManager = to.getEffect();
         foreach (var effect in list)
         {
+            if (effect == null) continue;
             if (!Probability.Attempt(effect.chance)) continue;
             Effect getter = toManager.SearchEffectbyId(effect.identifier);
 

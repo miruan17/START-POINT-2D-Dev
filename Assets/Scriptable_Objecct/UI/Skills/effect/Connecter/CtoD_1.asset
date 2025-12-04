@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CtoD_1
   m_EditorClassIdentifier: 
   id: CtoD_1
-  tag: ST
+  tag: SP
   skillName: CtoD_ST_up
   icon: {fileID: 21300000, guid: a2563f2b8dbc4044b9a50537d3a29962, type: 3}
   unlockCost: 1
@@ -25,4 +25,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ab377e82afdd8564bb9b57376bcc4449, type: 2}
   isMainNode: 0
   isPassive: 1
+  isBasic: 0
+  coolTime: 5
   description: ST +5
+  summonSkill: {fileID: 0}

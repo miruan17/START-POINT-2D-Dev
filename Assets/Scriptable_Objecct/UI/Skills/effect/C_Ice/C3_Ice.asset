@@ -25,4 +25,7 @@ MonoBehaviour:
   - {fileID: 0}
   isMainNode: 0
   isPassive: 1
+  isBasic: 0
+  coolTime: 3
   description: Speed +3
+  summonSkill: {fileID: 0}

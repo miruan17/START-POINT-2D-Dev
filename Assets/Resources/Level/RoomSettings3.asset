@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stageName: 3
   sceneName: stage3
-  left: {x: 6, y: 0}
+  left: {x: -6, y: 4}
   right: {x: 0, y: 0}
   up: {x: 0, y: 0}
   down: {x: 0, y: 0}
