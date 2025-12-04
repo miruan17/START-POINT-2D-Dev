@@ -72,10 +72,26 @@ public class StageState : IGameState
     public void Enter()
     {
         SceneManager.LoadSceneAsync(currentRoomSession.roomSceneName, LoadSceneMode.Additive);
+        foreach (var es in currentRoomSession.enemySessions)
+        {
+            if (es.isDead) continue;
+            if (es.settings == null) continue;
+            if (es.settings.prefab == null) continue;
+
+            Vector2 pos = es.settings.spawnPoint;
+            GameManager.Instance.CharacterInstantiate(es.settings.prefab,pos);
+
+        }
     }
 
     public void Exit()
     {
+        Enemy[] enemies = GameObject.FindObjectsOfType<Enemy>();
+
+        foreach (var enemy in enemies)
+        {
+            GameObject.Destroy(enemy.gameObject);
+        }
         SceneManager.UnloadSceneAsync(currentRoomSession.roomSceneName);
     }
 
@@ -107,9 +123,9 @@ public class StageState : IGameState
 
 
         // RoomUpdate
-        SceneManager.UnloadSceneAsync(currentRoomSession.roomSceneName);
+        Exit();
         currentRoomSession = roomDatas[targetId];
-        SceneManager.LoadSceneAsync(currentRoomSession.roomSceneName, LoadSceneMode.Additive);
+        Enter();
         GameManager.Instance.setPlayer(currentRoomSession.getNavigate(nav));
     }
 

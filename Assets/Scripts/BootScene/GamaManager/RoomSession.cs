@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Data.Common;
 using UnityEngine;
 
 public class RoomSession
@@ -8,8 +9,8 @@ public class RoomSession
     public readonly string roomSceneName;
 
     // Session Field
-    private Dictionary<int, GameObject> EnemySession = new Dictionary<int, GameObject>();
-
+    
+    public readonly List<EnemySession> enemySessions = new List<EnemySession>();
 
     // Navigate Field
     private Dictionary<Navigate, Vector2> navigateSession = new Dictionary<Navigate, Vector2>();
@@ -28,7 +29,37 @@ public class RoomSession
         navigateSession.Add(Navigate.down,sds.down);
         navigateSession.Add(Navigate.spawn, sds.spawn);
 
+        int id = 0;
+        if (sds.enemyList != null)
+        {
+            foreach (var enemyDef in sds.enemyList)
+            {
+                if (enemyDef == null) continue;
+                var session = new EnemySession(id++, enemyDef);
+                enemySessions.Add(session);
+            }
+        }
+        
     }
 
     public Vector2 getNavigate(Navigate navigate) => navigateSession[navigate];
+
+    public void RemoveEnemy(int enemyId)
+    {
+        enemySessions.RemoveAll(e => e.enemyId == enemyId);
+    }
+}
+
+public class EnemySession
+{
+    public readonly int enemyId;
+    public readonly EnemyDefaultSettings settings;
+    public bool isDead;
+
+    public EnemySession(int enemyId, EnemyDefaultSettings settings)
+    {
+        this.enemyId = enemyId;
+        this.settings = settings;
+        isDead = false;
+    }
 }

@@ -19,3 +19,9 @@ MonoBehaviour:
   up: {x: 0, y: 0}
   down: {x: 0, y: 0}
   spawn: {x: 45, y: 17}
+  enemyList:
+  - {fileID: 11400000, guid: 756f26e83efd3884ea2c35aeeafc1546, type: 2}
+  - {fileID: 11400000, guid: 75a7cd49d7856aa4884408367ae25c65, type: 2}
+  - {fileID: 11400000, guid: e36aab9c42d3d5249b080ca1d6236031, type: 2}
+  - {fileID: 11400000, guid: 214e2b5427954f14c86d6d5dba5583f5, type: 2}
+  - {fileID: 11400000, guid: d66ea7be3df84ec4198d5b1faa67593d, type: 2}

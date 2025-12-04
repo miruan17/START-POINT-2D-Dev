@@ -34,5 +34,10 @@ public class GameManager : MonoBehaviour
         rb.velocity = Vector2.zero;
         player.transform.position = vector2;
     }
+
+    public void CharacterInstantiate(GameObject prefab, Vector2 pos)
+    {
+        Instantiate(prefab, pos, Quaternion.identity);
+    }
 }
 

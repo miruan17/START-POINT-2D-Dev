@@ -16,4 +16,7 @@ public class StageDefaultSettings : ScriptableObject
     public Vector2 down;
     [Header("spawn")]
     public Vector2 spawn;
+
+    [Header("Enemies")]
+    public List<EnemyDefaultSettings> enemyList;
 }
