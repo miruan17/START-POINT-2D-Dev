@@ -123,17 +123,23 @@ public class NormalEnemy : Enemy
     }
     public IEnumerator Attack()
     {
+        anim.SetBool("AttackDelay", true);
         yield return new WaitForSeconds(attackDef.preDelay);
         //hitbox on
-        anim.SetFloat("SpeedMultiplier", attackClip.length / attackDef.hitTime);
-        anim.SetTrigger("AttackTrigger");
         if (state == EnemyState.Hit) yield break;
-        hitbox.SetActive(true);
-        hitbox.GetComponent<Hitbox>().PlayVFX(attackDef.spawnVFX, attackDef.hitTime);
+        anim.SetFloat("SpeedMultiplier", attackClip.length / attackDef.hitTime / 3);
+        anim.SetTrigger("AttackTrigger");
+        OnAttackHit();
         yield return new WaitForSeconds(attackDef.hitTime);
         //hitbox off
         hitbox.SetActive(false);
         if (state == EnemyState.Hit) yield break;
         yield return new WaitForSeconds(attackDef.postDelay);
+        anim.SetBool("AttackDelay", false);
+    }
+    public void OnAttackHit()
+    {
+        hitbox.SetActive(true);
+        hitbox.GetComponent<Hitbox>().PlayVFX(attackDef.spawnVFX, attackDef.hitTime);
     }
 }

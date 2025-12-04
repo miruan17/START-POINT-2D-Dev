@@ -264,9 +264,9 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: d58943d08b7664a41a0de2968d8d6683, type: 2}
+  m_Motion: {fileID: 7400000, guid: 7c537d9b100370440bd61c9750e75684, type: 2}
   m_Tag: 
-  m_SpeedParameter: SpeedMultipulier
+  m_SpeedParameter: SpeedMultiplier
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
@@ -356,7 +356,7 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
-  - m_Name: SpeedMultipulier
+  - m_Name: SpeedMultiplier
     m_Type: 1
     m_DefaultFloat: 1
     m_DefaultInt: 0
