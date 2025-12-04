@@ -8006,7 +8006,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speedScale: 2
-  jumpPower: 13
+  jumpPower: 20
+  maxjump: 3
   jumpNum: 0
   groundCheckDepth: 0.05
   groundMask:
@@ -8015,6 +8016,15 @@ MonoBehaviour:
   isGrounded: 0
   prevGrounded: 1
   maxheight: 0
+  groundAccelAmount: 10
+  groundDecelAmount: 15
+  airAccelAmount: 6
+  airDecelAmount: 8
+  gravityScale: 1
+  fallGravityScale: 1.5
+  maxFallSpeed: -20
+  coyoteTime: 0.1
+  jumpBufferTime: 0.1
 --- !u!1 &5222597186520824706
 GameObject:
   m_ObjectHideFlags: 0
