@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: EnemySettings 7
   m_EditorClassIdentifier: 
   enemyLevel: 0
-  prefab: {fileID: 7904728693013186092, guid: 1c36515f78b737046b7dac8bd6e05991, type: 3}
+  prefab: {fileID: 7904728693013186092, guid: c8b7423ef36402e41bd1c2d8e9103de5, type: 3}
   spawnPoint: {x: 0, y: 32}
