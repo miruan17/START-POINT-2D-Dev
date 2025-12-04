@@ -15,7 +15,7 @@ MonoBehaviour:
   id: D4
   tag: Fire
   skillName: Burning_up
-  icon: {fileID: 21300000, guid: 6960c6bd5088317429f7e0e033bee813, type: 3}
+  icon: {fileID: 623905805, guid: b58aa3d6fa81b394686f33b0c4818f8d, type: 3}
   unlockCost: 1
   cost: 1
   prerequisiteSkills:
@@ -25,4 +25,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: dfd7176abb34faf4bbd09db01f5ae648, type: 2}
   isMainNode: 0
   isPassive: 1
+  isBasic: 0
+  coolTime: 0
   description: upgrade Effect "Burning"
+  summonSkill: {fileID: 0}

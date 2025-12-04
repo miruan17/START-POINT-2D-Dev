@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b79498e0478e43645a32a019242c9d6e
+guid: c2dbb1cdeb2665f44a26cfb78a1524be
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,85 +97,106 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Character_Attack_0
+      name: mainSkillNode_Effect_Base_0
       rect:
         serializedVersion: 2
-        x: 56
-        y: 643
-        width: 260
-        height: 396
+        x: 5
+        y: 1
+        width: 120
+        height: 137
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 820680f0caf709f41b10b9f3dcdfc9fd
-      internalID: 632830188
+      spriteID: 84aa3c7c6e1f8cd4d9bd2eddb1437fc8
+      internalID: 1037990132
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Character_Attack_1
+      name: mainSkillNode_Effect_Base_1
       rect:
         serializedVersion: 2
-        x: 441
-        y: 644
-        width: 354
-        height: 395
+        x: 135
+        y: 0
+        width: 120
+        height: 138
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 22a73f0012852f744a66577afe146f02
-      internalID: 731346128
+      spriteID: 33bf0b7ebc5c63e45b18da890d83058c
+      internalID: 1755805333
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Character_Attack_2
+      name: mainSkillNode_Effect_Base_2
       rect:
         serializedVersion: 2
-        x: 800
-        y: 638
-        width: 337
-        height: 401
+        x: 265
+        y: 0
+        width: 120
+        height: 138
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6d17ecdbcf1744f4db4c1256fdea0f7e
-      internalID: -589550332
+      spriteID: 80dc02fa40c73074e9a936a30f811235
+      internalID: 1288189066
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Character_Attack_3
+      name: mainSkillNode_Effect_Base_3
       rect:
         serializedVersion: 2
-        x: 1145
-        y: 622
-        width: 218
-        height: 399
+        x: 395
+        y: 0
+        width: 120
+        height: 138
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 15be08153c9ca574682785e1a1bafc61
-      internalID: 711346266
+      spriteID: 7485dd4dce484a643b16548b5f054ea3
+      internalID: 1702692269
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mainSkillNode_Effect_Base_4
+      rect:
+        serializedVersion: 2
+        x: 525
+        y: 1
+        width: 120
+        height: 137
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a4be30d19cfc72449899dd8c577cb1cb
+      internalID: 206795451
       vertices: []
       indices: 
       edges: []
@@ -191,10 +212,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Character_Attack_0: 632830188
-      Character_Attack_1: 731346128
-      Character_Attack_2: -589550332
-      Character_Attack_3: 711346266
+      mainSkillNode_Effect_Base_0: 1037990132
+      mainSkillNode_Effect_Base_1: 1755805333
+      mainSkillNode_Effect_Base_2: 1288189066
+      mainSkillNode_Effect_Base_3: 1702692269
+      mainSkillNode_Effect_Base_4: 206795451
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

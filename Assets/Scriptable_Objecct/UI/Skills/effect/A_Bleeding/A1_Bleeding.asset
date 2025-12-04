@@ -15,7 +15,7 @@ MonoBehaviour:
   id: A1
   tag: Bleeding
   skillName: Scar
-  icon: {fileID: 21300000, guid: c67fbf9375ad5c34399c2849430ca7f7, type: 3}
+  icon: {fileID: 1037990132, guid: c2dbb1cdeb2665f44a26cfb78a1524be, type: 3}
   unlockCost: 1
   cost: 1
   prerequisiteSkills:

@@ -15,7 +15,7 @@ MonoBehaviour:
   id: AtoB_1
   tag: SPD
   skillName: AtoB_SPD_up
-  icon: {fileID: 21300000, guid: a2563f2b8dbc4044b9a50537d3a29962, type: 3}
+  icon: {fileID: 154600449, guid: a467d390ebccac945bc070c14fcd001a, type: 3}
   unlockCost: 1
   cost: 1
   prerequisiteSkills:

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b79498e0478e43645a32a019242c9d6e
+guid: d62b65ece0227bc41ac45850b458b992
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -95,91 +95,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: Character_Attack_0
-      rect:
-        serializedVersion: 2
-        x: 56
-        y: 643
-        width: 260
-        height: 396
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 820680f0caf709f41b10b9f3dcdfc9fd
-      internalID: 632830188
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Character_Attack_1
-      rect:
-        serializedVersion: 2
-        x: 441
-        y: 644
-        width: 354
-        height: 395
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 22a73f0012852f744a66577afe146f02
-      internalID: 731346128
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Character_Attack_2
-      rect:
-        serializedVersion: 2
-        x: 800
-        y: 638
-        width: 337
-        height: 401
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6d17ecdbcf1744f4db4c1256fdea0f7e
-      internalID: -589550332
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Character_Attack_3
-      rect:
-        serializedVersion: 2
-        x: 1145
-        y: 622
-        width: 218
-        height: 399
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 15be08153c9ca574682785e1a1bafc61
-      internalID: 711346266
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
     physicsShape: []
     bones: []
@@ -190,11 +106,7 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable:
-      Character_Attack_0: 632830188
-      Character_Attack_1: 731346128
-      Character_Attack_2: -589550332
-      Character_Attack_3: 711346266
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

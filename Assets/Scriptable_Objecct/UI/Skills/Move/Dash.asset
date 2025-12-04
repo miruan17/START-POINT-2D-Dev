@@ -15,7 +15,7 @@ MonoBehaviour:
   id: Dash
   tag: Dash
   skillName: Dash
-  icon: {fileID: 21300000, guid: 6960c6bd5088317429f7e0e033bee813, type: 3}
+  icon: {fileID: 1713363649, guid: 7c34f7cb8d5ae864086d6d865b3e1da0, type: 3}
   unlockCost: 1
   cost: 1
   prerequisiteSkills:
