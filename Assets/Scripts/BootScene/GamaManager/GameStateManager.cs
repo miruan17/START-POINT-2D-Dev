@@ -10,6 +10,8 @@ public class GameStateManager
             currentState.Exit();
         }
         currentState = newState;
+        if (currentState.GetName().Equals("VillageState")) { BGMManager.Instance.PlaySFX(parent.VillageBGM); }
+        else if (currentState.GetName().Equals("StageState")) { BGMManager.Instance.PlaySFX(parent.StageBGM); }
         GameManager.Instance.clearEnemies();
         if (currentState != null)
         {

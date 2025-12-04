@@ -8,7 +8,8 @@ public class GameManager : MonoBehaviour
 
     public GameStateManager GameStateManager { get; private set; }
     public Dictionary<GameObject, int> enemies = new Dictionary<GameObject, int>();
-
+    public AudioClip VillageBGM;
+    public AudioClip StageBGM;
     public GameObject playerGameObject;
     private Player player;
 
@@ -54,7 +55,7 @@ public class GameManager : MonoBehaviour
     }
     public void GetXp()
     {
-        
+
         player.GetXp();
     }
 }
