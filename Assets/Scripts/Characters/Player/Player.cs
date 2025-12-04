@@ -47,8 +47,9 @@ public class Player : Character
         currentXp++;
         if (xpMeter <= currentXp)
         {
-            currentXp -=5;
+            currentXp -= 5;
             level++;
+            FindObjectOfType<SkillTreeManager>(true).AddPoints(2);
             Debug.Log("Level Up");
         }
     }
