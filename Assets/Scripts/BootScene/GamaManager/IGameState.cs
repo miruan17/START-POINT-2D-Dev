@@ -63,6 +63,7 @@ public class StageState : IGameState
         roomDatas.Add(new RoomSession(0, stageLevel, Resources.Load<StageDefaultSettings>("Level/RoomSettings1")));
         roomDatas.Add(new RoomSession(1, stageLevel, Resources.Load<StageDefaultSettings>("Level/RoomSettings2")));
         roomDatas.Add(new RoomSession(2, stageLevel, Resources.Load<StageDefaultSettings>("Level/RoomSettings3")));
+        roomDatas.Add(new RoomSession(3, stageLevel, Resources.Load<StageDefaultSettings>("Level/RoomSettings4")));
 
         currentRoomSession = roomDatas[0];
     }
