@@ -25,6 +25,7 @@ public abstract class Character : MonoBehaviour
     public List<Sprite> sampleSprite;
     public List<Sprite> resultSprite;
     public GameObject iconPrefab;
+    public Player player;
     public bool is_Freeze = false;
 
     protected virtual void Awake()
@@ -36,6 +37,7 @@ public abstract class Character : MonoBehaviour
         status = new CharacterStatusManager(characterStatus);
         effect = new EffectManager(this);
         argument = new EffectManager(this);
+        player = FindObjectOfType<Player>();
         resultSprite = new List<Sprite>();
         RuntimeAnimatorController ac = anim.runtimeAnimatorController;
         iconSprite["Bleeding"] = sampleSprite[0];

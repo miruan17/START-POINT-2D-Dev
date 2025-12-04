@@ -12,6 +12,7 @@ public class Player : Character
     public AudioClip jumpSFX;
     public AudioClip landingSFX;
     public AudioClip levelupSFX;
+    public GameObject lightning;
 
     private int level = 0;
     private int xpMeter = 5;

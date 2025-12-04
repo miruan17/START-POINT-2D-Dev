@@ -17,7 +17,7 @@ public sealed class EffectLib
         effectMap["Poison"] = new Effect_Poison(7f, 2f, 1f, 5);
         effectMap["Ice"] = new Effect_Ice(10f, 10f, 3);
         effectMap["Fire"] = new Effect_Fire(10f, 3f, 1f);
-        effectMap["Lightning"] = new Effect_Lightning(2, 3, 10);
+        effectMap["Lightning"] = new Effect_Lightning(3, 4, 30);
         effectMap["Freeze"] = new Effect_Freeze(3, 5);
         foreach (var (x, y) in effectMap)
         {

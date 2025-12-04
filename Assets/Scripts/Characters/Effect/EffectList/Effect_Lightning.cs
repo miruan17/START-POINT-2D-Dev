@@ -13,7 +13,7 @@ public class Effect_Lightning : Effect   //Manager class
     private int level = 0;
     public Effect_Lightning(float dmg, int chain, float range)
     {
-        chance = 0.3f;
+        chance = 1f;
         _stats[StatId_Effect_Lightning.LN] = new Status(dmg);
         _stats[StatId_Effect_Lightning.LN_Chain] = new Status(chain);
         _stats[StatId_Effect_Lightning.LN_Range] = new Status(range);
@@ -22,29 +22,101 @@ public class Effect_Lightning : Effect   //Manager class
     public override void Runtime()
     {
         if (term <= 0) return;
-        var caster = manager.GetCharacter();
-        Vector2 casterPos = caster.transform.position;
 
-        var enemies =
-            Enemy.AllEnemies
+        var caster = manager.GetCharacter();
+        Vector3 casterPos = caster.transform.position;
+
+        // 1. Find nearest enemies
+        var enemies = Enemy.AllEnemies
             .OrderBy(e => Vector2.Distance(casterPos, e.transform.position));
 
-        float chain = _stats[StatId_Effect_Lightning.LN_Chain].Get();
-        int cnt = 0;
-        foreach (var enemy in enemies)
+        float chainCount = _stats[StatId_Effect_Lightning.LN_Chain].Get();
+        float maxRange = _stats[StatId_Effect_Lightning.LN_Range].Get();
+        float baseDmg = _stats[StatId_Effect_Lightning.LN].Get();
+
+        List<Enemy> chainTargets = new List<Enemy>();
+
+        // 2. Pick enemies within range
+        foreach (var e in enemies)
         {
-            if (chain <= 0 || _stats[StatId_Effect_Lightning.LN_Range].Get() < Vector2.Distance(casterPos, enemy.transform.position) || cnt >= chain) break;
-            cnt++;
+            if (chainTargets.Count >= chainCount) break;
+            if (Vector2.Distance(casterPos, e.transform.position) > maxRange) break;
+            chainTargets.Add(e);
         }
-        float dmg = _stats[StatId_Effect_Lightning.LN].Get() * chain / (cnt == 0 ? 1 : cnt);
-        foreach (var enemy in enemies)
+
+        if (chainTargets.Count == 0)
         {
-            if (cnt-- <= 0) break;
-            enemy.status.CurrentHP -= dmg;
-            Debug.Log(enemy.name + "에게 전격데미지 " + dmg + "발생.");
+            term = 0;
+            return;
         }
+
+        // 3. Damage splitting
+        float dmg = baseDmg * chainCount / chainTargets.Count;
+
+        foreach (var e in chainTargets)
+        {
+            e.status.CurrentHP -= dmg;
+            Debug.Log($"{e.name} takes {dmg} lightning damage.");
+        }
+
+        // 4. Draw chain lightning
+        Vector3 prevPos = casterPos;
+
+        foreach (var e in chainTargets)
+        {
+            Vector3 nextPos = e.transform.position;
+
+            // Multi-line lightning effect
+            DrawMultiLightning(prevPos, nextPos);
+
+            prevPos = nextPos; // chain link movement
+        }
+
         term = 0;
     }
+
+
+    // ------------------------------
+    // Multi-Line Lightning (3-lines)
+    // ------------------------------
+    public void DrawMultiLightning(Vector3 start, Vector3 end)
+    {
+        CreateLightningLine(start, end, 0f, 0.10f, 1.5f);      // main line
+        CreateLightningLine(start, end, -0.05f, 0.12f, 0.7f);  // left aura
+        CreateLightningLine(start, end, 0.05f, 0.12f, 0.7f);   // right aura
+    }
+
+
+    // ------------------------------
+    // Single line with jitter & brightness
+    // ------------------------------
+    private void CreateLightningLine(Vector3 start, Vector3 end, float offsetX, float lifetime, float brightness)
+    {
+        GameObject obj = GameObject.Instantiate(manager.GetCharacter().player.lightning);
+        LineRenderer lr = obj.GetComponent<LineRenderer>();
+
+        // Thickness (production settings)
+        lr.startWidth = 0.06f;
+        lr.endWidth = 0.03f;
+
+        // Color + brightness (URP additive)
+        lr.material.SetColor("_BaseColor", new Color(brightness, brightness, brightness * 1.5f, 1));
+
+        // Offset & jitter
+        Vector3 offset = new Vector3(offsetX, 0, 0);
+        Vector3 jitter = new Vector3(
+            UnityEngine.Random.Range(-0.03f, 0.03f),
+            UnityEngine.Random.Range(-0.03f, 0.03f),
+            0
+        );
+
+        lr.positionCount = 2;
+        lr.SetPosition(0, start + offset);
+        lr.SetPosition(1, end + offset + jitter);
+
+        GameObject.Destroy(obj, lifetime);
+    }
+
 
     public override void Refresh(Effect effect)
     {
