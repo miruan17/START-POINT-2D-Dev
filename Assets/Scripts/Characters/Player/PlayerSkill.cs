@@ -1,6 +1,7 @@
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerSkill : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class PlayerSkill : MonoBehaviour
     private Animator anim;
     private Collider2D bodyCol;
     private SpriteRenderer sr;
+    private float[] skillCooldownTimer = new float[4];
+    public Image[] skillCooldownUI;
     private void Awake()
     {
         input = GetComponent<PlayerInputHub>();
@@ -21,11 +24,42 @@ public class PlayerSkill : MonoBehaviour
     }
     private void Update()
     {
+        // Cooldown timer reducing
+        for (int i = 0; i < 4; i++)
+        {
+            if (skillCooldownTimer[i] > 0)
+                skillCooldownTimer[i] -= Time.deltaTime;
+        }
+        for (int i = 0; i < 4; i++)
+        {
+            if (activeSkill[i] != null)
+            {
+                float maxTime = activeSkill[i].coolTime;
+                float curTime = skillCooldownTimer[i];
+
+                // UI Image reference: skillCooldownUI[i].fillAmount
+                if (maxTime > 0)
+                {
+                    skillCooldownUI[i].fillAmount = Mathf.Clamp01(curTime / maxTime);
+                }
+            }
+        }
         if (anim.GetBool("ActionLock")) return;
+
         for (int i = 0; i < 4; i++)
         {
             if (activeSkill[i] != null && input.SkillRequest(i))
             {
+                // Cooldown check
+                if (skillCooldownTimer[i] > 0)
+                {
+                    Debug.Log($"Skill {i} is on cooldown: {skillCooldownTimer[i]:F2} sec left");
+                    continue;
+                }
+
+                // Skill is ready ⇒ set cooldown
+                skillCooldownTimer[i] = activeSkill[i].coolTime;
+
                 Skill skill = SkillLib.Instance.getSkillbyID(activeSkill[i].skillName);
                 if (activeSkill[i].summonSkill != null)
                 {
@@ -55,6 +89,7 @@ public class PlayerSkill : MonoBehaviour
     public void UpdateActiveSkill(int idx, SkillNodeDef def)
     {
         activeSkill[idx] = def;
+        skillCooldownUI[idx].sprite = def.icon;
     }
 
     private IEnumerator Dash()

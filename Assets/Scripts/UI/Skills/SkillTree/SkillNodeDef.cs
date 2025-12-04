@@ -14,6 +14,7 @@ public class SkillNodeDef : ScriptableObject
     public bool isMainNode = false;              // optional: mark main vs sub
     public bool isPassive = false;
     public bool isBasic = false;
+    public float coolTime = 0f;
 
 
     [TextArea(2, 5)]

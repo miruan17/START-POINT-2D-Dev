@@ -26,7 +26,7 @@ public class Scar : Skill
         effectManager.AddEffect(effect);
         hitbox = Instantiate(hitboxdef, this.transform);
         hitbox.SetActive(false);
-        hitbox.GetComponent<Hitbox>().PlayVFX(spawnVFX, 1);
+        hitbox.GetComponent<Hitbox>().PlayVFX(spawnVFX, 0.5f);
         hitbox.GetComponent<Hitbox>().hitVFX = hitVFX;
         hitbox.SetActive(true);
         StartCoroutine(Attack());
@@ -37,9 +37,9 @@ public class Scar : Skill
         for (int i = 0; i < 5; i++)
         {
             hitbox.SetActive(true);
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.05f);
             hitbox.SetActive(false);
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.05f);
         }
         input.flip = true;
         Destroy(gameObject);

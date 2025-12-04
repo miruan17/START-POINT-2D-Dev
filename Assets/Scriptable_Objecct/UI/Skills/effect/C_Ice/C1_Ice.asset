@@ -26,5 +26,6 @@ MonoBehaviour:
   isMainNode: 1
   isPassive: 0
   isBasic: 1
+  coolTime: 5
   description: Create field apply Effect "Ice"
   summonSkill: {fileID: 9141830021171458983, guid: b00475232463fc744a861e24eb5f3ecd, type: 3}
