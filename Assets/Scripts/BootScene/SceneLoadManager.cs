@@ -26,6 +26,6 @@ public class SceneLoadManager : MonoBehaviour
     public void LoadSceneToPosition(string sceneName, Vector2 targetPosition)
     {
         SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
-
+        
     }
 }
