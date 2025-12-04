@@ -10,7 +10,7 @@ public class StatePortal : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            GameManager.Instance.GameStateManager.ChangeState(new StageState());
+            GameManager.Instance.GameStateManager.ChangeState(new StageState(1));
             GameManager.Instance.setPlayer(set);
         }
     }

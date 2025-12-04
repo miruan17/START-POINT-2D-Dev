@@ -9,11 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe1910e67c1fd1d46aeec11104007ab8, type: 3}
-  m_Name: RoomPassageCase1
+  m_Script: {fileID: 11500000, guid: 77e869a86ff14054a924bc50f7632d3f, type: 3}
+  m_Name: RoomSettings2
   m_EditorClassIdentifier: 
-  left: {x: 0, y: 0}
-  right: {x: 0, y: 0}
+  stageName: 2
+  sceneName: stage2
+  left: {x: -5, y: 6}
+  right: {x: 65, y: 5}
   up: {x: 0, y: 0}
   down: {x: 0, y: 0}
   spawn: {x: 0, y: 0}
