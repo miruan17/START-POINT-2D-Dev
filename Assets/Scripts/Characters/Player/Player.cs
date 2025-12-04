@@ -54,4 +54,8 @@ public class Player : Character
             Debug.Log("Level Up");
         }
     }
+    public int GetLevel()
+    {
+        return level;
+    }
 }

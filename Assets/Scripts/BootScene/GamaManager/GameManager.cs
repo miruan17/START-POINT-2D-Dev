@@ -48,6 +48,10 @@ public class GameManager : MonoBehaviour
         enemies.Clear();
     }
 
+    public Player getPlayer()
+    {
+        return player;
+    }
     public void GetXp()
     {
         
