@@ -25,7 +25,7 @@ public class Effect_Freeze : Effect   //Manager class
         term = _stats[StatId_Effect_Freeze.FRZ_term].Get();
         level = eff.level;
         Debug.Log("in Freeze: " + manager);
-        if (manager.GetCharacter().CompareTag("Enemy")) ((Enemy)manager.GetCharacter()).frozenTimer = 0;
+        if (manager.GetCharacter().CompareTag("Enemy")) ((Enemy)manager.GetCharacter()).ApplyHit("Freeze", term);
         manager.GetCharacter().is_Freeze = true;
     }
     public override void updateValue(float term, float dmg, float tick, int max_stack) // 기존 base를 변경하는 연산

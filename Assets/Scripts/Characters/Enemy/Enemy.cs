@@ -19,7 +19,9 @@ public class Enemy : Character
     public float idlePatrolInterval = 1f;   // 1초마다 시도
     public float idleToPatrolChance = 0.3f;
     public float patrolToIdleChance = 0.15f;
-    public float frozenTimer = 0f;
+    public bool is_Hit = false;
+    private float hitTimer = 0f;
+    private float hitDuration = 0f;
     [Header("State")]
     public float AttackTime;
     public float AttackTimer = 0f;
@@ -93,8 +95,8 @@ public class Enemy : Character
             case EnemyState.Attack:
                 AttackUpdate();
                 break;
-            case EnemyState.Frozen:
-                FrozenUpdate();
+            case EnemyState.Hit:
+                HitUpdate();
                 break;
         }
     }
@@ -103,21 +105,32 @@ public class Enemy : Character
     protected virtual void ChaseUpdate() { }
     protected virtual void AttackUpdate()
     {
-        if (is_Freeze)
+    }
+    protected virtual void HitUpdate()
+    {
+        hitTimer += Time.deltaTime;
+
+        // stun animation optional
+        anim.SetBool("Hit", true);
+
+        if (hitTimer >= hitDuration)
         {
-            state = EnemyState.Frozen;
-            return;
+            is_Hit = false;
+            anim.SetBool("Hit", false);
+
+            // return to default logic
+            state = EnemyState.Chase;
         }
     }
-    protected virtual void FrozenUpdate()
+
+    public void ApplyHit(String source, float duration)
     {
-        frozenTimer += Time.deltaTime;
-        if (frozenTimer >= ((Effect_Freeze)EffectLib.playerEffectLib.getEffectbyID("Freeze"))._stats[StatId_Effect_Freeze.FRZ_term].Get())
-        {
-            frozenTimer = 0;
-            if (isRage) state = EnemyState.Chase;
-            else state = EnemyState.Idle;
-        }
+        if (state == EnemyState.Hit && !source.Equals("Freeze")) return;
+        is_Hit = true;
+        hitDuration = duration;
+        hitTimer = 0f;
+
+        state = EnemyState.Hit;
     }
     protected bool PlayerInRange(float range)
     {

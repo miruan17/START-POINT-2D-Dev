@@ -1,4 +1,4 @@
 public enum EnemyState
 {
-    Idle, Patrol, Chase, Attack, Frozen
+    Idle, Patrol, Chase, Attack, Hit
 }

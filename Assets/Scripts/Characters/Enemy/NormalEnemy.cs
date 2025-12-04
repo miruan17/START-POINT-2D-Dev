@@ -10,12 +10,6 @@ public class NormalEnemy : Enemy
 
     protected override void IdleUpdate()
     {
-        if (is_Freeze)
-        {
-            idlePatrolTimer = 0;
-            state = EnemyState.Frozen;
-            return;
-        }
         if (PlayerInRange(detectRange) || isRage)
         {
             idlePatrolTimer = 0;
@@ -40,12 +34,6 @@ public class NormalEnemy : Enemy
 
     protected override void PatrolUpdate()
     {
-        if (is_Freeze)
-        {
-            idlePatrolTimer = 0;
-            state = EnemyState.Frozen;
-            return;
-        }
         if (PlayerInRange(detectRange) || isRage)
         {
             idlePatrolTimer = 0;
@@ -77,11 +65,6 @@ public class NormalEnemy : Enemy
 
     protected override void ChaseUpdate()
     {
-        if (is_Freeze)
-        {
-            state = EnemyState.Frozen;
-            return;
-        }
         if (isGrounded)
         {
             // dx > 0 -> enemy, player || dx < 0 -> player, enemy
@@ -144,11 +127,13 @@ public class NormalEnemy : Enemy
         //hitbox on
         anim.SetFloat("SpeedMultiplier", attackClip.length / attackDef.hitTime);
         anim.SetTrigger("AttackTrigger");
+        if (state == EnemyState.Hit) yield break;
         hitbox.SetActive(true);
         hitbox.GetComponent<Hitbox>().PlayVFX(attackDef.spawnVFX, attackDef.hitTime);
         yield return new WaitForSeconds(attackDef.hitTime);
         //hitbox off
         hitbox.SetActive(false);
+        if (state == EnemyState.Hit) yield break;
         yield return new WaitForSeconds(attackDef.postDelay);
     }
 }

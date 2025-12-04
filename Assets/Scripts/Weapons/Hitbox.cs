@@ -73,7 +73,6 @@ public class Hitbox : MonoBehaviour
             return;
         if (other.CompareTag("Enemy")) // Hitbox meets Enemy
         {
-            Debug.Log("PTE");
             Enemy enemy = other.GetComponent<Enemy>();
             caller = GetComponentInParent<Character>();
             Player player = FindObjectOfType<Player>();
@@ -83,6 +82,7 @@ public class Hitbox : MonoBehaviour
                 if (caller.CompareTag("Player")) //caller = player
                 {
                     createHitVFX(other);
+                    enemy.ApplyHit("Attack", 0.2f);
                     enemy.status.CurrentHP -= caller.status.GetFinal(StatId.ATK);
                     Debug.Log("Hit " + other.name + ", Damage " + caller.status.GetFinal(StatId.ATK));
                     EffectManager enemyManager = enemy.getEffect();
@@ -100,7 +100,11 @@ public class Hitbox : MonoBehaviour
                 {
                     enemy.status.CurrentHP -= skill.dmg;
                 }
-                if (skill.skillType == SkillType.Attack) createHitVFX(other);
+                if (skill.skillType == SkillType.Attack)
+                {
+                    createHitVFX(other);
+                    enemy.ApplyHit("Scar", 0.1f);
+                }
                 EffectManager skillManager = skill.getEffect();
                 ApplyEffect.applyEffect(enemy, skillManager.ReturnEffect());
             }
