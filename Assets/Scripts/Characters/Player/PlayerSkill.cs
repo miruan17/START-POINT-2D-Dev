@@ -40,7 +40,7 @@ public class PlayerSkill : MonoBehaviour
                 // UI Image reference: skillCooldownUI[i].fillAmount
                 if (maxTime > 0)
                 {
-                    skillCooldownUI[i].fillAmount = Mathf.Clamp01(curTime / maxTime);
+                    skillCooldownUI[i].fillAmount = 1f - Mathf.Clamp01(curTime / maxTime);
                 }
             }
         }
