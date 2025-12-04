@@ -40,6 +40,7 @@ public class Enemy : Character
             status.CurrentHP = 0;
             Debug.Log(this.name + "Dead");
             gameObject.SetActive(false);
+            GameManager.Instance.GetXp();
         }
     }
     private void OnEnable()

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,6 +11,11 @@ public class Player : Character
     public GameObject landingVFX;
     public AudioClip jumpSFX;
     public AudioClip landingSFX;
+
+    private int level = 0;
+    private int xpMeter = 5;
+    private int currentXp = 0;
+
     private void Awake()
     {
         base.Awake();
@@ -33,6 +39,17 @@ public class Player : Character
             status.CurrentHP = 0;
             Debug.Log(this.name + "Dead");
             gameObject.SetActive(false);
+        }
+    }
+
+    public void GetXp()
+    {
+        currentXp++;
+        if (xpMeter <= currentXp)
+        {
+            currentXp -=5;
+            level++;
+            Debug.Log("Level Up");
         }
     }
 }

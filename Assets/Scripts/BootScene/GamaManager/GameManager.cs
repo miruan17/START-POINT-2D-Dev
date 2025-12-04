@@ -9,7 +9,8 @@ public class GameManager : MonoBehaviour
     public GameStateManager GameStateManager { get; private set; }
     public Dictionary<GameObject, int> enemies = new Dictionary<GameObject, int>();
 
-    public GameObject player;
+    public GameObject playerGameObject;
+    private Player player;
 
     private void Awake()
     {
@@ -21,7 +22,7 @@ public class GameManager : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
-
+        player = playerGameObject.GetComponent<Player>();
         GameStateManager = new GameStateManager();
         GameStateManager.parent = this;
     }
@@ -32,9 +33,9 @@ public class GameManager : MonoBehaviour
     }
     public void setPlayer(Vector2 vector2)
     {
-        Rigidbody2D rb = player.GetComponent<Rigidbody2D>();
+        Rigidbody2D rb = playerGameObject.GetComponent<Rigidbody2D>();
         rb.velocity = Vector2.zero;
-        player.transform.position = vector2;
+        playerGameObject.transform.position = vector2;
     }
 
 
@@ -45,6 +46,12 @@ public class GameManager : MonoBehaviour
     public void clearEnemies()
     {
         enemies.Clear();
+    }
+
+    public void GetXp()
+    {
+        
+        player.GetXp();
     }
 }
 
