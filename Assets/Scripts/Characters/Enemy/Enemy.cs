@@ -75,8 +75,9 @@ public class Enemy : Character
         prevGrounded = isGrounded;
         StateUpdate();
     }
-    private void Update()
+    protected override void Update()
     {
+        base.Update();
         anim.SetBool("Move", Mathf.Abs(rigid.velocity.x) > 0.01f && isGrounded);
         anim.SetBool("Jump", !isGrounded);
     }
