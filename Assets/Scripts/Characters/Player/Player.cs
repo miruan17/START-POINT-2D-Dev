@@ -38,6 +38,9 @@ public class Player : Character
         if (status.CurrentHP <= 0)
         {
             status.CurrentHP = 0;
+            if (GetComponent<PlayerAttack>().nowCoroutine != null)
+                StopCoroutine(GetComponent<PlayerAttack>().nowCoroutine);
+            GetComponent<PlayerAttack>().DieOnAttack();
             Debug.Log(this.name + "Dead");
             gameObject.SetActive(false);
             GameManager.Instance.GameStateManager.ChangeState(new VillageState());

@@ -10101,6 +10101,12 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  defaultSlot: {fileID: 21300000, guid: 4b98993fb7b37c84bbcfa1e15d6a38db, type: 3}
+  skillCooldownTimer:
+  - 0
+  - 0
+  - 0
+  - 0
   skillCooldownUI:
   - {fileID: 395254894}
   - {fileID: 1341074620}

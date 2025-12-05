@@ -17,6 +17,8 @@ public class PlayerAttack : MonoBehaviour
     private List<GameObject> comboHitboxes = new();
     private GameObject enhancedHitbox;
     private int maxCombo;
+    public Coroutine nowCoroutine;
+    public GameObject nowHitbox;
 
     private void WeaponUpdate(WeaponDef newWeapon)
     {
@@ -122,6 +124,7 @@ public class PlayerAttack : MonoBehaviour
             hitbox = comboHitboxes[currentCombo];
             Debug.Log("AttackType: " + $"Combo Attack {currentCombo + 1}");
         }
+        nowHitbox = hitbox;
         anim.SetFloat("SpeedMultiplier", 1.5f);
         anim.SetTrigger("AttackTrigger");
         yield return new WaitForSeconds(attack.preDelay);
@@ -135,7 +138,12 @@ public class PlayerAttack : MonoBehaviour
         input.flip = true;
         isAttacking = false;
     }
-
+    public void DieOnAttack()
+    {
+        input.flip = true;
+        isAttacking = false;
+        if (nowHitbox != null) nowHitbox.SetActive(false);
+    }
     private void Update()
     {
         if (anim.GetBool("ActionLock")) return;
@@ -204,7 +212,7 @@ public class PlayerAttack : MonoBehaviour
         }
 
         isAttacking = true;
-        StartCoroutine(AttackOrder());
+        nowCoroutine = StartCoroutine(AttackOrder());
 
         float start = Time.time;
         if (isEnhanced)
