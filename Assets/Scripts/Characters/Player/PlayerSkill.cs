@@ -99,6 +99,7 @@ public class PlayerSkill : MonoBehaviour
         else
         {
             skillCooldownUI[idx].sprite = defaultSlot;
+            skillCooldownUI[idx].fillAmount = 1f;
         }
     }
 
