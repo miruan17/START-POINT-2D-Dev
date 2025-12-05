@@ -9678,6 +9678,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weapon: {fileID: 11400000, guid: 9ff68a464af91fe4093b041f37fb709e, type: 2}
   hitboxRoot: {fileID: 3944201726049952295}
+  nowHitbox: {fileID: 0}
   isHolding: 0
 --- !u!50 &3521413146426317385
 Rigidbody2D:
@@ -9938,7 +9939,7 @@ MonoBehaviour:
   airDecelAmount: 8
   gravityScale: 1
   fallGravityScale: 1.5
-  maxFallSpeed: -20
+  maxFallSpeed: -70
   coyoteTime: 0.1
   jumpBufferTime: 0.1
 --- !u!1 &5222597186520824706
