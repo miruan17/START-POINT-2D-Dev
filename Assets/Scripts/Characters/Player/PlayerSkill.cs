@@ -11,7 +11,8 @@ public class PlayerSkill : MonoBehaviour
     private Animator anim;
     private Collider2D bodyCol;
     private SpriteRenderer sr;
-    private float[] skillCooldownTimer = new float[4];
+    public Sprite defaultSlot;
+    public float[] skillCooldownTimer = new float[4];
     public Image[] skillCooldownUI;
     private void Awake()
     {
@@ -93,7 +94,12 @@ public class PlayerSkill : MonoBehaviour
     public void UpdateActiveSkill(int idx, SkillNodeDef def)
     {
         activeSkill[idx] = def;
-        skillCooldownUI[idx].sprite = def.icon;
+        if (def != null)
+            skillCooldownUI[idx].sprite = def.icon;
+        else
+        {
+            skillCooldownUI[idx].sprite = defaultSlot;
+        }
     }
 
     private IEnumerator Dash()

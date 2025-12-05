@@ -13,7 +13,7 @@ public class Effect_Lightning : Effect   //Manager class
     private int level = 0;
     public Effect_Lightning(float dmg, int chain, float range)
     {
-        chance = 1f;
+        chance = 0.4f;
         _stats[StatId_Effect_Lightning.LN] = new Status(dmg);
         _stats[StatId_Effect_Lightning.LN_Chain] = new Status(chain);
         _stats[StatId_Effect_Lightning.LN_Range] = new Status(range);
